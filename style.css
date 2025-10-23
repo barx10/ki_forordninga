@@ -1,0 +1,82 @@
+/* Ekstern stil for KI-forordningen i skolen */
+
+:root {
+  --bg:#0b0f14;
+  --panel:#121821;
+  --text:#e6eaf0;
+  --muted:#9aa6b2;
+  --accent:#4da3ff;
+  --ok:#1fa971;
+  --warn:#f0b429;
+  --risk:#ff7a45;
+  --stop:#ff3b3b;
+}
+
+html,body {
+  margin:0;
+  padding:0;
+  background:var(--bg);
+  color:var(--text);
+  font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+}
+
+.wrap { max-width:1100px; margin:0 auto; padding:20px }
+
+header {
+  position:sticky; top:0; z-index:10;
+  background:rgba(11,15,20,.8);
+  backdrop-filter:blur(6px);
+  border-bottom:1px solid #1f2733;
+}
+
+nav { display:flex; gap:14px; flex-wrap:wrap; align-items:center }
+nav a {
+  padding:8px 12px;
+  border:1px solid #1f2733;
+  border-radius:10px;
+  color:var(--text);
+  text-decoration:none;
+}
+nav a[aria-current="page"] { border-color:var(--accent) }
+
+h1 { font-size:clamp(28px,4vw,40px); margin:0 0 10px }
+h2 { font-size:clamp(22px,3vw,28px); margin:0 0 10px }
+.lead { color:var(--muted); max-width:70ch }
+.note { color:var(--muted) }
+
+.grid { display:grid; gap:16px; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)) }
+.card {
+  background:var(--panel);
+  border:1px solid #1f2733;
+  border-radius:14px;
+  padding:16px;
+}
+
+.tag {
+  display:inline-block;
+  font-size:12px;
+  padding:2px 8px;
+  border-radius:999px;
+  border:1px solid #233042;
+  color:var(--muted);
+}
+
+.r-min{border-left:5px solid var(--ok)}
+.r-tra{border-left:5px solid var(--warn)}
+.r-hoy{border-left:5px solid var(--risk)}
+.r-uat{border-left:5px solid var(--stop)}
+
+.cta {
+  display:inline-flex;
+  gap:10px;
+  align-items:center;
+  background:var(--accent);
+  color:#031120;
+  border:0;
+  padding:10px 14px;
+  border-radius:12px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+footer { padding:28px 0; color:var(--muted) }
