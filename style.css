@@ -77,6 +77,15 @@ h2 { font-size:clamp(22px,3vw,28px); margin:0 0 10px }
   border-radius:12px;
   font-weight:600;
   cursor:pointer;
+
+  (card- og risiko-stil)
+…
+(result-legend og badge-stil her)
+…
+footer {
+  padding:28px 0;
+  color:var(--muted);
+}
 }
 
 footer { padding:28px 0; color:var(--muted) }
