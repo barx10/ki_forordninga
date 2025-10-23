@@ -10,6 +10,10 @@
 </head>
 <body>
   <a class="sr-only" href="#innhold">Hopp til innhold</a>
+  
+  <!-- Page Transition Overlay -->
+  <div id="page-transition" class="page-transition"></div>
+  
   <header>
     <div class="wrap" role="navigation" aria-label="Hovedmeny">
       <nav>
@@ -24,14 +28,18 @@
   </header>
 
   <main id="innhold" class="wrap">
-    <section id="hjem" class="hero">
-      <h1>KI‑forordningen i skolen</h1>
-      <p class="lead">Kort, praktisk og interaktiv oversikt. For lærere, IKT‑ansvarlige og skoleledere.</p>
-      <p class="note">Alt kjører i nettleseren. Ingen innlogging. Ingen datalagring.</p>
-      <button class="cta" onclick="document.getElementById('sjekk').scrollIntoView({behavior:'smooth'})">Start sjekk</button>
+    <!-- Hjem View -->
+    <section id="hjem" class="view active">
+      <div class="hero">
+        <h1>KI‑forordningen i skolen</h1>
+        <p class="lead">Kort, praktisk og interaktiv oversikt. For lærere, IKT‑ansvarlige og skoleledere.</p>
+        <p class="note">Alt kjører i nettleseren. Ingen innlogging. Ingen datalagring.</p>
+        <button class="cta" onclick="window.location.hash = '#sjekk'">Start sjekk</button>
+      </div>
     </section>
 
-    <section id="laer">
+    <!-- Lær View -->
+    <section id="laer" class="view">
       <h2>Fire risikonivå</h2>
       <div class="grid" role="list">
         <article class="card r-min" role="listitem">
@@ -54,7 +62,8 @@
       <p class="note">Dette speiler struktur i AI Act. Detaljer legges inn i senere steg.</p>
     </section>
 
-    <section id="sjekk">
+    <!-- Sjekk deg selv View -->
+    <section id="sjekk" class="view">
       <h2>Sjekk deg selv</h2>
       <p class="lead">Svar på spørsmål om ditt KI-verktøy og få en risikovurdering basert på AI Act.</p>
       <div class="card" id="quiz">
@@ -67,7 +76,8 @@
       </div>
     </section>
 
-    <section id="tiltak">
+    <!-- Tiltak View -->
+    <section id="tiltak" class="view">
       <h2>Tiltak for skolen</h2>
       <ol>
         <li>Kartlegg og klassifiser alle KI‑verktøy</li>
@@ -79,7 +89,8 @@
       <p class="note">Tekst utdypes i egen modul senere.</p>
     </section>
 
-    <section id="ressurser">
+    <!-- Ressurser View -->
+    <section id="ressurser" class="view">
       <h2>Ressurser</h2>
       <ul>
         <li><a href="https://artificialintelligenceact.eu/" target="_blank" rel="noopener">EU AI Act</a></li>
@@ -88,7 +99,8 @@
       </ul>
     </section>
 
-    <section id="labs">
+    <!-- Labs View -->
+    <section id="labs" class="view">
       <h2>Labs</h2>
       <div class="card">
         <p>Eksperimentelle funksjoner plasseres her. Eksempel: enkel tekst‑klassifisering av risiko. Legges inn i senere steg.</p>
