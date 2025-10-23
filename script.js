@@ -32,14 +32,19 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const showResult = (key) => {
-    const r = flow.results[key];
-    quiz.innerHTML = `<h3>${r.title}</h3><p>${r.text}</p>`;
-    const reset = document.createElement('button');
-    reset.className = 'cta';
-    reset.textContent = 'Start på nytt';
-    reset.onclick = () => loadFlow();
-    quiz.appendChild(reset);
-  };
+  const r = flow.results[key];
+  quiz.innerHTML = `
+    <div class="card ${r.class}">
+      <h3>${r.title}</h3>
+      <p>${r.text}</p>
+    </div>
+  `;
+  const reset = document.createElement('button');
+  reset.className = 'cta';
+  reset.textContent = 'Start på nytt';
+  reset.onclick = () => loadFlow();
+  quiz.appendChild(reset);
+};
 
   loadFlow();
 });
