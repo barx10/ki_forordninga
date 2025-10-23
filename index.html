@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="nb">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>KI‑forordningen i skolen</title>
+  <meta name="description" content="Interaktiv innføring i KI‑forordningen (AI Act) for lærere. Lær, test og anvend i praksis.">
+  <link rel="icon" href="data:,">
+  <style>
+    :root { --bg:#0b0f14; --panel:#121821; --text:#e6eaf0; --muted:#9aa6b2; --accent:#4da3ff; --ok:#1fa971; --warn:#f0b429; --risk:#ff7a45; --stop:#ff3b3b; }
+    * { box-sizing: border-box }
+    html,body { margin:0; padding:0; background:var(--bg); color:var(--text); font:16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji" }
+    a { color: var(--accent); text-decoration: none }
+    a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px }
+    header { position: sticky; top:0; z-index:10; background:rgba(11,15,20,.8); backdrop-filter: blur(6px); border-bottom:1px solid #1f2733 }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 20px }
+    nav { display:flex; gap:14px; flex-wrap:wrap; align-items:center }
+    nav a { padding:8px 12px; border:1px solid #1f2733; border-radius:10px; color:var(--text) }
+    nav a[aria-current="page"] { border-color: var(--accent) }
+    .hero { padding: 56px 0 28px; border-bottom:1px solid #1f2733 }
+    h1 { font-size: clamp(28px, 4vw, 40px); margin: 0 0 10px }
+    .lead { color: var(--muted); max-width: 70ch }
+    main section { padding: 28px 0; border-bottom:1px solid #1f2733 }
+    h2 { font-size: clamp(22px, 3vw, 28px); margin: 0 0 10px }
+    .grid { display:grid; gap:16px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)) }
+    .card { background: var(--panel); border:1px solid #1f2733; border-radius:14px; padding:16px }
+    .tag { display:inline-block; font-size:12px; padding:2px 8px; border-radius:999px; border:1px solid #233042; color:var(--muted) }
+    .r-min { border-left:5px solid var(--ok) }
+    .r-tra { border-left:5px solid var(--warn) }
+    .r-hoy { border-left:5px solid var(--risk) }
+    .r-uat { border-left:5px solid var(--stop) }
+    .note { color: var(--muted) }
+    footer { padding:28px 0; color: var(--muted) }
+    .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0 }
+    .cta { display:inline-flex; gap:10px; align-items:center; background:var(--accent); color:#031120; border:0; padding:10px 14px; border-radius:12px; font-weight:600; cursor:pointer }
+  </style>
+</head>
+<body>
+  <a class="sr-only" href="#innhold">Hopp til innhold</a>
+  <header>
+    <div class="wrap" role="navigation" aria-label="Hovedmeny">
+      <nav>
+        <a href="#hjem" aria-current="page">Hjem</a>
+        <a href="#laer">Lær</a>
+        <a href="#sjekk">Sjekk deg selv</a>
+        <a href="#tiltak">Tiltak</a>
+        <a href="#ressurser">Ressurser</a>
+        <a href="#labs">Labs</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="innhold" class="wrap">
+    <section id="hjem" class="hero">
+      <h1>KI‑forordningen i skolen</h1>
+      <p class="lead">Kort, praktisk og interaktiv oversikt. For lærere, IKT‑ansvarlige og skoleledere.</p>
+      <p class="note">Alt kjører i nettleseren. Ingen innlogging. Ingen datalagring.</p>
+      <button class="cta" onclick="document.getElementById('sjekk').scrollIntoView({behavior:'smooth'})">Start sjekk</button>
+    </section>
+
+    <section id="laer">
+      <h2>Fire risikonivå</h2>
+      <div class="grid" role="list">
+        <article class="card r-min" role="listitem">
+          <div class="tag">Minimal risiko</div>
+          <p>Typisk: spamfilter og enkle læringsspill. Lite oppfølging. Få krav.</p>
+        </article>
+        <article class="card r-tra" role="listitem">
+          <div class="tag">Transparenskrav</div>
+          <p>Typisk: chatboter og generativ KI. Informer brukere. Følg med jevnlig.</p>
+        </article>
+        <article class="card r-hoy" role="listitem">
+          <div class="tag">Høy risiko</div>
+          <p>Typisk: vurdering, karaktersystemer, elevprofiler. Krever styring og dokumentasjon.</p>
+        </article>
+        <article class="card r-uat" role="listitem">
+          <div class="tag">Uakseptabel risiko</div>
+          <p>Manipulasjon, diskriminering, skjult profilering. Ikke tillatt.</p>
+        </article>
+      </div>
+      <p class="note">Dette speiler struktur i AI Act. Detaljer legges inn i senere steg.</p>
+    </section>
+
+    <section id="sjekk">
+      <h2>Sjekk deg selv</h2>
+      <div class="card" id="quiz">
+        <p>Interaktiv veiviser kommer her i neste steg. Den bygger på beslutningsflyt fra AI‑Act‑Compliance‑Checker og Kenneths skolenedslag.</p>
+        <noscript>Slå på JavaScript for å bruke veiviseren.</noscript>
+      </div>
+    </section>
+
+    <section id="tiltak">
+      <h2>Tiltak for skolen</h2>
+      <ol>
+        <li>Kartlegg og klassifiser alle KI‑verktøy</li>
+        <li>Sikre datastyring, personvern og åpenhet</li>
+        <li>Etabler tydelig ansvar</li>
+        <li>Bygg KI‑kompetanse</li>
+        <li>Revisjon i årshjulet</li>
+      </ol>
+      <p class="note">Tekst utdypes i egen modul senere.</p>
+    </section>
+
+    <section id="ressurser">
+      <h2>Ressurser</h2>
+      <ul>
+        <li><a href="https://artificialintelligenceact.eu/" target="_blank" rel="noopener">EU AI Act</a></li>
+        <li><a href="https://www.datatilsynet.no/" target="_blank" rel="noopener">Datatilsynet</a></li>
+        <li><a href="https://nkom.no/" target="_blank" rel="noopener">Nkom</a></li>
+      </ul>
+    </section>
+
+    <section id="labs">
+      <h2>Labs</h2>
+      <div class="card">
+        <p>Eksperimentelle funksjoner plasseres her. Eksempel: enkel tekst‑klassifisering av risiko. Legges inn i senere steg.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <small>CC BY‑SA. Ingen sporing. Versjon 0.1</small>
+    </div>
+  </footer>
+
+  <script>
+    // Plassholder for senere steg: modulær quiz, datadrevet flyt, localStorage‑fri.
+  </script>
+</body>
+</html>
