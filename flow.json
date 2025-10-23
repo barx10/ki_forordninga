@@ -23,15 +23,18 @@
   "results": {
     "minimal": {
       "title": "Minimal risiko",
-      "text": "Lite behov for tilsyn eller dokumentasjon. Følg grunnleggende personvern." 
+      "text": "Lite behov for tilsyn eller dokumentasjon. Følg grunnleggende personvern.",
+      "class": "r-min"
     },
     "transparens": {
       "title": "Transparenskrav",
-      "text": "Informer brukere og elever når KI brukes. Følg Artikkel 50." 
+      "text": "Informer brukere og elever når KI brukes. Følg Artikkel 50.",
+      "class": "r-tra"
     },
     "hoy": {
       "title": "Høy risiko",
-      "text": "Krever risikovurdering, dokumentasjon og menneskelig kontroll (Art. 6, Annex III)." 
+      "text": "Krever risikovurdering, dokumentasjon og menneskelig kontroll (Art. 6, Annex III).",
+      "class": "r-hoy"
     }
   }
 }
