@@ -31,18 +31,28 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
-  const downloadResult = (title, text) => {
-  const blob = new Blob(
-    [ `Risikovurdering\n\n${title}\n\n${text}\n\nKilde: AI Act` ],
-    { type: 'text/plain' }
-  );
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'ki-risikovurdering.txt';
-  a.click();
-  URL.revokeObjectURL(url);
+  const showResult = (key) => {
+  const r = flow.results[key];
+  quiz.innerHTML = `
+    <div class="card ${r.class}">
+      <h3>${r.title}</h3>
+      <p>${r.text}</p>
+    </div>
+  `;
+
+  const dl = document.createElement('button');
+  dl.className = 'cta';
+  dl.textContent = 'Last ned vurdering';
+  dl.onclick = () => downloadResult(r.title, r.text);
+  quiz.appendChild(dl);
+
+  const reset = document.createElement('button');
+  reset.className = 'cta';
+  reset.textContent = 'Start på nytt';
+  reset.onclick = () => loadFlow();
+  quiz.appendChild(reset);
 };
+
 
   loadFlow();
 });
