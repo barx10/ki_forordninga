@@ -1,0 +1,37 @@
+{
+  "steps": [
+    {
+      "id": 1,
+      "question": "Hva er din rolle?",
+      "options": [
+        { "text": "Lærer", "next": 2 },
+        { "text": "Skoleleder", "next": 2 },
+        { "text": "IKT-ansvarlig", "next": 2 }
+      ]
+    },
+    {
+      "id": 2,
+      "question": "Hvilken type KI-verktøy gjelder det?",
+      "options": [
+        { "text": "Chatbot eller språkassistent", "result": "transparens" },
+        { "text": "Adaptive læringssystemer", "result": "hoy" },
+        { "text": "Automatisk vurdering / karaktersetting", "result": "hoy" },
+        { "text": "Spill eller quiz-generator uten datainnsamling", "result": "minimal" }
+      ]
+    }
+  ],
+  "results": {
+    "minimal": {
+      "title": "Minimal risiko",
+      "text": "Lite behov for tilsyn eller dokumentasjon. Følg grunnleggende personvern." 
+    },
+    "transparens": {
+      "title": "Transparenskrav",
+      "text": "Informer brukere og elever når KI brukes. Følg Artikkel 50." 
+    },
+    "hoy": {
+      "title": "Høy risiko",
+      "text": "Krever risikovurdering, dokumentasjon og menneskelig kontroll (Art. 6, Annex III)." 
+    }
+  }
+}
