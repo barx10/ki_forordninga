@@ -348,11 +348,11 @@ main section {
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: url('nodes-1.jpg');
+  background-image: url('nodes-forside.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  opacity: 0.3;
+  opacity: 0.12;
   z-index: -1;
   pointer-events: none;
   border-radius: inherit;
@@ -365,7 +365,7 @@ main section {
 
 /* Fjern/reduser bakgrunnsbilde i lys modus */
 :root[data-theme="light"] .view::before {
-  opacity: 0.15;
+  opacity: 0.06;
 }
 
 .view.active {
