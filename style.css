@@ -291,7 +291,7 @@ h3 {
 .hero::before {
   content: '';
   position: absolute;
-  top: 60%;
+  top: 85%;
   left: 0;
   right: 0;
   bottom: auto;
@@ -338,34 +338,6 @@ main section {
   padding: 0;
   border-radius: 0;
   overflow: visible;
-}
-
-/* Bakgrunnsbilde på alle views */
-.view::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: url('nodes-forside.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  opacity: 0.12;
-  z-index: -1;
-  pointer-events: none;
-  border-radius: inherit;
-}
-
-/* Hero har sitt eget bakgrunnsbilde, så fjern det fra hjem-view */
-#hjem::before {
-  display: none;
-}
-
-/* Fjern/reduser bakgrunnsbilde i lys modus */
-:root[data-theme="light"] .view::before {
-  opacity: 0.06;
 }
 
 .view.active {
