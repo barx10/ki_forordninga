@@ -61,21 +61,25 @@
       
       <h3>Fire risikonivå</h3>
       <div class="grid" role="list">
-        <article class="card r-min" role="listitem">
+        <article class="card r-min clickable" role="listitem" onclick="openRiskModal('minimal')">
           <div class="tag">Minimal risiko</div>
           <p>Typisk: spamfilter og enkle læringsspill. Lite oppfølging. Få krav.</p>
+          <span class="card-hint">Klikk for mer info →</span>
         </article>
-        <article class="card r-tra" role="listitem">
+        <article class="card r-tra clickable" role="listitem" onclick="openRiskModal('transparency')">
           <div class="tag">Transparenskrav</div>
           <p>Typisk: chatboter og generativ KI. Informer brukere. Følg med jevnlig.</p>
+          <span class="card-hint">Klikk for mer info →</span>
         </article>
-        <article class="card r-hoy" role="listitem">
+        <article class="card r-hoy clickable" role="listitem" onclick="openRiskModal('high')">
           <div class="tag">Høy risiko</div>
           <p>Typisk: vurdering, karaktersystemer, elevprofiler. Krever styring og dokumentasjon.</p>
+          <span class="card-hint">Klikk for mer info →</span>
         </article>
-        <article class="card r-uat" role="listitem">
+        <article class="card r-uat clickable" role="listitem" onclick="openRiskModal('unacceptable')">
           <div class="tag">Uakseptabel risiko</div>
           <p>Manipulasjon, diskriminering, skjult profilering. Ikke tillatt.</p>
+          <span class="card-hint">Klikk for mer info →</span>
         </article>
       </div>
 
@@ -899,13 +903,21 @@
     </section>
   </main>
 
+  <!-- Risk Level Modal -->
+  <div id="riskModal" class="modal" onclick="closeRiskModal(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeRiskModal()" aria-label="Lukk">&times;</button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
   <footer>
     <div class="wrap">
       <div class="footer-content">
         <a href="https://www.laererliv.no/" target="_blank" rel="noopener" aria-label="lærerLiv">
           <img src="laererliv-logo.png" alt="lærerLiv logo" class="footer-logo">
         </a>
-        <small>CC BY‑SA • Ingen sporing • Versjon 0.4 • <a href="https://github.com/barx10/ki_forordninga" target="_blank" rel="noopener">GitHub</a></small>
+        <small>Lærerliv, 2025 alle rettigheter reservert.</small>
       </div>
     </div>
   </footer>

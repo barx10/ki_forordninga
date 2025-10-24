@@ -1635,13 +1635,215 @@ https://github.com/barx10/ki_forordninga
   URL.revokeObjectURL(url);
 }
 
+// === RISK LEVEL MODAL ===
+const riskData = {
+  minimal: {
+    icon: '✅',
+    title: 'Minimal risiko',
+    subtitle: 'Lav risiko for brukerrettigheter',
+    description: 'KI-systemer med minimal eller ingen risiko for menneskers rettigheter og sikkerhet. Disse systemene har svært få krav i AI Act.',
+    characteristics: [
+      'Begrenset interaksjon med brukere',
+      'Ingen påvirkning på rettigheter eller sikkerhet',
+      'Enkle, veldefinerte oppgaver',
+      'Lav sannsynlighet for feil med alvorlige konsekvenser'
+    ],
+    examples: {
+      title: 'Eksempler fra skolen:',
+      items: [
+        '📧 <strong>Spamfilter:</strong> Filtrerer e-post automatisk, men påvirker ikke rettigheter',
+        '🎮 <strong>Enkle læringsspill:</strong> Spill uten adaptiv læring eller profilering',
+        '📊 <strong>Statistikkverktøy:</strong> Samler inn anonymiserte data for analyse',
+        '🔍 <strong>Søkefunksjoner:</strong> Enkle søk i læringsressurser'
+      ]
+    },
+    requirements: [
+      'Frivillig å følge Code of Conduct',
+      'Ingen spesifikke compliance-krav',
+      'God praksis anbefales, men ikke påkrevd',
+      'GDPR gjelder fortsatt hvis persondata behandles'
+    ],
+    action: 'Dokumenter hvilke systemer som er minimal risiko og følg god praksis.'
+  },
+  transparency: {
+    icon: '💬',
+    title: 'Transparenskrav',
+    subtitle: 'Generativ AI og chatboter',
+    description: 'KI-systemer som interagerer med mennesker eller genererer innhold må være transparente. Brukere skal vite at de kommuniserer med KI.',
+    characteristics: [
+      'Genererer tekst, bilder, lyd eller video',
+      'Brukes i direkte interaksjon med mennesker',
+      'Kan påvirke beslutninger',
+      'Krever tydelig merking og informasjon'
+    ],
+    examples: {
+      title: 'Eksempler fra skolen:',
+      items: [
+        '🤖 <strong>ChatGPT/Claude:</strong> Må informere elever om at de bruker KI',
+        '🎨 <strong>DALL-E/Midjourney:</strong> Må merke KI-genererte bilder',
+        '📝 <strong>AI-skriveverktøy:</strong> Elever må vite at forslag kommer fra KI',
+        '🗣️ <strong>Stemmebots:</strong> Må tydelig kommunisere at det er KI'
+      ]
+    },
+    requirements: [
+      '📢 <strong>Informasjonsplikt:</strong> Brukere må informeres om KI-bruk',
+      '🏷️ <strong>Merking:</strong> KI-generert innhold må merkes tydelig',
+      '📋 <strong>Dokumentasjon:</strong> Logg hvordan KI brukes',
+      '🔄 <strong>Transparens:</strong> Forklar hvordan KI fungerer (på et fornuftig nivå)',
+      '⚖️ <strong>GDPR-krav:</strong> Databehandleravtale hvis persondata brukes'
+    ],
+    warning: '<strong>NB!</strong> Transparenskravene er aktive fra august 2025. Hvis dere bruker ChatGPT, må elevene informeres.',
+    action: 'Lag rutiner for informasjon til elever og foresatte. Merk KI-generert innhold.'
+  },
+  high: {
+    icon: '⚠️',
+    title: 'Høy risiko',
+    subtitle: 'Vurdering, karakterer og elevprofiler',
+    description: 'KI-systemer som kan påvirke elevers rettigheter, utdanning eller fremtid. Disse har strenge krav i AI Act.',
+    characteristics: [
+      'Påvirker vurdering, karakterer eller tilgang til utdanning',
+      'Brukes til å profilere eller klassifisere elever',
+      'Kan ha diskriminerende effekter',
+      'Krever omfattende dokumentasjon og kontroll'
+    ],
+    examples: {
+      title: 'Eksempler fra skolen:',
+      items: [
+        '📊 <strong>KI-basert vurdering:</strong> Systemer som gir karakterer eller tilbakemeldinger',
+        '🎯 <strong>Adaptive læringssystemer:</strong> Systemer som tilpasser innhold basert på elevdata',
+        '📈 <strong>Elevprofiler:</strong> Systemer som lager profiler for å predikere prestasjoner',
+        '🚨 <strong>Fravær- og atferdssystemer:</strong> Systemer som automatisk rapporterer eller reagerer',
+        '🔒 <strong>Tilgangskontroll:</strong> KI som bestemmer hvem som får tilgang til ressurser'
+      ]
+    },
+    requirements: [
+      '📋 <strong>Risikovurdering (DPIA):</strong> Grundig vurdering av risiko før bruk',
+      '📚 <strong>Teknisk dokumentasjon:</strong> Komplett oversikt over systemet',
+      '🔍 <strong>Datastyring:</strong> Kontroll over treningsdata og kvalitet',
+      '👥 <strong>Menneskelig oversikt:</strong> Lærer må kunne overstyre KI-beslutninger',
+      '🔒 <strong>Cybersikkerhet:</strong> Sikkerhetstiltak mot hacking',
+      '📝 <strong>Logging:</strong> Minst 6 måneders logger',
+      '⚖️ <strong>Leverandør-ansvar:</strong> Leverandøren må være CE-merket',
+      '🏫 <strong>Skole-ansvar:</strong> Dere er ansvarlige som brukere (Artikkel 29)'
+    ],
+    warning: '<strong>VIKTIG!</strong> Høyrisiko-krav gjelder fullt ut fra august 2027, men forberedelser må starte NÅ. DPIA er påkrevd.',
+    action: 'Gjennomgå alle høyrisiko-systemer. Lag DPIA. Krev dokumentasjon fra leverandør.'
+  },
+  unacceptable: {
+    icon: '🚫',
+    title: 'Uakseptabel risiko',
+    subtitle: 'Forbudte KI-praksiser',
+    description: 'KI-systemer som utgjør en uakseptabel trussel mot menneskers rettigheter og sikkerhet. Disse er FORBUDT i AI Act fra februar 2025.',
+    characteristics: [
+      'Manipulerer atferd på skadelig måte',
+      'Utnytter sårbare grupper',
+      'Gjør skjult eller diskriminerende profilering',
+      'Brukes til sosial scoring'
+    ],
+    examples: {
+      title: 'Forbudt i skolen:',
+      items: [
+        '🧠 <strong>Atferdsmanipulasjon:</strong> Systemer som manipulerer elever til å handle mot sin vilje',
+        '👤 <strong>Skjult profilering:</strong> Systemer som profilerer elever uten deres kunnskap',
+        '🏆 <strong>Sosial scoring:</strong> Systemer som gir elever "poengsummer" basert på atferd',
+        '🎭 <strong>Følelsesanalyse:</strong> Systemer som analyserer elevers følelser uten samtykke',
+        '📊 <strong>Prediktiv atferd:</strong> Systemer som predikerer kriminalitet eller problematferd',
+        '🚨 <strong>Biometrisk identifikasjon:</strong> Sanntids ansiktsgjenkjenning i skolegården'
+      ]
+    },
+    requirements: [
+      '🚫 <strong>FORBUDT:</strong> Kan ikke brukes under noen omstendigheter',
+      '⚖️ <strong>Juridiske konsekvenser:</strong> Brudd kan føre til store bøter',
+      '🗑️ <strong>Umiddelbar handling:</strong> Hvis dere bruker slikt, STOPP NÅ',
+      '📢 <strong>Rapporteringsplikt:</strong> Alvorlige hendelser må rapporteres'
+    ],
+    warning: '<strong>ADVARSEL!</strong> Forbudet trådte i kraft februar 2025. Brudd kan føre til bøter på opptil €35 millioner eller 7% av global omsetning.',
+    action: 'Sjekk om dere har systemer som kan falle under uakseptabel risiko. Stopp bruken UMIDDELBART hvis ja.'
+  }
+};
+
+function openRiskModal(riskLevel) {
+  const modal = document.getElementById('riskModal');
+  const modalBody = document.getElementById('modalBody');
+  const data = riskData[riskLevel];
+  
+  if (!data) return;
+  
+  // Build modal content
+  let content = `
+    <div class="modal-header">
+      <span class="modal-icon">${data.icon}</span>
+      <div class="modal-title">
+        <h2>${data.title}</h2>
+        <p class="modal-subtitle">${data.subtitle}</p>
+      </div>
+    </div>
+    
+    <div class="modal-section">
+      <p><strong>${data.description}</strong></p>
+    </div>
+    
+    <div class="modal-section">
+      <h3>Kjennetegn</h3>
+      <ul class="modal-list">
+        ${data.characteristics.map(item => `<li>${item}</li>`).join('')}
+      </ul>
+    </div>
+    
+    <div class="modal-examples">
+      <h4>${data.examples.title}</h4>
+      <ul class="modal-list">
+        ${data.examples.items.map(item => `<li>${item}</li>`).join('')}
+      </ul>
+    </div>
+    
+    <div class="modal-section">
+      <h3>Krav i AI Act</h3>
+      <ul class="modal-list">
+        ${data.requirements.map(item => `<li>${item}</li>`).join('')}
+      </ul>
+    </div>
+  `;
+  
+  if (data.warning) {
+    content += `
+      <div class="${riskLevel === 'unacceptable' ? 'modal-warning' : 'modal-success'}">
+        ${data.warning}
+      </div>
+    `;
+  }
+  
+  content += `
+    <div class="modal-footer">
+      <p><strong>💡 Neste steg:</strong> ${data.action}</p>
+      <button class="cta" onclick="window.location.hash='#sjekk'">Bruk veiviseren →</button>
+    </div>
+  `;
+  
+  modalBody.innerHTML = content;
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden'; // Prevent scrolling
+}
+
+function closeRiskModal(event) {
+  // Close if clicking backdrop or close button
+  if (!event || event.target.id === 'riskModal' || event.target.classList.contains('modal-close')) {
+    const modal = document.getElementById('riskModal');
+    modal.classList.remove('active');
+    document.body.style.overflow = ''; // Restore scrolling
+  }
+}
+
+// Close modal with Escape key
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    closeRiskModal();
+  }
+});
+
 // === CHAT FUNCTIONALITY ===
 let messageCount = 0;
 const MAX_MESSAGES = 10;
-
-// Supabase configuration (PUBLIC keys - safe for frontend)
-const SUPABASE_URL = 'YOUR_SUPABASE_URL'; // Erstatt med din URL
-const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY'; // Erstatt med din anon key
 
 function toggleChatInfo() {
   const infoPanel = document.getElementById('chatInfo');
@@ -1700,8 +1902,26 @@ function sendMessage() {
   // Show typing indicator
   showTypingIndicator();
   
-  // Call Supabase Edge Function
-  callChatAPI(message);
+  // Simulate API call (replace with actual API call later)
+  setTimeout(() => {
+    removeTypingIndicator();
+    
+    // Temporary response until backend is ready
+    const response = `Dette er en placeholder-respons. Backend er under utvikling.
+    
+Din spørsmål: "${message}"
+
+Når backend er klar vil jeg kunne svare basert på AI Act-dokumentet. 
+
+For nå, prøv <a href="#sjekk">veiviseren</a> eller <a href="#laer">lær-seksjonen</a> for å finne svar.`;
+    
+    addMessageToChat('assistant', response, ['Artikkel 5', 'Artikkel 6']);
+    
+    // Show status message after first question
+    if (messageCount === 1) {
+      document.getElementById('chatStatus').style.display = 'block';
+    }
+  }, 1500);
 }
 
 function addMessageToChat(role, content, sources = null) {
@@ -1771,67 +1991,6 @@ function removeTypingIndicator() {
   const indicator = document.getElementById('typingIndicator');
   if (indicator) {
     indicator.remove();
-  }
-}
-
-async function callChatAPI(message) {
-  // Check if API is configured
-  if (SUPABASE_URL === 'YOUR_SUPABASE_URL') {
-    removeTypingIndicator();
-    
-    const response = `⚠️ <strong>Chat-funksjonen er ikke konfigurert ennå.</strong>
-
-Backend er deployert, men API-nøkler må legges inn i koden.
-
-<strong>For utviklere:</strong> Se \`supabase/DEPLOY.md\` for instruksjoner.
-
-<strong>For brukere:</strong> Prøv <a href="#sjekk">veiviseren</a> eller <a href="#laer">lær-seksjonen</a>.`;
-    
-    addMessageToChat('assistant', response);
-    
-    if (messageCount === 1) {
-      document.getElementById('chatStatus').style.display = 'block';
-    }
-    return;
-  }
-  
-  try {
-    const response = await fetch(`${SUPABASE_URL}/functions/v1/chat`, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ message })
-    });
-    
-    if (!response.ok) {
-      throw new Error(`API returned ${response.status}`);
-    }
-    
-    const data = await response.json();
-    
-    removeTypingIndicator();
-    
-    // Format sources as string array
-    const sources = data.sources.map(s => 
-      `Artikkel ${s.article}: ${s.title}`
-    );
-    
-    addMessageToChat('assistant', data.message, sources);
-    
-  } catch (error) {
-    console.error('Chat API error:', error);
-    
-    removeTypingIndicator();
-    
-    const errorMessage = `❌ <strong>Kunne ikke hente svar.</strong>
-
-Det oppstod en feil ved kommunikasjon med serveren. 
-
-Prøv igjen senere, eller bruk <a href="#sjekk">veiviseren</a> for å finne svar.`;
-    
-    addMessageToChat('assistant', errorMessage);
   }
 }
 

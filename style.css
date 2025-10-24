@@ -307,6 +307,23 @@ main section {
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 }
 
+/* Risk cards - 4 columns on larger screens */
+#laer .grid {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+@media (min-width: 1024px) {
+  #laer .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  #laer .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 .card {
   background: var(--panel);
   border: 1px solid #1f2733;
@@ -1627,6 +1644,238 @@ footer {
 
 :root[data-theme="light"] .chat-input-container {
   border-top-color: rgba(0, 0, 0, 0.1);
+}
+
+/* === RISK LEVEL MODAL === */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.3s ease;
+}
+
+.modal.active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal-content {
+  background: var(--panel);
+  border: 2px solid var(--accent);
+  border-radius: 16px;
+  padding: 2rem;
+  max-width: 700px;
+  width: 90%;
+  max-height: 85vh;
+  overflow-y: auto;
+  position: relative;
+  animation: slideUp 0.3s ease;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--text);
+  font-size: 2rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  transition: all 0.2s ease;
+}
+
+.modal-close:hover {
+  background: var(--accent);
+  color: white;
+  transform: rotate(90deg);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--accent);
+}
+
+.modal-icon {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.modal-title {
+  flex: 1;
+}
+
+.modal-title h2 {
+  margin: 0 0 0.5rem 0;
+  color: var(--accent);
+  font-size: 1.8rem;
+}
+
+.modal-subtitle {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.modal-section {
+  margin-bottom: 1.5rem;
+}
+
+.modal-section h3 {
+  color: var(--accent);
+  margin: 0 0 0.75rem 0;
+  font-size: 1.2rem;
+}
+
+.modal-section p {
+  margin: 0 0 0.75rem 0;
+  line-height: 1.7;
+}
+
+.modal-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem 0;
+}
+
+.modal-list li {
+  padding-left: 1.5rem;
+  margin-bottom: 0.5rem;
+  position: relative;
+}
+
+.modal-list li:before {
+  content: "▸";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-weight: bold;
+}
+
+.modal-examples {
+  background: rgba(37, 99, 235, 0.1);
+  border-left: 3px solid var(--accent);
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+.modal-examples h4 {
+  margin: 0 0 0.75rem 0;
+  color: var(--accent);
+  font-size: 1rem;
+}
+
+.modal-warning {
+  background: rgba(239, 68, 68, 0.1);
+  border-left: 3px solid #ef4444;
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+.modal-warning strong {
+  color: #ef4444;
+}
+
+.modal-success {
+  background: rgba(34, 197, 94, 0.1);
+  border-left: 3px solid #22c55e;
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+.modal-footer {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+}
+
+.modal-footer .cta {
+  margin: 0;
+}
+
+.clickable {
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+}
+
+.clickable:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.3);
+}
+
+.card-hint {
+  display: block;
+  text-align: center;
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.clickable:hover .card-hint {
+  opacity: 1;
+}
+
+/* Light mode adjustments */
+:root[data-theme="light"] .modal {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+:root[data-theme="light"] .modal-content {
+  border-color: var(--accent);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+:root[data-theme="light"] .modal-examples {
+  background: rgba(43, 108, 176, 0.08);
+}
+
+:root[data-theme="light"] .clickable:hover {
+  box-shadow: 0 8px 24px rgba(43, 108, 176, 0.2);
 }
 
 /* Responsive */
