@@ -1635,5 +1635,255 @@ https://github.com/barx10/ki_forordninga
   URL.revokeObjectURL(url);
 }
 
+// === CHAT FUNCTIONALITY ===
+let messageCount = 0;
+const MAX_MESSAGES = 10;
+
+// Supabase configuration (PUBLIC keys - safe for frontend)
+const SUPABASE_URL = 'YOUR_SUPABASE_URL'; // Erstatt med din URL
+const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY'; // Erstatt med din anon key
+
+function toggleChatInfo() {
+  const infoPanel = document.getElementById('chatInfo');
+  if (infoPanel.style.display === 'none') {
+    infoPanel.style.display = 'block';
+  } else {
+    infoPanel.style.display = 'none';
+  }
+}
+
+function askQuestion(question) {
+  const input = document.getElementById('chatInput');
+  input.value = question;
+  input.focus();
+  // Auto-expand textarea
+  input.style.height = 'auto';
+  input.style.height = input.scrollHeight + 'px';
+}
+
+function handleChatKeydown(event) {
+  // Send on Enter (without Shift)
+  if (event.key === 'Enter' && !event.shiftKey) {
+    event.preventDefault();
+    sendMessage();
+  }
+  
+  // Auto-expand textarea
+  const textarea = event.target;
+  textarea.style.height = 'auto';
+  textarea.style.height = textarea.scrollHeight + 'px';
+}
+
+function sendMessage() {
+  const input = document.getElementById('chatInput');
+  const message = input.value.trim();
+  
+  if (!message) return;
+  
+  // Check message limit
+  if (messageCount >= MAX_MESSAGES) {
+    showChatStatus('Du har nådd grensen på 10 meldinger. Last inn siden på nytt for å fortsette.');
+    return;
+  }
+  
+  // Add user message to chat
+  addMessageToChat('user', message);
+  
+  // Clear input
+  input.value = '';
+  input.style.height = 'auto';
+  
+  // Increment counter
+  messageCount++;
+  updateMessageCounter();
+  
+  // Show typing indicator
+  showTypingIndicator();
+  
+  // Call Supabase Edge Function
+  callChatAPI(message);
+}
+
+function addMessageToChat(role, content, sources = null) {
+  const messagesContainer = document.getElementById('chatMessages');
+  
+  const messageDiv = document.createElement('div');
+  messageDiv.className = `chat-message ${role}`;
+  
+  const avatar = document.createElement('div');
+  avatar.className = 'message-avatar';
+  avatar.textContent = role === 'user' ? '👤' : '🤖';
+  
+  const messageContent = document.createElement('div');
+  messageContent.className = 'message-content';
+  
+  // Convert markdown-style links to HTML
+  const formattedContent = content.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+  messageContent.innerHTML = `<p>${formattedContent.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>')}</p>`;
+  
+  // Add sources if provided
+  if (sources && sources.length > 0) {
+    const sourcesDiv = document.createElement('div');
+    sourcesDiv.className = 'message-sources';
+    sourcesDiv.innerHTML = `<strong>📚 Kilder:</strong> ${sources.join(', ')}`;
+    messageContent.appendChild(sourcesDiv);
+  }
+  
+  // Add action buttons for assistant messages
+  if (role === 'assistant') {
+    const actionsDiv = document.createElement('div');
+    actionsDiv.className = 'message-actions';
+    actionsDiv.innerHTML = `
+      <button class="message-action-btn" onclick="copyMessage(this)">📋 Kopier</button>
+      <button class="message-action-btn" onclick="rateMessage(this, 'up')">👍</button>
+      <button class="message-action-btn" onclick="rateMessage(this, 'down')">👎</button>
+    `;
+    messageContent.appendChild(actionsDiv);
+  }
+  
+  messageDiv.appendChild(avatar);
+  messageDiv.appendChild(messageContent);
+  
+  messagesContainer.appendChild(messageDiv);
+  
+  // Scroll to bottom
+  messagesContainer.scrollTop = messagesContainer.scrollHeight;
+}
+
+function showTypingIndicator() {
+  const messagesContainer = document.getElementById('chatMessages');
+  
+  const typingDiv = document.createElement('div');
+  typingDiv.className = 'chat-message assistant typing-indicator';
+  typingDiv.id = 'typingIndicator';
+  typingDiv.innerHTML = `
+    <div class="message-avatar">🤖</div>
+    <div class="message-content">
+      <p style="color: var(--text-secondary);">Skriver...</p>
+    </div>
+  `;
+  
+  messagesContainer.appendChild(typingDiv);
+  messagesContainer.scrollTop = messagesContainer.scrollHeight;
+}
+
+function removeTypingIndicator() {
+  const indicator = document.getElementById('typingIndicator');
+  if (indicator) {
+    indicator.remove();
+  }
+}
+
+async function callChatAPI(message) {
+  // Check if API is configured
+  if (SUPABASE_URL === 'YOUR_SUPABASE_URL') {
+    removeTypingIndicator();
+    
+    const response = `⚠️ <strong>Chat-funksjonen er ikke konfigurert ennå.</strong>
+
+Backend er deployert, men API-nøkler må legges inn i koden.
+
+<strong>For utviklere:</strong> Se \`supabase/DEPLOY.md\` for instruksjoner.
+
+<strong>For brukere:</strong> Prøv <a href="#sjekk">veiviseren</a> eller <a href="#laer">lær-seksjonen</a>.`;
+    
+    addMessageToChat('assistant', response);
+    
+    if (messageCount === 1) {
+      document.getElementById('chatStatus').style.display = 'block';
+    }
+    return;
+  }
+  
+  try {
+    const response = await fetch(`${SUPABASE_URL}/functions/v1/chat`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ message })
+    });
+    
+    if (!response.ok) {
+      throw new Error(`API returned ${response.status}`);
+    }
+    
+    const data = await response.json();
+    
+    removeTypingIndicator();
+    
+    // Format sources as string array
+    const sources = data.sources.map(s => 
+      `Artikkel ${s.article}: ${s.title}`
+    );
+    
+    addMessageToChat('assistant', data.message, sources);
+    
+  } catch (error) {
+    console.error('Chat API error:', error);
+    
+    removeTypingIndicator();
+    
+    const errorMessage = `❌ <strong>Kunne ikke hente svar.</strong>
+
+Det oppstod en feil ved kommunikasjon med serveren. 
+
+Prøv igjen senere, eller bruk <a href="#sjekk">veiviseren</a> for å finne svar.`;
+    
+    addMessageToChat('assistant', errorMessage);
+  }
+}
+
+function updateMessageCounter() {
+  const counter = document.getElementById('messageCounter');
+  counter.textContent = `${messageCount}/${MAX_MESSAGES}`;
+  
+  // Change color when approaching limit
+  if (messageCount >= MAX_MESSAGES * 0.8) {
+    counter.style.color = '#f59e0b';
+  }
+  if (messageCount >= MAX_MESSAGES) {
+    counter.style.color = '#ef4444';
+  }
+}
+
+function showChatStatus(message) {
+  const statusDiv = document.getElementById('chatStatus');
+  statusDiv.innerHTML = `<div class="alert-box">⚠️ ${message}</div>`;
+  statusDiv.style.display = 'block';
+}
+
+function copyMessage(button) {
+  const messageContent = button.closest('.message-content');
+  const text = messageContent.querySelector('p').innerText;
+  
+  navigator.clipboard.writeText(text).then(() => {
+    button.textContent = '✓ Kopiert!';
+    setTimeout(() => {
+      button.textContent = '📋 Kopier';
+    }, 2000);
+  });
+}
+
+function rateMessage(button, rating) {
+  // Store rating (implement later with backend)
+  console.log('Message rated:', rating);
+  
+  // Visual feedback
+  button.style.opacity = '0.5';
+  button.disabled = true;
+  
+  // Disable the other rating button
+  const actionsDiv = button.parentElement;
+  const buttons = actionsDiv.querySelectorAll('.message-action-btn');
+  buttons.forEach(btn => {
+    if (btn !== button && (btn.textContent.includes('👍') || btn.textContent.includes('👎'))) {
+      btn.disabled = true;
+      btn.style.opacity = '0.3';
+    }
+  });
+}
+
 // Fjern gammel scroll-basert navigasjon
 // (Router håndterer nå all navigasjon)
