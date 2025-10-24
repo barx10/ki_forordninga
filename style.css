@@ -283,11 +283,34 @@ h3 {
 /* === Sections === */
 .hero {
   position: relative;
-  padding: 40px 20px 30px;
+  padding: 60px 20px 50px;
   text-align: center;
+  overflow: visible;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 60%;
+  left: 0;
+  right: 0;
+  bottom: auto;
+  height: 120%;
+  background-image: url('nodes-forside.jpg');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  opacity: 0.25;
+  z-index: -1;
+}
+
+:root[data-theme="light"] .hero::before {
+  opacity: 0.15;
 }
 
 .hero > * {
+  position: relative;
+  z-index: 1;
   max-width: 900px;
   margin-left: auto;
   margin-right: auto;
@@ -307,6 +330,7 @@ main section {
   padding: 40px 20px;
   border-radius: 24px;
   overflow: hidden;
+  isolation: isolate;
 }
 
 /* Hjem-view skal ikke ha avrundede hjørner siden hero er full-width */
@@ -324,12 +348,12 @@ main section {
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: url('nodes.png');
+  background-image: url('nodes-1.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  opacity: 0.08;
-  z-index: 0;
+  opacity: 0.3;
+  z-index: -1;
   pointer-events: none;
   border-radius: inherit;
 }
@@ -341,7 +365,7 @@ main section {
 
 /* Fjern/reduser bakgrunnsbilde i lys modus */
 :root[data-theme="light"] .view::before {
-  opacity: 0.08;
+  opacity: 0.15;
 }
 
 .view.active {
@@ -961,7 +985,11 @@ footer small {
 /* === Timeline === */
 .timeline {
   margin: 32px 0;
-  padding-left: 0;
+  padding: 24px;
+  background: rgba(18, 24, 33, 0.4);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .timeline-item {
@@ -1015,11 +1043,13 @@ footer small {
 
 /* === Info Box === */
 .info-box {
-  background: rgba(77, 163, 255, 0.1);
+  background: rgba(18, 24, 33, 0.4);
+  backdrop-filter: blur(12px);
   border-left: 4px solid var(--accent);
   padding: 20px 24px;
   margin: 24px 0;
-  border-radius: 0 8px 8px 0;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .info-box h4 {
@@ -1064,7 +1094,13 @@ footer small {
 }
 
 :root[data-theme="light"] .info-box {
-  background: rgba(43, 108, 176, 0.08);
+  background: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+:root[data-theme="light"] .timeline {
+  background: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
 /* === Tiltak Cards === */
@@ -1348,6 +1384,10 @@ footer small {
 
 .hero-bg[data-bg="nodes-2.png"]::before {
   background-image: url('nodes-2.png');
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  transform: translateZ(0);
+  will-change: transform;
 }
 
 .hero-bg::after {
