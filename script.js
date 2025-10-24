@@ -45,7 +45,7 @@ const initRouter = () => {
       transition.classList.add('active');
     }
     
-    // Wait for overlay to fade in
+    // Wait for overlay to fade in (kortere tid for mindre flimring)
     setTimeout(() => {
       // Fjern active fra alle views
       document.querySelectorAll('.view').forEach(view => {
@@ -73,9 +73,9 @@ const initRouter = () => {
         if (transition) {
           transition.classList.remove('active');
         }
-      }, 50);
+      }, 30);
       
-    }, 150); // Half of transition duration for smooth crossfade
+    }, 80); // Raskere timing for mindre flimring
   };
   
   const handleRoute = () => {
@@ -1816,7 +1816,7 @@ function openRiskModal(riskLevel) {
   content += `
     <div class="modal-footer">
       <p><strong>💡 Neste steg:</strong> ${data.action}</p>
-      <button class="cta" onclick="window.location.hash='#sjekk'">Bruk veiviseren →</button>
+      <button class="cta" onclick="closeRiskModal(); window.location.hash='#sjekk';">Gå til veiviseren →</button>
     </div>
   `;
   
