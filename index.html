@@ -23,6 +23,22 @@
         <a href="#tiltak">Tiltak</a>
         <a href="#ressurser">Ressurser</a>
         <a href="#labs">Labs</a>
+        <button id="theme-toggle" class="theme-toggle" aria-label="Bytt til lys modus">
+          <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
       </nav>
     </div>
   </header>
@@ -40,7 +56,10 @@
 
     <!-- Lær View -->
     <section id="laer" class="view">
-      <h2>Fire risikonivå</h2>
+      <h2>AI Act - Komplett guide for skolen</h2>
+      <p class="lead">EU's AI Act (KI-forordningen) trådte i kraft 1. august 2024. Her er alt du trenger å vite.</p>
+      
+      <h3>Fire risikonivå</h3>
       <div class="grid" role="list">
         <article class="card r-min" role="listitem">
           <div class="tag">Minimal risiko</div>
@@ -59,7 +78,274 @@
           <p>Manipulasjon, diskriminering, skjult profilering. Ikke tillatt.</p>
         </article>
       </div>
-      <p class="note">Dette speiler struktur i AI Act. Detaljer legges inn i senere steg.</p>
+
+      <h3>Viktigste artikler i AI Act</h3>
+      <div class="accordion" id="ai-act-accordion">
+        <!-- Artikkel 5 -->
+        <div class="accordion-item">
+          <button class="accordion-header" aria-expanded="false" aria-controls="art-5">
+            <span class="accordion-title">
+              <strong>Artikkel 5</strong> - Forbudte KI-praksiser
+            </span>
+            <svg class="accordion-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="accordion-content" id="art-5">
+            <p><strong>Hva det betyr:</strong> KI-systemer som utgjør uakseptabel risiko er forbudt. Dette inkluderer:</p>
+            <ul>
+              <li>Manipulerende teknikker som utnytter sårbarhet (alder, funksjonshemning)</li>
+              <li>Skjult sosial scoring av elever</li>
+              <li>Biometrisk identifisering i sanntid (ansiktsgjenkjenning)</li>
+              <li>KI som kategoriserer personer basert på sensitiv informasjon</li>
+            </ul>
+            <p><strong>For skolen:</strong> Bruk aldri KI som manipulerer elever, gjør skjult profilering, eller diskriminerer.</p>
+            <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_5" target="_blank" rel="noopener" class="external-link">Les full tekst →</a>
+          </div>
+        </div>
+
+        <!-- Artikkel 6 -->
+        <div class="accordion-item">
+          <button class="accordion-header" aria-expanded="false" aria-controls="art-6">
+            <span class="accordion-title">
+              <strong>Artikkel 6 & Annex III</strong> - Høyrisiko KI-systemer
+            </span>
+            <svg class="accordion-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="accordion-content" id="art-6">
+            <p><strong>Hva det betyr:</strong> KI-systemer i utdanning regnes som høyrisiko hvis de:</p>
+            <ul>
+              <li>Bestemmer tilgang til utdanningsinstitusjoner</li>
+              <li>Evaluerer læringsresultater (karakterer, vurdering)</li>
+              <li>Overvåker og oppdager juks</li>
+              <li>Veileder studieløp og karrierevalg</li>
+            </ul>
+            <p><strong>For skolen:</strong> KI som brukes til vurdering eller påvirker elevers fremtid krever full compliance med høyrisiko-krav.</p>
+            <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_6" target="_blank" rel="noopener" class="external-link">Les full tekst →</a>
+          </div>
+        </div>
+
+        <!-- Artikkel 9 -->
+        <div class="accordion-item">
+          <button class="accordion-header" aria-expanded="false" aria-controls="art-9">
+            <span class="accordion-title">
+              <strong>Artikkel 9</strong> - Risikostyringssystem
+            </span>
+            <svg class="accordion-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="accordion-content" id="art-9">
+            <p><strong>Hva det betyr:</strong> Høyrisiko KI-systemer må ha kontinuerlig risikostyring gjennom hele livssyklusen:</p>
+            <ul>
+              <li>Identifiser og analyser kjente og forutsigbare risikoer</li>
+              <li>Estimer og evaluer risikoer under tiltenkt bruk og feilbruk</li>
+              <li>Test og dokument alle tiltak</li>
+              <li>Oppdater jevnlig basert på erfaring</li>
+            </ul>
+            <p><strong>For skolen:</strong> Lag årlig risikovurdering. Dokumenter tiltak. Test for bias og feil.</p>
+            <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_9" target="_blank" rel="noopener" class="external-link">Les full tekst →</a>
+          </div>
+        </div>
+
+        <!-- Artikkel 10 -->
+        <div class="accordion-item">
+          <button class="accordion-header" aria-expanded="false" aria-controls="art-10">
+            <span class="accordion-title">
+              <strong>Artikkel 10</strong> - Data og datastyrings
+            </span>
+            <svg class="accordion-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="accordion-content" id="art-10">
+            <p><strong>Hva det betyr:</strong> Treningsdata må være:</p>
+            <ul>
+              <li><strong>Relevant</strong> - direkte knyttet til formålet</li>
+              <li><strong>Representativ</strong> - dekker alle relevante elevgrupper</li>
+              <li><strong>Fri for feil</strong> - høy datakvalitet</li>
+              <li><strong>Komplett</strong> - ikke mangelfulle datasett</li>
+            </ul>
+            <p><strong>For skolen:</strong> Krev dokumentasjon fra leverandør. Sjekk om algoritmen er trent på norske/nordiske data. Test for bias mot minoriteter.</p>
+            <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_10" target="_blank" rel="noopener" class="external-link">Les full tekst →</a>
+          </div>
+        </div>
+
+        <!-- Artikkel 13 -->
+        <div class="accordion-item">
+          <button class="accordion-header" aria-expanded="false" aria-controls="art-13">
+            <span class="accordion-title">
+              <strong>Artikkel 13</strong> - Transparens og informasjon
+            </span>
+            <svg class="accordion-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="accordion-content" id="art-13">
+            <p><strong>Hva det betyr:</strong> Høyrisiko KI-systemer må gi brukere klar informasjon om:</p>
+            <ul>
+              <li>KI-systemets kapasiteter og begrensninger</li>
+              <li>Ytelse, nøyaktighet og feilrater</li>
+              <li>Hvordan systemet fungerer (på en forståelig måte)</li>
+              <li>Hvem som er ansvarlig</li>
+            </ul>
+            <p><strong>For skolen:</strong> Krev tydelig dokumentasjon fra leverandør. Informer elever og foresatte på et forståelig nivå.</p>
+            <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_13" target="_blank" rel="noopener" class="external-link">Les full tekst →</a>
+          </div>
+        </div>
+
+        <!-- Artikkel 14 -->
+        <div class="accordion-item">
+          <button class="accordion-header" aria-expanded="false" aria-controls="art-14">
+            <span class="accordion-title">
+              <strong>Artikkel 14</strong> - Menneskelig tilsyn (Human Oversight)
+            </span>
+            <svg class="accordion-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="accordion-content" id="art-14">
+            <p><strong>Hva det betyr:</strong> Høyrisiko KI-systemer MÅ ha effektiv menneskelig kontroll:</p>
+            <ul>
+              <li>Mennesker skal kunne <strong>overstyre</strong> KI-beslutninger</li>
+              <li>Systemet skal kunne <strong>stoppes</strong> umiddelbart</li>
+              <li>Output skal kunne <strong>korrigeres</strong></li>
+              <li>Alle overstyringer skal <strong>dokumenteres</strong></li>
+            </ul>
+            <p><strong>For skolen:</strong> Lærere må alltid ha siste ord. Dokumenter når du overstyrer KI-forslag. Systemet må kunne stoppes.</p>
+            <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_14" target="_blank" rel="noopener" class="external-link">Les full tekst →</a>
+          </div>
+        </div>
+
+        <!-- Artikkel 29 -->
+        <div class="accordion-item">
+          <button class="accordion-header" aria-expanded="false" aria-controls="art-29">
+            <span class="accordion-title">
+              <strong>Artikkel 29</strong> - Forpliktelser for brukere
+            </span>
+            <svg class="accordion-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="accordion-content" id="art-29">
+            <p><strong>Hva det betyr:</strong> Skoler som BRUKER høyrisiko KI må:</p>
+            <ul>
+              <li>Bruke systemet kun i samsvar med instruksjoner</li>
+              <li>Overvåke driften basert på bruksanvisningen</li>
+              <li>Ha personer med riktig kompetanse</li>
+              <li>Holde logger i minst 6 måneder</li>
+              <li>Rapportere alvorlige hendelser til tilbyder og myndigheter</li>
+              <li>Stoppe systemet ved uventede risikoer</li>
+            </ul>
+            <p><strong>For skolen:</strong> Dette er DITT ansvar som bruker, ikke bare leverandørens!</p>
+            <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_29" target="_blank" rel="noopener" class="external-link">Les full tekst →</a>
+          </div>
+        </div>
+
+        <!-- Artikkel 50 -->
+        <div class="accordion-item">
+          <button class="accordion-header" aria-expanded="false" aria-controls="art-50">
+            <span class="accordion-title">
+              <strong>Artikkel 50</strong> - Transparensforpliktelser
+            </span>
+            <svg class="accordion-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="accordion-content" id="art-50">
+            <p><strong>Hva det betyr:</strong> Brukere skal informeres når de samhandler med KI-systemer:</p>
+            <ul>
+              <li>Chatboter og språkmodeller må være tydelig merket</li>
+              <li>Elever skal vite når de snakker med KI</li>
+              <li>Unntak hvis det er åpenbart fra konteksten</li>
+            </ul>
+            <p><strong>For skolen:</strong> Merk tydelig alle KI-verktøy. Forklar hva som er KI og hva som ikke er det.</p>
+            <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_50" target="_blank" rel="noopener" class="external-link">Les full tekst →</a>
+          </div>
+        </div>
+
+        <!-- Artikkel 52 -->
+        <div class="accordion-item">
+          <button class="accordion-header" aria-expanded="false" aria-controls="art-52">
+            <span class="accordion-title">
+              <strong>Artikkel 52</strong> - KI-generert innhold
+            </span>
+            <svg class="accordion-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="accordion-content" id="art-52">
+            <p><strong>Hva det betyr:</strong> KI-generert innhold skal merkes:</p>
+            <ul>
+              <li>Bilder, lyd og video laget av KI må være identifiserbare</li>
+              <li>Tekst generert av KI skal merkes (men ikke hvis det er del av redigering)</li>
+              <li>Deepfakes og manipulert innhold må være tydelig merket</li>
+            </ul>
+            <p><strong>For skolen:</strong> Lær elever å merke KI-generert innhold. Diskuter etikk rundt deepfakes og manipulasjon.</p>
+            <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_52" target="_blank" rel="noopener" class="external-link">Les full tekst →</a>
+          </div>
+        </div>
+      </div>
+
+      <h3>Tidslinje for implementering</h3>
+      <div class="timeline" id="ai-timeline">
+        <div class="timeline-item" data-date="2024-08-01">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <strong>1. august 2024</strong> - AI Act trådte i kraft
+          </div>
+        </div>
+        <div class="timeline-item" data-date="2025-02-02">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <strong>Februar 2025</strong> - Forbud mot uakseptable praksiser (Art. 5)
+          </div>
+        </div>
+        <div class="timeline-item" data-date="2025-08-02">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <strong>August 2025</strong> - Krav til generativ KI og GPAI-modeller
+          </div>
+        </div>
+        <div class="timeline-item" data-date="2026-08-02">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <strong>August 2026</strong> - Transparenskrav (Art. 50, 52)
+          </div>
+        </div>
+        <div class="timeline-item" data-date="2027-08-02">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <strong>August 2027</strong> - Alle høyrisiko-krav fullt ut (Art. 6-29)
+          </div>
+        </div>
+      </div>
+
+      <h3>GDPR og AI Act sammen</h3>
+      <p>AI Act fungerer <strong>sammen med</strong> GDPR. Begge lovverk gjelder samtidig:</p>
+      <div class="info-box">
+        <h4>📋 Viktigste GDPR-artikler for KI:</h4>
+        <ul>
+          <li><strong>Art. 6</strong> - Lovlig behandlingsgrunnlag (samtykke, avtale, etc.)</li>
+          <li><strong>Art. 13-14</strong> - Informasjonsplikt overfor registrerte</li>
+          <li><strong>Art. 22</strong> - Rett til ikke å være gjenstand for automatiserte avgjørelser</li>
+          <li><strong>Art. 28</strong> - Databehandleravtale (OBLIGATORISK!)</li>
+          <li><strong>Art. 35</strong> - DPIA (vurdering av personvernkonsekvenser) for høyrisiko</li>
+        </ul>
+      </div>
+
+      <h3>Norsk lovverk</h3>
+      <div class="info-box">
+        <h4>⚖️ Relevant norsk lovgivning:</h4>
+        <ul>
+          <li><strong>Opplæringsloven</strong> - § 1-1 (likeverd), § 3-1 (rettssikkerhet), § 3-3 (psykososialt miljø), kap 9a (skolemiljø)</li>
+          <li><strong>Personopplysningsloven</strong> - Implementerer GDPR i Norge</li>
+          <li><strong>Diskrimineringsloven</strong> - § 6 (forbud mot diskriminering i utdanning)</li>
+          <li><strong>Forvaltningsloven</strong> - § 2 (klagerett på forvaltningsvedtak)</li>
+        </ul>
+      </div>
     </section>
 
     <!-- Sjekk deg selv View -->
@@ -78,24 +364,437 @@
 
     <!-- Tiltak View -->
     <section id="tiltak" class="view">
-      <h2>Tiltak for skolen</h2>
-      <ol>
-        <li>Kartlegg og klassifiser alle KI‑verktøy</li>
-        <li>Sikre datastyring, personvern og åpenhet</li>
-        <li>Etabler tydelig ansvar</li>
-        <li>Bygg KI‑kompetanse</li>
-        <li>Revisjon i årshjulet</li>
-      </ol>
-      <p class="note">Tekst utdypes i egen modul senere.</p>
+      <h2>Tiltak for skolen - Komplett sjekkliste</h2>
+      <p class="lead">Praktiske handlingsplaner for å bli compliant med AI Act. Start med trinn 1 og arbeid deg nedover.</p>
+
+      <h3>📋 Fase 1: Kartlegging (Uke 1-2)</h3>
+      <div class="tiltak-grid">
+        <div class="tiltak-card r-min">
+          <div class="tiltak-header">
+            <span class="tiltak-number">1.1</span>
+            <h4>Kartlegg alle KI-verktøy</h4>
+          </div>
+          <p>Lag en fullstendig liste over alle KI-systemer som brukes på skolen.</p>
+          <details class="tiltak-details">
+            <summary>Sjekkliste</summary>
+            <ul>
+              <li>✅ Chatboter (ChatGPT, Bing Chat, Claude, etc.)</li>
+              <li>✅ Generative AI-verktøy (Midjourney, DALL-E, etc.)</li>
+              <li>✅ Adaptive læringssystemer (Khan Academy, etc.)</li>
+              <li>✅ Oversettelsesverktøy (Google Translate, DeepL)</li>
+              <li>✅ Vurderingssystemer med KI</li>
+              <li>✅ Spamfiltre og sikkerhetssystemer</li>
+              <li>✅ Læringsspill med KI</li>
+            </ul>
+          </details>
+          <div class="tiltak-action">
+            <strong>Ansvar:</strong> IKT-ansvarlig + skoleleder
+          </div>
+        </div>
+
+        <div class="tiltak-card r-tra">
+          <div class="tiltak-header">
+            <span class="tiltak-number">1.2</span>
+            <h4>Klassifiser risikonivå</h4>
+          </div>
+          <p>For hvert verktøy: Bestem om det er minimal, transparens, høy eller uakseptabel risiko.</p>
+          <details class="tiltak-details">
+            <summary>Klassifiseringskriterier</summary>
+            <ul>
+              <li><strong class="r-min-text">Minimal:</strong> Spamfilter, enkle læringsspill</li>
+              <li><strong class="r-tra-text">Transparens:</strong> Chatboter, generativ AI</li>
+              <li><strong class="r-hoy-text">Høy risiko:</strong> Vurdering, karaktersystemer, elevprofiler</li>
+              <li><strong class="r-uat-text">Uakseptabel:</strong> Manipulasjon, skjult scoring, diskriminering</li>
+            </ul>
+          </details>
+          <div class="tiltak-action">
+            <strong>Verktøy:</strong> Bruk veiviseren på denne siden
+          </div>
+        </div>
+
+        <div class="tiltak-card r-hoy">
+          <div class="tiltak-header">
+            <span class="tiltak-number">1.3</span>
+            <h4>Lag oversikt med dokumentasjon</h4>
+          </div>
+          <p>Dokumenter alle verktøy i en tabell eller database.</p>
+          <details class="tiltak-details">
+            <summary>Kolonner i oversikten</summary>
+            <ul>
+              <li>📝 Verktøynavn og leverandør</li>
+              <li>🎯 Formål og bruksområde</li>
+              <li>⚠️ Risikonivå (Minimal/Transparens/Høy/Uakseptabel)</li>
+              <li>👤 Ansvarlig lærer/koordinator</li>
+              <li>📅 Dato for siste vurdering</li>
+              <li>✅ Status (Godkjent/Under vurdering/Ikke tillatt)</li>
+              <li>📄 Link til databehandleravtale (hvis relevant)</li>
+            </ul>
+          </details>
+          <div class="tiltak-action">
+            <strong>Mal:</strong> Excel/Google Sheets
+          </div>
+        </div>
+      </div>
+
+      <h3>🔒 Fase 2: Personvern og GDPR (Uke 3-4)</h3>
+      <div class="tiltak-grid">
+        <div class="tiltak-card r-tra">
+          <div class="tiltak-header">
+            <span class="tiltak-number">2.1</span>
+            <h4>Databehandleravtaler</h4>
+          </div>
+          <p>Alle verktøy som behandler persondata MÅ ha signert databehandleravtale.</p>
+          <details class="tiltak-details">
+            <summary>Hva må avtalen inneholde?</summary>
+            <ul>
+              <li>📋 Formål og varighet av behandlingen</li>
+              <li>🔐 Type persondata som behandles</li>
+              <li>🛡️ Sikkerhetstiltak (kryptering, tilgangskontroll)</li>
+              <li>🌍 Hvor data lagres (EU/EØS vs. tredjeland)</li>
+              <li>👥 Underleverandører (hvem har tilgang?)</li>
+              <li>🗑️ Prosedyre for sletting ved oppsigelse</li>
+              <li>✅ Rett til revisjon og kontroll</li>
+            </ul>
+          </details>
+          <div class="tiltak-action">
+            <strong>Ansvar:</strong> Personvernombud/DPO + IKT
+          </div>
+        </div>
+
+        <div class="tiltak-card r-hoy">
+          <div class="tiltak-header">
+            <span class="tiltak-number">2.2</span>
+            <h4>DPIA for høyrisiko-systemer</h4>
+          </div>
+          <p>Personvernkonsekvensvurdering (DPIA) er LOVPÅLAGT for høyrisiko KI.</p>
+          <details class="tiltak-details">
+            <summary>DPIA skal inneholde</summary>
+            <ul>
+              <li>📝 Systematisk beskrivelse av databehandlingen</li>
+              <li>🎯 Formål og nødvendighet (hvorfor KI?)</li>
+              <li>⚠️ Risikovurdering (hva kan gå galt?)</li>
+              <li>🛡️ Tiltak for å redusere risiko</li>
+              <li>⚖️ Proporsjonalitetsvurdering (er nytten større enn risikoen?)</li>
+              <li>✅ Godkjenning av personvernombud/DPO</li>
+              <li>📅 Årlig oppdatering</li>
+            </ul>
+          </details>
+          <div class="tiltak-action">
+            <strong>Verktøy:</strong> <a href="https://www.datatilsynet.no/rettigheter-og-plikter/virksomhetenes-plikter/vurdere-personvernkonsekvenser/" target="_blank" rel="noopener">Datatilsynets DPIA-guide</a>
+          </div>
+        </div>
+
+        <div class="tiltak-card r-tra">
+          <div class="tiltak-header">
+            <span class="tiltak-number">2.3</span>
+            <h4>Informer elever og foresatte</h4>
+          </div>
+          <p>Transparens er et krav både i GDPR og AI Act.</p>
+          <details class="tiltak-details">
+            <summary>Hva skal informeres om?</summary>
+            <ul>
+              <li>🤖 Hvilke KI-verktøy som brukes</li>
+              <li>🎯 Formål (hvorfor brukes KI?)</li>
+              <li>📊 Hvilke data som samles inn</li>
+              <li>🔒 Hvordan data beskyttes</li>
+              <li>👥 Hvem som har tilgang til data</li>
+              <li>🗑️ Hvor lenge data lagres</li>
+              <li>✋ Rett til innsyn, sletting og reservasjon</li>
+              <li>📞 Kontaktinformasjon for spørsmål</li>
+            </ul>
+          </details>
+          <div class="tiltak-action">
+            <strong>Kanal:</strong> Foreldremøte, nyhetsbrev, Vigilo/Its learning
+          </div>
+        </div>
+      </div>
+
+      <h3>👥 Fase 3: Ansvar og organisering (Uke 5-6)</h3>
+      <div class="tiltak-grid">
+        <div class="tiltak-card r-min">
+          <div class="tiltak-header">
+            <span class="tiltak-number">3.1</span>
+            <h4>Opprett KI-arbeidsgruppe</h4>
+          </div>
+          <p>Samle nøkkelpersoner som skal jobbe med KI-implementering.</p>
+          <details class="tiltak-details">
+            <summary>Hvem skal være med?</summary>
+            <ul>
+              <li>👔 Skoleleder (ansvarlig for compliance)</li>
+              <li>💻 IKT-ansvarlig (teknisk kompetanse)</li>
+              <li>🔐 Personvernombud/DPO (GDPR-ansvar)</li>
+              <li>👨‍🏫 Lærerrepresentant (brukerperspektiv)</li>
+              <li>👨‍🎓 Elevrepresentant (brukermedvirkning)</li>
+              <li>📋 Tillitsvalgt (medbestemmelse)</li>
+            </ul>
+          </details>
+          <div class="tiltak-action">
+            <strong>Møtefrekvens:</strong> Månedlig første år, deretter kvartalsvis
+          </div>
+        </div>
+
+        <div class="tiltak-card r-tra">
+          <div class="tiltak-header">
+            <span class="tiltak-number">3.2</span>
+            <h4>Utarbeid retningslinjer</h4>
+          </div>
+          <p>Skriv ned klare retningslinjer for bruk av KI på skolen.</p>
+          <details class="tiltak-details">
+            <summary>Retningslinjer skal dekke</summary>
+            <ul>
+              <li>✅ Tillatte KI-verktøy og bruksområder</li>
+              <li>❌ Forbudte verktøy og praksiser</li>
+              <li>👨‍🏫 Lærernes ansvar og plikter</li>
+              <li>👨‍🎓 Elevenes rettigheter (klageadgang, innsyn)</li>
+              <li>🎯 Pedagogisk begrunnelse for KI-bruk</li>
+              <li>🔒 Personvern og datasikkerhet</li>
+              <li>📊 Vurdering og evaluering med KI</li>
+              <li>🚨 Håndtering av hendelser og klager</li>
+              <li>📅 Prosess for evaluering og oppdatering</li>
+            </ul>
+          </details>
+          <div class="tiltak-action">
+            <strong>Godkjenning:</strong> Skolens ledelse + medvirkning fra ansatte og elever
+          </div>
+        </div>
+
+        <div class="tiltak-card r-hoy">
+          <div class="tiltak-header">
+            <span class="tiltak-number">3.3</span>
+            <h4>Definer ansvarsroller</h4>
+          </div>
+          <p>Klargjør hvem som er ansvarlig for hva.</p>
+          <details class="tiltak-details">
+            <summary>Rollebeskrivelser</summary>
+            <ul>
+              <li><strong>Skoleleder:</strong> Overordnet ansvar for compliance med AI Act</li>
+              <li><strong>IKT-ansvarlig:</strong> Teknisk drift, avtaler med leverandører</li>
+              <li><strong>Personvernombud:</strong> GDPR-compliance, DPIA-godkjenning</li>
+              <li><strong>KI-koordinator:</strong> Daglig oppfølging av KI-verktøy</li>
+              <li><strong>Lærere:</strong> Ansvarlig bruk, dokumentasjon, tilbakemelding</li>
+              <li><strong>Leverandør:</strong> Teknisk dokumentasjon, oppdateringer, support</li>
+            </ul>
+          </details>
+          <div class="tiltak-action">
+            <strong>Dokument:</strong> Lag en RACI-matrise (Responsible, Accountable, Consulted, Informed)
+          </div>
+        </div>
+      </div>
+
+      <h3>📚 Fase 4: Kompetansebygging (Pågående)</h3>
+      <div class="tiltak-grid">
+        <div class="tiltak-card r-tra">
+          <div class="tiltak-header">
+            <span class="tiltak-number">4.1</span>
+            <h4>Opplæring for lærere</h4>
+          </div>
+          <p>Alle lærere må ha grunnleggende KI- og AI Act-kompetanse.</p>
+          <details class="tiltak-details">
+            <summary>Opplæringstemaer</summary>
+            <ul>
+              <li>🤖 Hva er KI? (Grunnleggende forståelse)</li>
+              <li>📜 AI Act og GDPR (Juridisk ramme)</li>
+              <li>⚠️ Risikovurdering (Hvordan klassifisere?)</li>
+              <li>🔒 Personvern og datasikkerhet</li>
+              <li>👨‍🎓 Elevrettigheter og medvirkning</li>
+              <li>📊 Ansvarlig bruk av KI i vurdering</li>
+              <li>🎯 Pedagogisk bruk (når er KI hensiktsmessig?)</li>
+              <li>🚨 Håndtering av hendelser</li>
+            </ul>
+          </details>
+          <div class="tiltak-action">
+            <strong>Ressurs:</strong> <a href="https://www.udir.no/laring-og-trivsel/rammeverk/kompetansepakke-for-kunstig-intelligens-i-skolen/" target="_blank" rel="noopener">Udirs kompetansepakke</a>
+          </div>
+        </div>
+
+        <div class="tiltak-card r-min">
+          <div class="tiltak-header">
+            <span class="tiltak-number">4.2</span>
+            <h4>KI-undervisning for elever</h4>
+          </div>
+          <p>Elever skal forstå KI og sine rettigheter.</p>
+          <details class="tiltak-details">
+            <summary>Læremål for elever</summary>
+            <ul>
+              <li>🤖 Hva er KI og hvordan fungerer det?</li>
+              <li>🔍 Kildekritikk (KI gjør feil!)</li>
+              <li>⚖️ Etikk og ansvar</li>
+              <li>🔒 Personvern og datarettigheter</li>
+              <li>✋ Rett til innsyn, sletting og klage</li>
+              <li>🎨 Opphavsrett og KI-generert innhold</li>
+              <li>💡 Kreativ og kritisk bruk</li>
+            </ul>
+          </details>
+          <div class="tiltak-action">
+            <strong>Integrasjon:</strong> Tverrfaglig i alle fag
+          </div>
+        </div>
+
+        <div class="tiltak-card r-hoy">
+          <div class="tiltak-header">
+            <span class="tiltak-number">4.3</span>
+            <h4>Løpende kompetanseheving</h4>
+          </div>
+          <p>KI-feltet utvikler seg raskt. Kontinuerlig læring er nødvendig.</p>
+          <details class="tiltak-details">
+            <summary>Arenaer for læring</summary>
+            <ul>
+              <li>📅 Månedlige frokostmøter om KI</li>
+              <li>👥 Fagfellesskap (f.eks. <a href="https://www.laererliv.no/" target="_blank" rel="noopener">lærerLiv</a>)</li>
+              <li>📚 Nyhetsbrev fra Datatilsynet og Udir</li>
+              <li>🎓 Kurs og webinarer</li>
+              <li>🔬 Pilotering og testing av nye verktøy</li>
+              <li>📊 Deling av erfaringer på personalmøter</li>
+            </ul>
+          </details>
+          <div class="tiltak-action">
+            <strong>Tid:</strong> Sett av 2 timer/måned i årshjulet
+          </div>
+        </div>
+      </div>
+
+      <h3>🔄 Fase 5: Oppfølging og evaluering (Kontinuerlig)</h3>
+      <div class="tiltak-grid">
+        <div class="tiltak-card r-tra">
+          <div class="tiltak-header">
+            <span class="tiltak-number">5.1</span>
+            <h4>Logging og monitorering</h4>
+          </div>
+          <p>Dokumenter bruk av KI-systemer, spesielt høyrisiko.</p>
+          <details class="tiltak-details">
+            <summary>Hva skal logges?</summary>
+            <ul>
+              <li>📊 Bruksstatistikk (hvor mye brukes systemet?)</li>
+              <li>👨‍🏫 Lærerinngrep (overstyringer av KI-beslutninger)</li>
+              <li>⚠️ Hendelser og feil</li>
+              <li>📞 Klager fra elever/foresatte</li>
+              <li>🔧 Systemoppdateringer og endringer</li>
+              <li>📋 DPIA-oppdateringer</li>
+            </ul>
+          </details>
+          <div class="tiltak-action">
+            <strong>Lagringstid:</strong> Minimum 6 måneder (AI Act Art. 29)
+          </div>
+        </div>
+
+        <div class="tiltak-card r-hoy">
+          <div class="tiltak-header">
+            <span class="tiltak-number">5.2</span>
+            <h4>Bias-testing og kvalitetskontroll</h4>
+          </div>
+          <p>Test KI-systemer jevnlig for bias og diskriminering.</p>
+          <details class="tiltak-details">
+            <summary>Testområder</summary>
+            <ul>
+              <li>⚧️ Kjønnsbias (behandler systemet gutter og jenter likt?)</li>
+              <li>🌍 Språkbias (norsk vs. andre språk?)</li>
+              <li>🎂 Alderbias (yngre vs. eldre elever?)</li>
+              <li>🎭 Kulturell bias (minoriteter?)</li>
+              <li>♿ Funksjonshemming (universell utforming?)</li>
+              <li>📊 Teknisk nøyaktighet (feilrater?)</li>
+            </ul>
+          </details>
+          <div class="tiltak-action">
+            <strong>Frekvens:</strong> Halvårlig for høyrisiko-systemer
+          </div>
+        </div>
+
+        <div class="tiltak-card r-min">
+          <div class="tiltak-header">
+            <span class="tiltak-number">5.3</span>
+            <h4>Årlig gjennomgang</h4>
+          </div>
+          <p>Sett av tid i årshjulet til å evaluere og oppdatere.</p>
+          <details class="tiltak-details">
+            <summary>Sjekkliste årlig gjennomgang</summary>
+            <ul>
+              <li>📋 Oppdater oversikt over KI-verktøy</li>
+              <li>⚠️ Re-evaluer risikonivå</li>
+              <li>📄 Sjekk at alle avtaler er gyldige</li>
+              <li>🔐 DPIA-oppdatering for høyrisiko</li>
+              <li>📚 Evaluer retningslinjer (trenger de endring?)</li>
+              <li>👥 Hør med brukere (lærere, elever, foresatte)</li>
+              <li>📊 Analyser logger og hendelser</li>
+              <li>✅ Dokumenter compliance med AI Act</li>
+              <li>🎯 Sett mål for neste år</li>
+            </ul>
+          </details>
+          <div class="tiltak-action">
+            <strong>Tidspunkt:</strong> Mai/juni (planlegg for nytt skoleår)
+          </div>
+        </div>
+      </div>
+
+      <h3>🚨 Krisehåndtering</h3>
+      <div class="alert-box">
+        <h4>Hvis noe går galt:</h4>
+        <ol>
+          <li><strong>STOPP</strong> bruken av systemet umiddelbart</li>
+          <li><strong>DOKUMENTER</strong> hendelsen (hva, når, hvem ble berørt)</li>
+          <li><strong>INFORMER</strong> berørte parter (elever, foresatte)</li>
+          <li><strong>KONTAKT</strong> leverandør og personvernombud</li>
+          <li><strong>VURDER</strong> om hendelsen må rapporteres til Datatilsynet (brudd på GDPR = innen 72 timer)</li>
+          <li><strong>JUSTER</strong> rutiner for å forhindre gjentakelse</li>
+        </ol>
+      </div>
+
+      <h3>📥 Last ned tiltaksplan</h3>
+      <div class="download-box">
+        <p>Få en profesjonell rapport med alle faser, sjekklister og ressurser:</p>
+        <button class="cta" onclick="printTiltaksplan()" style="margin-top: 1rem;">
+          📄 Lag PDF-rapport
+        </button>
+        <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 1rem;">
+          💡 <strong>Tips:</strong> PDF-rapporten åpnes i nytt vindu - velg "Lagre som PDF" i utskriftsmenyen
+        </p>
+      </div>
     </section>
 
     <!-- Ressurser View -->
-    <section id="ressurser" class="view">
+    <section id="ressurser" class="view hero-bg" data-bg="nodes-2.png">
       <h2>Ressurser</h2>
+      
+      <h3>Offisielle kilder - EU AI Act</h3>
       <ul>
-        <li><a href="https://artificialintelligenceact.eu/" target="_blank" rel="noopener">EU AI Act</a></li>
-        <li><a href="https://www.datatilsynet.no/" target="_blank" rel="noopener">Datatilsynet</a></li>
-        <li><a href="https://nkom.no/" target="_blank" rel="noopener">Nkom</a></li>
+        <li><a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689" target="_blank" rel="noopener">EU AI Act - Offisiell tekst (EUR-Lex)</a></li>
+        <li><a href="https://artificialintelligenceact.eu/" target="_blank" rel="noopener">AI Act - Lettlest oversikt</a></li>
+        <li><a href="https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai" target="_blank" rel="noopener">EU Commission - AI Strategy</a></li>
+      </ul>
+
+      <h3>Norske myndigheter</h3>
+      <ul>
+        <li><a href="https://www.datatilsynet.no/" target="_blank" rel="noopener">Datatilsynet (GDPR og personvern)</a></li>
+        <li><a href="https://www.datatilsynet.no/regelverk-og-verktoy/kunstig-intelligens-og-personvern/" target="_blank" rel="noopener">Datatilsynet - KI og personvern</a></li>
+        <li><a href="https://www.udir.no/" target="_blank" rel="noopener">Utdanningsdirektoratet</a></li>
+        <li><a href="https://www.regjeringen.no/no/tema/utdanning/grunnopplaring/id1378/" target="_blank" rel="noopener">Kunnskapsdepartementet</a></li>
+      </ul>
+
+      <h3>GDPR og personvern</h3>
+      <ul>
+        <li><a href="https://gdpr.eu/" target="_blank" rel="noopener">GDPR - Komplett guide</a></li>
+        <li><a href="https://lovdata.no/dokument/NL/lov/2018-06-15-38" target="_blank" rel="noopener">Personopplysningsloven (Lovdata)</a></li>
+        <li><a href="https://www.datatilsynet.no/rettigheter-og-plikter/virksomhetenes-plikter/vurdere-personvernkonsekvenser/" target="_blank" rel="noopener">Guide: DPIA (personvernkonsekvensvurdering)</a></li>
+      </ul>
+
+      <h3>Norsk lovverk</h3>
+      <ul>
+        <li><a href="https://lovdata.no/dokument/NL/lov/1998-07-17-61" target="_blank" rel="noopener">Opplæringsloven (Lovdata)</a></li>
+        <li><a href="https://lovdata.no/dokument/NL/lov/2017-06-16-51" target="_blank" rel="noopener">Diskrimineringsloven (Lovdata)</a></li>
+        <li><a href="https://lovdata.no/dokument/NL/lov/1967-02-10" target="_blank" rel="noopener">Forvaltningsloven (Lovdata)</a></li>
+      </ul>
+
+      <h3>Veiledere og verktøy</h3>
+      <ul>
+        <li><a href="https://www.udir.no/laring-og-trivsel/rammeverk/kompetansepakke-for-kunstig-intelligens-i-skolen/" target="_blank" rel="noopener">Udir - KI i skolen (kompetansepakke)</a></li>
+        <li><a href="https://www.laererliv.no/" target="_blank" rel="noopener">lærerLiv - Fagfellesskap for lærere</a></li>
+        <li><a href="https://www.kommunikasjon.ntb.no/pressemelding/udir-lanserer-kompetansepakke-om-kunstig-intelligens-i-skolen?publisherId=17847109" target="_blank" rel="noopener">Udir lanserer KI-kompetansepakke</a></li>
+      </ul>
+
+      <h3>Internasjonal forskning</h3>
+      <ul>
+        <li><a href="https://www.oecd.org/education/artificial-intelligence-in-education.htm" target="_blank" rel="noopener">OECD - AI in Education</a></li>
+        <li><a href="https://en.unesco.org/artificial-intelligence/education" target="_blank" rel="noopener">UNESCO - AI and Education</a></li>
+        <li><a href="https://ec.europa.eu/jrc/en/publication/eur-scientific-and-technical-research-reports/future-education-and-skills-2030-artificial-intelligence-and-education" target="_blank" rel="noopener">European Commission - AI and Education Research</a></li>
       </ul>
     </section>
 
@@ -110,7 +809,12 @@
 
   <footer>
     <div class="wrap">
-      <small>CC BY‑SA • Ingen sporing • Versjon 0.2 • <a href="https://github.com/barx10/ki_forordninga" target="_blank" rel="noopener">GitHub</a></small>
+      <div class="footer-content">
+        <a href="https://www.laererliv.no/" target="_blank" rel="noopener" aria-label="lærerLiv">
+          <img src="laererliv-logo.png" alt="lærerLiv logo" class="footer-logo">
+        </a>
+        <small>CC BY‑SA • Ingen sporing • Versjon 0.4 • <a href="https://github.com/barx10/ki_forordninga" target="_blank" rel="noopener">GitHub</a></small>
+      </div>
     </div>
   </footer>
 

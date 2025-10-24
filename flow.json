@@ -409,7 +409,22 @@
       "title": "✅ Minimal risiko",
       "text": "Dette spillet/verktøyet faller under minimal risiko. Lite behov for dokumentasjon, men følg god personvernpraksis.\n\nAnbefalinger:\n• Informer elever om KI-bruk (god praksis)\n• Sjekk at verktøyet er trygt og pedagogisk egnet\n• Dokumenter hvorfor verktøyet er valgt",
       "class": "r-min",
-      "actions": ["Fortsett bruk", "Informer elever", "Årlig evaluering"]
+      "actions": ["Fortsett bruk", "Informer elever", "Årlig evaluering"],
+      "articles": [
+        {
+          "number": "Artikkel 6",
+          "title": "Klassifiseringsregler",
+          "description": "KI-systemer som ikke faller under høyrisiko eller forbudte kategorier klassifiseres som minimal risiko.",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_6"
+        },
+        {
+          "number": "Artikkel 50",
+          "title": "Transparensforpliktelser",
+          "description": "Selv ved minimal risiko anbefales transparens om KI-bruk.",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_50"
+        }
+      ],
+      "gdpr": ["Artikkel 5 (prinsipper)", "Artikkel 13 (informasjonsplikt)"]
     },
     "minimal_usikker": {
       "title": "⚠️ Minimal risiko (usikker kvalitet)",
@@ -421,7 +436,22 @@
       "title": "✅ Transparenskrav oppfylt",
       "text": "Dere oppfyller transparenskravene i AI Act (Art. 50). God håndtering!\n\nViktig å opprettholde:\n• Kontinuerlig informasjon til brukere\n• Oppdatere samtykker ved endringer\n• Dokumentere KI-bruken\n• Evaluere jevnlig",
       "class": "r-tra",
-      "actions": ["Oppretthold praksis", "Årlig evaluering", "Oppdater ved endringer"]
+      "actions": ["Oppretthold praksis", "Årlig evaluering", "Oppdater ved endringer"],
+      "articles": [
+        {
+          "number": "Artikkel 50",
+          "title": "Transparensforpliktelser for visse KI-systemer",
+          "description": "Brukere skal informeres når de samhandler med KI-systemer, med mindre dette er åpenbart fra konteksten.",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_50"
+        },
+        {
+          "number": "Artikkel 52",
+          "title": "Transparens ved dyptfalskt innhold",
+          "description": "Generert eller manipulert innhold skal merkes tydelig.",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_52"
+        }
+      ],
+      "gdpr": ["Artikkel 13 (informasjonsplikt)", "Artikkel 14 (informasjon når data ikke er samlet fra den registrerte)"]
     },
     "transparens_planlagt": {
       "title": "📋 Transparenskrav - under planlegging",
@@ -439,25 +469,75 @@
       "title": "⚠️ Manglende samtykke",
       "text": "Hvis persondata behandles kan samtykke være nødvendig (GDPR).\n\nHandlinger:\n• Vurder med personvernombud/DPO\n• Innhent samtykke hvis nødvendig\n• Dokumenter rettslig grunnlag\n• Informer om rettigheter (innsyn, sletting)",
       "class": "r-tra",
-      "actions": ["Kontakt DPO", "Innhent samtykke", "Dokumenter"]
+      "actions": ["Kontakt DPO", "Innhent samtykke", "Dokumenter"],
+      "articles": [
+        {
+          "number": "Artikkel 50",
+          "title": "Transparensforpliktelser",
+          "description": "Brukere skal informeres når de samhandler med KI-systemer.",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_50"
+        }
+      ],
+      "gdpr": [
+        "Artikkel 6 (lovlig behandlingsgrunnlag - samtykke er ett av seks grunnlag)",
+        "Artikkel 7 (vilkår for samtykke)",
+        "Artikkel 13 (informasjonsplikt)"
+      ]
     },
     "transparens_undersok": {
       "title": "📋 Transparens - må undersøkes",
       "text": "Undersøk leverandørens personvernpolicy før bruk.\n\nSjekkliste:\n• Hvilke data samles inn?\n• Hvor lagres data?\n• Hvem har tilgang?\n• Slettes data ved oppsigelse?\n• Databehandleravtale tilgjengelig?\n• GDPR-compliance?",
       "class": "r-tra",
-      "actions": ["Undersøk policy", "Kontakt leverandør", "Vurder alternativer"]
+      "actions": ["Undersøk policy", "Kontakt leverandør", "Vurder alternativer"],
+      "articles": [
+        {
+          "number": "Artikkel 13",
+          "title": "Transparens og informasjon",
+          "description": "Tilbydere må gi tilstrekkelig informasjon om KI-systemet.",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_13"
+        }
+      ],
+      "gdpr": ["Artikkel 13 (informasjonsplikt)", "Artikkel 28 (krav til databehandler)"]
     },
     "transparens_kreativ": {
       "title": "✅ Transparens for kreative verktøy",
       "text": "Godt at dere informerer om KI-bruk! Kreative verktøy er ofte lavrisiko.\n\nBest practice:\n• Lær elever om hvordan KI fungerer\n• Diskuter etisk bruk\n• Vurder kildekritikk og opphavsrett\n• Dokumenter pedagogisk bruk",
       "class": "r-tra",
-      "actions": ["Pedagogisk bruk", "Etisk diskusjon", "Kildekritikk"]
+      "actions": ["Pedagogisk bruk", "Etisk diskusjon", "Kildekritikk"],
+      "articles": [
+        {
+          "number": "Artikkel 50",
+          "title": "Transparensforpliktelser",
+          "description": "Brukere skal informeres når de samhandler med KI-systemer, også ved kreative verktøy.",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_50"
+        },
+        {
+          "number": "Artikkel 52",
+          "title": "Transparens for KI-generert innhold",
+          "description": "KI-generert innhold skal merkes slik at brukere vet det er laget av KI.",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_52"
+        }
+      ]
     },
     "transparens_mangler": {
       "title": "⚠️ Manglende transparens",
       "text": "AI Act krever at brukere informeres når KI brukes (Art. 50).\n\nHandling nødvendig:\n• Informer tydelig om KI-bruk\n• Forklar hva verktøyet gjør\n• Gi elevene valgmuligheter hvis mulig\n• Dokumenter informasjonen",
       "class": "r-tra",
-      "actions": ["Informer brukere", "Tydelig merking", "Dokumenter"]
+      "actions": ["Informer brukere", "Tydelig merking", "Dokumenter"],
+      "articles": [
+        {
+          "number": "Artikkel 50",
+          "title": "Transparensforpliktelser",
+          "description": "Brukere skal informeres når de samhandler med KI-systemer.",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_50"
+        },
+        {
+          "number": "Artikkel 13",
+          "title": "Informasjonsplikt for høyrisiko KI-systemer",
+          "description": "Brukere må få klar, forståelig informasjon om KI-systemets kapasiteter og begrensninger.",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_13"
+        }
+      ]
     },
     "transparens_oversettelse": {
       "title": "✅ Transparens for oversettelse",
@@ -529,19 +609,75 @@
       "title": "🚨 STOPP - mangler retningslinjer",
       "text": "Bruk av KI i vurdering uten retningslinjer er høyrisiko!\n\nKritisk handling:\n• STOPP bruk inntil retningslinjer er på plass\n• Utarbeid retningslinjer med ledelse\n• Involver verneombud og tillitsvalgte\n• Godkjenn i skolens ledelse\n• Informer alle berørte",
       "class": "r-uat",
-      "actions": ["STOPP bruk", "Utarbeid retningslinjer", "Formell godkjenning"]
+      "actions": ["STOPP bruk", "Utarbeid retningslinjer", "Formell godkjenning"],
+      "articles": [
+        {
+          "number": "Artikkel 29",
+          "title": "Forpliktelser for brukere av høyrisiko KI-systemer",
+          "description": "Brukere må ha retningslinjer og prosedyrer for ansvarlig bruk.",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_29"
+        }
+      ],
+      "other_laws": ["Opplæringsloven § 3-1 (elevenes rettssikkerhet i vurdering)"]
     },
     "hoy_godt_styrt": {
       "title": "✅ Høy risiko - godt styrt",
       "text": "Systemet er høyrisiko, men dere håndterer det godt med dokumentasjon og menneskelig kontroll.\n\nOppretthold:\n• Fortsett dokumentasjon av overstyringer\n• Årlig risikovurdering\n• Bias-testing\n• Brukermedvirkning\n• Følg AI Act compliance (Art. 6, Annex III)",
       "class": "r-hoy",
-      "actions": ["Oppretthold praksis", "Årlig risikovurdering", "Bias-testing"]
+      "actions": ["Oppretthold praksis", "Årlig risikovurdering", "Bias-testing"],
+      "articles": [
+        {
+          "number": "Artikkel 6",
+          "title": "Klassifiseringsregler for høyrisiko KI-systemer",
+          "description": "KI-systemer i utdanning og opplæring som påvirker tilgang eller evaluering regnes som høyrisiko.",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_6"
+        },
+        {
+          "number": "Annex III punkt 3",
+          "title": "Høyrisiko KI-systemer - Utdanning og opplæring",
+          "description": "KI-systemer som bestemmer tilgang til utdanningsinstitusjoner eller evaluerer læringsresultater.",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#anx_III"
+        },
+        {
+          "number": "Artikkel 9",
+          "title": "Risikostyringssystem",
+          "description": "Høyrisiko KI-systemer må ha et kontinuerlig risikostyringssystem gjennom hele livssyklusen.",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_9"
+        },
+        {
+          "number": "Artikkel 10",
+          "title": "Data og datastyrings",
+          "description": "Treningsdata må være relevant, representativ og fri for feil.",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_10"
+        },
+        {
+          "number": "Artikkel 14",
+          "title": "Menneskelig tilsyn",
+          "description": "Høyrisiko KI-systemer må designes for effektiv menneskelig kontroll (human oversight).",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_14"
+        }
+      ],
+      "gdpr": ["Artikkel 35 (DPIA)", "Artikkel 22 (automatiserte avgjørelser)"]
     },
     "hoy_forbedring": {
       "title": "⚠️ Høy risiko - trenger forbedring",
       "text": "Systemet er høyrisiko. Dokumentasjon av overstyringer mangler eller er mangelfull.\n\nHandlinger:\n• Etabler dokumentasjonssystem\n• Loggfør alle lærerinngrep\n• Årlig risikovurdering\n• Bias-testing\n• Vurder om systemet bør brukes",
       "class": "r-hoy",
-      "actions": ["Etabler dokumentasjon", "Risikovurdering", "Vurder alternativ"]
+      "actions": ["Etabler dokumentasjon", "Risikovurdering", "Vurder alternativ"],
+      "articles": [
+        {
+          "number": "Artikkel 14",
+          "title": "Menneskelig tilsyn",
+          "description": "Høyrisiko KI-systemer må designes for effektiv menneskelig kontroll, og overstyringer må dokumenteres.",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_14"
+        },
+        {
+          "number": "Artikkel 9",
+          "title": "Risikostyringssystem",
+          "description": "Krav om kontinuerlig risikovurdering og dokumentasjon.",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_9"
+        }
+      ]
     },
     "hoy_under_kontroll": {
       "title": "✅ Høy risiko - kontrollerbart",
@@ -553,7 +689,29 @@
       "title": "🚨 UAKSEPTABELT - kan ikke stoppes",
       "text": "Et høyrisiko KI-system som ikke kan stoppes er uakseptabelt i utdanning!\n\nKritisk handling:\n• STOPP bruk umiddelbart\n• Kontakt leverandør for stoppmekanisme\n• Hvis ikke mulig: Velg annet system\n• Dokumenter hendelsen\n• Informer ledelse og personvernombud",
       "class": "r-uat",
-      "actions": ["STOPP UMIDDELBART", "Kontakt leverandør", "Velg alternativ"]
+      "actions": ["STOPP UMIDDELBART", "Kontakt leverandør", "Velg alternativ"],
+      "articles": [
+        {
+          "number": "Artikkel 5",
+          "title": "Forbudte KI-praksiser",
+          "description": "KI-systemer som utgjør uakseptabel risiko for menneskers sikkerhet og rettigheter er forbudt.",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_5"
+        },
+        {
+          "number": "Artikkel 14",
+          "title": "Menneskelig tilsyn",
+          "description": "Høyrisiko-systemer MÅ kunne stoppes og overstyres av mennesker.",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_14"
+        },
+        {
+          "number": "Artikkel 29",
+          "title": "Forpliktelser for brukere av høyrisiko KI-systemer",
+          "description": "Brukere må kunne stoppe systemet ved uventede risikoer.",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_29"
+        }
+      ],
+      "gdpr": ["Artikkel 22 (rett til ikke å være gjenstand for automatiserte avgjørelser)"],
+      "other_laws": ["Opplæringsloven § 3-3 (elevenes medvirkning og psykososiale miljø)"]
     },
     "hoy_transparent": {
       "title": "✅ Høy risiko - transparent ansvar",
@@ -565,7 +723,21 @@
       "title": "🚨 STOPP - uklart ansvar",
       "text": "Uklart ansvar ved høyrisiko KI er uakseptabelt!\n\nKritisk handling:\n• STOPP bruk inntil ansvar er klargjort\n• Krev skriftlig ansvarsavklaring fra leverandør\n• Hvis leverandør ikke kan svare: Velg annet system\n• Dokumenter prosessen\n• Involver juridisk kompetanse",
       "class": "r-uat",
-      "actions": ["STOPP bruk", "Krev ansvarsavklaring", "Juridisk vurdering"]
+      "actions": ["STOPP bruk", "Krev ansvarsavklaring", "Juridisk vurdering"],
+      "articles": [
+        {
+          "number": "Artikkel 29",
+          "title": "Forpliktelser for brukere av høyrisiko KI-systemer",
+          "description": "Brukere må sikre klar ansvarsfordeling og dokumentasjon.",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_29"
+        },
+        {
+          "number": "Artikkel 16",
+          "title": "Forpliktelser for tilbydere",
+          "description": "Tilbydere må gi brukere nødvendig informasjon om ansvar.",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_16"
+        }
+      ]
     },
     "hoy_delvis_transparent": {
       "title": "⚠️ Høy risiko - delvis transparent",
@@ -589,7 +761,23 @@
       "title": "🚨 KRITISK - mangler rettssikkerhet",
       "text": "Høyrisiko KI-vurdering uten klageadgang er uakseptabelt!\n\nKritisk handling:\n• STOPP bruk til klageprosess er etablert\n• Utarbeid klageprosedyre\n• Informer alle elever/foresatte\n• Etabler uavhengig klageinstans\n• Dokumenter prosessen",
       "class": "r-uat",
-      "actions": ["STOPP bruk", "Etabler klageprosess", "Informer alle"]
+      "actions": ["STOPP bruk", "Etabler klageprosess", "Informer alle"],
+      "articles": [
+        {
+          "number": "Artikkel 14",
+          "title": "Menneskelig tilsyn",
+          "description": "Høyrisiko-systemer må ha mekanismer for menneskelig overstyring og klage.",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_14"
+        },
+        {
+          "number": "Artikkel 29",
+          "title": "Forpliktelser for brukere",
+          "description": "Brukere må sikre rettssikkerhet og klagemekanismer.",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_29"
+        }
+      ],
+      "gdpr": ["Artikkel 22 (rett til ikke å være gjenstand for automatiserte avgjørelser)"],
+      "other_laws": ["Opplæringsloven § 3-1 (elevenes rettssikkerhet)", "Forvaltningsloven § 2 (klagerett)"]
     },
     "hoy_under_utvikling": {
       "title": "📋 Høy risiko - under utvikling",
@@ -601,7 +789,21 @@
       "title": "🚨 STOPP - ikke bruk dette systemet",
       "text": "Hvis leverandør ikke kan levere dokumentasjon skal systemet IKKE brukes!\n\nAlternativer:\n• Søk andre leverandører med transparens\n• Vurder ikke-KI løsninger\n• Vurder lavere risiko KI-verktøy\n• Dokumenter hvorfor systemet ble avvist\n• Del erfaring med andre skoler",
       "class": "r-uat",
-      "actions": ["IKKE bruk", "Søk alternativer", "Dokumenter valg"]
+      "actions": ["IKKE bruk", "Søk alternativer", "Dokumenter valg"],
+      "articles": [
+        {
+          "number": "Artikkel 13",
+          "title": "Transparens og informasjon",
+          "description": "Tilbydere MÅ gi brukere tilstrekkelig dokumentasjon.",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_13"
+        },
+        {
+          "number": "Artikkel 11",
+          "title": "Teknisk dokumentasjon",
+          "description": "Høyrisiko-systemer må ha omfattende teknisk dokumentasjon.",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_11"
+        }
+      ]
     },
     "hoy_medvirkning": {
       "title": "✅ Høy risiko - med brukermedvirkning",
@@ -625,7 +827,21 @@
       "title": "🚨 STOPP - mangler kapasitet",
       "text": "Uten kapasitet til testing og kvalitetssikring skal høyrisiko KI IKKE brukes!\n\nAlternativer:\n• Utsett implementering til kapasitet er på plass\n• Søk ekstern bistand (konsulent, IKT-samarbeid)\n• Velg lavere risiko KI-verktøy\n• Dokumenter kapasitetsvurderingen",
       "class": "r-uat",
-      "actions": ["IKKE start", "Bygg kapasitet", "Søk alternativer"]
+      "actions": ["IKKE start", "Bygg kapasitet", "Søk alternativer"],
+      "articles": [
+        {
+          "number": "Artikkel 9",
+          "title": "Risikostyringssystem",
+          "description": "Høyrisiko-systemer krever kontinuerlig risikostyring og testing.",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_9"
+        },
+        {
+          "number": "Artikkel 29",
+          "title": "Forpliktelser for brukere",
+          "description": "Brukere må ha teknisk kompetanse til å bruke systemet forsvarlig.",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_29"
+        }
+      ]
     },
     "hoy_personvern_ok": {
       "title": "✅ Høy risiko - personvern godkjent",
@@ -637,55 +853,170 @@
       "title": "⚠️ Høy risiko - personvern pågår",
       "text": "DPIA gjennomført men ikke godkjent ennå.\n\nHandlinger:\n• Få godkjenning før oppstart\n• Følg opp DPO-kommentarer\n• Juster systemet ved behov\n• Dokumenter godkjenningsprosessen\n• IKKE start før godkjenning",
       "class": "r-hoy",
-      "actions": ["Få godkjenning", "Følg opp", "Vent med oppstart"]
+      "actions": ["Få godkjenning", "Følg opp", "Vent med oppstart"],
+      "articles": [
+        {
+          "number": "Artikkel 9",
+          "title": "Risikostyringssystem",
+          "description": "Risikovurdering må godkjennes før implementering.",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_9"
+        }
+      ],
+      "gdpr": ["Artikkel 35 (DPIA må godkjennes av DPO)", "Artikkel 36 (forhåndssamråd ved høy risiko)"]
     },
     "hoy_personvern_planlagt": {
       "title": "📋 Høy risiko - DPIA planlagt",
       "text": "Godt at DPIA planlegges! Dette er ofte lovpålagt.\n\nDPIA må inkludere:\n• Beskrivelse av databehandling\n• Formål og nødvendighet\n• Risikovurdering\n• Tiltak for å redusere risiko\n• Vurdering av proporsjoner\n• Godkjenning av DPO/personvernombud",
       "class": "r-hoy",
-      "actions": ["Gjennomfør DPIA", "Involver DPO", "Få godkjenning"]
+      "actions": ["Gjennomfør DPIA", "Involver DPO", "Få godkjenning"],
+      "gdpr": [
+        "Artikkel 35 (DPIA er obligatorisk for høyrisiko databehandling)",
+        "Artikkel 36 (forhåndssamråd med tilsynsmyndigheten ved høy risiko)"
+      ]
     },
     "hoy_personvern_kritisk": {
       "title": "🚨 KRITISK - mangler DPIA",
       "text": "Start av høyrisiko KI uten DPIA kan være ulovlig (GDPR Art. 35)!\n\nKritisk handling:\n• STOPP alle forberedelser\n• Kontakt personvernombud/DPO UMIDDELBART\n• Gjennomfør DPIA før videre prosess\n• Dokumenter hvorfor DPIA ble forsømt\n• Vurder om andre systemer også mangler DPIA",
       "class": "r-uat",
-      "actions": ["STOPP", "Kontakt DPO nå", "Gjennomfør DPIA"]
+      "actions": ["STOPP", "Kontakt DPO nå", "Gjennomfør DPIA"],
+      "articles": [
+        {
+          "number": "Artikkel 10",
+          "title": "Data og datastyrings (AI Act)",
+          "description": "Høyrisiko KI-systemer krever høy kvalitet på trenings-, validerings- og testdata.",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_10"
+        },
+        {
+          "number": "Artikkel 64",
+          "title": "Tilgang til data og dokumentasjon",
+          "description": "Tilsynsmyndigheter skal ha tilgang til all relevant data og dokumentasjon.",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_64"
+        }
+      ],
+      "gdpr": [
+        "Artikkel 35 (vurdering av personvernkonsekvenser - DPIA er LOVPÅLAGT)",
+        "Artikkel 36 (forhåndssamråd med tilsynsmyndigheten)",
+        "Artikkel 5 (grunnprinsipper for behandling av personopplysninger)"
+      ],
+      "other_laws": ["Personopplysningsloven § 1", "Opplæringsloven kap 9a (skolemiljø)"]
     },
     "hoy_under_arbeid": {
       "title": "📋 Høy risiko - dataavtale under arbeid",
       "text": "Godt at databehandleravtale er under arbeid. Dette er lovpålagt!\n\nAvtalen må inkludere:\n• Formål og varighet\n• Type persondata\n• Sikkerhetstiltak\n• Underleverandører\n• Datasletting ved oppsigelse\n• Revisjon og kontroll\n\nSTART IKKE før avtale er signert!",
       "class": "r-hoy",
-      "actions": ["Fullfør avtale", "Juridisk gjennomgang", "Signer før oppstart"]
+      "actions": ["Fullfør avtale", "Juridisk gjennomgang", "Signer før oppstart"],
+      "gdpr": [
+        "Artikkel 28 (databehandleravtale - krav til innhold)",
+        "Artikkel 32 (sikkerhetstiltak)"
+      ]
     },
     "hoy_kritisk": {
       "title": "🚨 KRITISK - mangler dataavtale",
       "text": "Bruk av KI som behandler persondata uten databehandleravtale er ulovlig (GDPR)!\n\nKritisk handling:\n• STOPP all bruk UMIDDELBART\n• Hvis allerede i bruk: Steng ned nå\n• Kontakt leverandør for avtale\n• Hvis leverandør ikke vil signere: Velg annet system\n• Informer personvernombud/DPO\n• Dokumenter hendelsen",
       "class": "r-uat",
-      "actions": ["STOPP bruk nå", "Krev avtale", "Velg alternativ hvis nødvendig"]
+      "actions": ["STOPP bruk nå", "Krev avtale", "Velg alternativ hvis nødvendig"],
+      "articles": [
+        {
+          "number": "Artikkel 29",
+          "title": "Forpliktelser for brukere av høyrisiko KI-systemer",
+          "description": "Brukere må sikre at de har nødvendige avtaler på plass.",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_29"
+        }
+      ],
+      "gdpr": [
+        "Artikkel 28 (databehandleravtale er LOVPÅLAGT)",
+        "Artikkel 5 (lovlig og rettferdig behandling)",
+        "Artikkel 83 (bøter ved brudd på GDPR)"
+      ],
+      "other_laws": ["Personopplysningsloven § 1"]
     },
     "hoy_manglende_info": {
       "title": "🚨 Høy risiko - manglende informasjon",
       "text": "Uten tilgang til personvernpolicy kan systemet ikke vurderes!\n\nHandlinger:\n• Kontakt leverandør og KREV policy\n• Hvis ikke tilgjengelig: IKKE bruk systemet\n• Søk alternative leverandører\n• Dokumenter forsøk på å få informasjon\n• Vurder om leverandør er seriøs nok for skolebruk",
       "class": "r-uat",
-      "actions": ["KREV policy", "Ikke bruk uten", "Søk alternativer"]
+      "actions": ["KREV policy", "Ikke bruk uten", "Søk alternativer"],
+      "articles": [
+        {
+          "number": "Artikkel 13",
+          "title": "Transparens og informasjon",
+          "description": "Tilbydere MÅ gi tilstrekkelig informasjon om KI-systemet.",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_13"
+        },
+        {
+          "number": "Artikkel 29",
+          "title": "Forpliktelser for brukere",
+          "description": "Brukere kan ikke ta i bruk systemer uten tilstrekkelig informasjon.",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_29"
+        }
+      ],
+      "gdpr": ["Artikkel 28 (krav til databehandler)"]
     },
     "hoy_oversettelse_mangler": {
       "title": "🚨 Oversettelse - mangler avtale",
       "text": "Oversettelse med datalagring krever databehandleravtale!\n\nHandlinger:\n• STOPP bruk inntil avtale er på plass\n• Kontakt leverandør for avtale\n• Vurder anonyme alternativer (ingen lagring)\n• Gjennomfør DPIA hvis nødvendig\n• Informer om bruken når avtale er klar",
       "class": "r-hoy",
-      "actions": ["STOPP bruk", "Krev avtale", "Vurder alternativer"]
+      "actions": ["STOPP bruk", "Krev avtale", "Vurder alternativer"],
+      "articles": [
+        {
+          "number": "Artikkel 50",
+          "title": "Transparensforpliktelser",
+          "description": "Brukere skal informeres om KI-bruk.",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_50"
+        }
+      ],
+      "gdpr": ["Artikkel 28 (databehandleravtale)", "Artikkel 35 (DPIA ved personopplysninger)"]
     },
     "hoy_spill_vurdering": {
       "title": "⚠️ Høy risiko - spilldata i vurdering",
       "text": "Bruk av spilldata i formelle vurderinger er høyrisiko!\n\nKritiske krav:\n• Databehandleravtale\n• DPIA gjennomført\n• Bias-testing av vurderingsalgoritme\n• Menneskelig overstyring\n• Klageadgang for elever\n• Transparens om hvordan data brukes\n• Dokumentasjon av beslutningslogikk",
       "class": "r-hoy",
-      "actions": ["Dataavtale", "DPIA", "Bias-testing", "Etabler klageadgang"]
+      "actions": ["Dataavtale", "DPIA", "Bias-testing", "Etabler klageadgang"],
+      "articles": [
+        {
+          "number": "Artikkel 6",
+          "title": "Klassifiseringsregler for høyrisiko KI-systemer",
+          "description": "KI-systemer som evaluerer læringsresultater regnes som høyrisiko.",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_6"
+        },
+        {
+          "number": "Artikkel 9",
+          "title": "Risikostyringssystem",
+          "description": "Kontinuerlig risikovurdering og bias-testing er påkrevd.",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_9"
+        },
+        {
+          "number": "Artikkel 14",
+          "title": "Menneskelig tilsyn",
+          "description": "Vurderingssystemer må ha menneskelig overstyring.",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_14"
+        }
+      ],
+      "gdpr": ["Artikkel 22 (automatiserte avgjørelser)", "Artikkel 35 (DPIA)"]
     },
     "hoy_diskriminering_risiko": {
       "title": "🚨 DISKRIMINERINGSRISIKO",
       "text": "Ulik tilgang til vurderingsverktøy kan være diskriminerende!\n\nKritisk handling:\n• STOPP bruk i vurdering inntil likeverd er sikret\n• Utvikle likeverdige alternativer\n• Vurder universell utforming\n• Involver elever i løsninger\n• Dokumenter tilpasninger\n• Juridisk vurdering av diskrimineringsrisiko",
       "class": "r-uat",
-      "actions": ["STOPP vurderingsbruk", "Sikre likeverd", "Juridisk vurdering"]
+      "actions": ["STOPP vurderingsbruk", "Sikre likeverd", "Juridisk vurdering"],
+      "articles": [
+        {
+          "number": "Artikkel 10",
+          "title": "Data og datastyrings",
+          "description": "Treningsdata må være representativ for alle elevgrupper for å unngå diskriminering.",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_10"
+        },
+        {
+          "number": "Artikkel 14",
+          "title": "Menneskelig tilsyn",
+          "description": "Høyrisiko-systemer må ha mekanismer for å fange opp diskriminering.",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_14"
+        }
+      ],
+      "gdpr": ["Artikkel 9 (forbud mot diskriminerende behandling av personopplysninger)"],
+      "other_laws": [
+        "Opplæringsloven § 1-1 (likeverd og inkludering)",
+        "Diskrimineringsloven § 6 (forbud mot diskriminering i utdanning)"
+      ]
     }
   }
 }
