@@ -285,27 +285,6 @@ h3 {
   position: relative;
   padding: 60px 20px 50px;
   text-align: center;
-  overflow: visible;
-}
-
-.hero::before {
-  content: '';
-  position: absolute;
-  top: 85%;
-  left: 0;
-  right: 0;
-  bottom: auto;
-  height: 120%;
-  background-image: url('nodes-forside.jpg');
-  background-size: cover;
-  background-position: center top;
-  background-repeat: no-repeat;
-  opacity: 0.25;
-  z-index: -1;
-}
-
-:root[data-theme="light"] .hero::before {
-  opacity: 0.15;
 }
 
 .hero > * {
