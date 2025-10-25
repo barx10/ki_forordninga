@@ -22,7 +22,6 @@
         <a href="#sjekk">Sjekk deg selv</a>
         <a href="#tiltak">Tiltak</a>
         <a href="#ressurser">Ressurser</a>
-        <a href="#labs">Labs</a>
         <button id="theme-toggle" class="theme-toggle" aria-label="Bytt til lys modus">
           <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="5"></circle>
@@ -802,106 +801,6 @@
         <li><a href="https://en.unesco.org/artificial-intelligence/education" target="_blank" rel="noopener">UNESCO - AI and Education</a></li>
         <li><a href="https://ec.europa.eu/jrc/en/publication/eur-scientific-and-technical-research-reports/future-education-and-skills-2030-artificial-intelligence-and-education" target="_blank" rel="noopener">European Commission - AI and Education Research</a></li>
       </ul>
-    </section>
-
-    <!-- Labs View -->
-    <section id="labs" class="view">
-      <h2>Labs 🧪</h2>
-      <p class="lead">Eksperimentelle funksjoner for å utforske AI Act.</p>
-      
-      <!-- AI Act Chat Assistant -->
-      <div class="chat-container">
-        <div class="chat-header">
-          <div class="chat-title">
-            <span class="chat-icon">🤖</span>
-            <div>
-              <h3>AI Act Assistent</h3>
-              <span class="badge-beta">BETA</span>
-            </div>
-          </div>
-          <button class="chat-info-btn" onclick="toggleChatInfo()" aria-label="Informasjon">
-            ℹ️
-          </button>
-        </div>
-        
-        <!-- Info panel (skjult som standard) -->
-        <div class="chat-info" id="chatInfo" style="display: none;">
-          <div class="alert-box">
-            <strong>⚠️ Viktig informasjon</strong>
-            <ul>
-              <li>Dette er en <strong>eksperimentell AI-assistent</strong> trent på AI Act</li>
-              <li>Svar kan inneholde feil - <strong>sjekk alltid med offisielle kilder</strong></li>
-              <li>Ikke del sensitive eller personlige opplysninger</li>
-              <li>Samtalen lagres ikke og sendes ikke til eksterne servere ennå</li>
-              <li>Begrenset til 10 meldinger per sesjon</li>
-            </ul>
-            <p style="margin-top: 0.5rem;"><strong>Offisielle kilder:</strong></p>
-            <ul>
-              <li><a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689" target="_blank" rel="noopener">EU AI Act (EUR-Lex)</a></li>
-              <li><a href="https://www.datatilsynet.no/" target="_blank" rel="noopener">Datatilsynet</a></li>
-            </ul>
-          </div>
-        </div>
-        
-        <!-- Suggested questions -->
-        <div class="chat-suggestions">
-          <p class="chat-suggestions-title">💡 Prøv disse spørsmålene:</p>
-          <div class="chat-suggestions-grid">
-            <button class="suggestion-btn" onclick="askQuestion('Hva er høyrisiko KI-systemer?')">
-              Hva er høyrisiko KI-systemer?
-            </button>
-            <button class="suggestion-btn" onclick="askQuestion('Kan vi bruke ChatGPT i vurdering?')">
-              Kan vi bruke ChatGPT i vurdering?
-            </button>
-            <button class="suggestion-btn" onclick="askQuestion('Hva må vi gjøre innen august 2026?')">
-              Hva må vi gjøre innen august 2026?
-            </button>
-            <button class="suggestion-btn" onclick="askQuestion('Hvordan klassifiserer vi et KI-verktøy?')">
-              Hvordan klassifiserer vi et KI-verktøy?
-            </button>
-          </div>
-        </div>
-        
-        <!-- Chat messages -->
-        <div class="chat-messages" id="chatMessages">
-          <div class="chat-message assistant">
-            <div class="message-avatar">🤖</div>
-            <div class="message-content">
-              <p>Hei! Jeg er her for å hjelpe deg med spørsmål om AI Act (KI-forordningen) i skolen.</p>
-              <p>Hva lurer du på?</p>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Input area -->
-        <div class="chat-input-container">
-          <div class="chat-input-wrapper">
-            <textarea 
-              id="chatInput" 
-              class="chat-input" 
-              placeholder="Skriv ditt spørsmål her..."
-              rows="1"
-              onkeydown="handleChatKeydown(event)"
-            ></textarea>
-            <button class="chat-send-btn" onclick="sendMessage()" aria-label="Send melding">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M2 10L18 2L10 18L8 11L2 10Z" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
-          </div>
-          <div class="chat-counter">
-            <span id="messageCounter">0/10</span> meldinger brukt
-          </div>
-        </div>
-        
-        <!-- Status message -->
-        <div class="chat-status" id="chatStatus" style="display: none;">
-          <div class="alert-box">
-            ⚠️ <strong>Funksjonalitet kommer snart!</strong> Backend er under utvikling.
-            <br>Prøv <a href="#sjekk">veiviseren</a> for nå.
-          </div>
-        </div>
-      </div>
     </section>
   </main>
 
