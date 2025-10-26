@@ -1834,6 +1834,297 @@ function closeRiskModal(event) {
   }
 }
 
+// === GDPR MODAL ===
+const gdprData = {
+  art6: {
+    icon: '📋',
+    title: 'GDPR Artikkel 6',
+    subtitle: 'Lovlig behandlingsgrunnlag',
+    description: 'All behandling av personopplysninger må ha et lovlig grunnlag.',
+    sections: [
+      {
+        title: 'For KI i skolen',
+        items: [
+          '<strong>Samtykke</strong> fungerer IKKE som grunnlag for å bruke KI på elever (elever kan ikke fritt si nei)',
+          '<strong>Offentlig myndighetsutøvelse</strong> er vanligvis grunnlaget (opplæringsloven gir hjemmel)',
+          '<strong>Berettiget interesse</strong> kan brukes for ansatte, men MÅ alltid veies mot personvernet'
+        ]
+      }
+    ],
+    practical: 'Dokumenter behandlingsgrunnlag i DPIA. Hvis du er usikker, ta kontakt med personvernombud.',
+    link: 'https://gdpr.eu/article-6-how-to-process-personal-data-legally/'
+  },
+  art13: {
+    icon: '📋',
+    title: 'GDPR Artikkel 13-14',
+    subtitle: 'Informasjonsplikt',
+    description: 'Elever og foresatte har rett til å vite hvordan deres personopplysninger brukes.',
+    sections: [
+      {
+        title: 'For KI i skolen',
+        items: [
+          'Informer <strong>før</strong> KI-systemet tas i bruk',
+          'Forklar på et språk som elever og foresatte forstår',
+          'Spesifiser hvilke data som samles inn og hvorfor',
+          'Oppgi hvor lenge data lagres og hvem som har tilgang',
+          'Forklar hvordan de kan utøve sine rettigheter (innsyn, sletting, klage)'
+        ]
+      }
+    ],
+    practical: 'Lag en egen informasjonsside om KI-bruk på skolens nettsted. Send ut informasjon på foreldremøter.',
+    link: 'https://gdpr.eu/article-13-personal-data-collected/'
+  },
+  art22: {
+    icon: '📋',
+    title: 'GDPR Artikkel 22',
+    subtitle: 'Automatiserte avgjørelser',
+    description: 'Ingen skal utsettes for avgjørelser basert utelukkende på automatisk behandling som har rettslige eller vesentlige konsekvenser.',
+    sections: [
+      {
+        title: 'For KI i skolen',
+        items: [
+          'KI kan <strong>aldri</strong> sette karakterer alene - en lærer må alltid gjøre den endelige vurderingen',
+          'KI kan foreslå, men mennesker må bestemme',
+          'Gjelder også opptak til skole, klasseinndeling, spesialundervisning',
+          'Elever har rett til å be om menneskelig vurdering'
+        ]
+      }
+    ],
+    practical: 'Dokumenter alltid at en kvalifisert person har sett gjennom og godkjent KI-output før det får konsekvenser for eleven.',
+    link: 'https://gdpr.eu/article-22-automated-individual-decision-making/'
+  },
+  art28: {
+    icon: '🔴',
+    title: 'GDPR Artikkel 28',
+    subtitle: 'Databehandleravtale - OBLIGATORISK',
+    description: 'Når en ekstern leverandør behandler personopplysninger på vegne av skolen, MÅ det foreligge en skriftlig databehandleravtale.',
+    sections: [
+      {
+        title: 'For KI i skolen',
+        items: [
+          '<strong>OBLIGATORISK</strong> for alle KI-tjenester som behandler elevdata (ChatGPT, Google Classroom, osv.)',
+          'Avtalen må spesifisere formål, sikkerhetstiltak, lagringstid, og sletting',
+          'Skolen er <strong>behandlingsansvarlig</strong>, leverandøren er <strong>databehandler</strong>',
+          'Skolen har ansvar selv om feilen skjer hos leverandøren'
+        ]
+      }
+    ],
+    practical: 'IKKE bruk KI-verktøy uten signert databehandleravtale. Sjekk om avtalen dekker tredjelandsoverføring (data utenfor EU/EØS).',
+    link: 'https://gdpr.eu/article-28-processor/'
+  },
+  art35: {
+    icon: '📋',
+    title: 'GDPR Artikkel 35',
+    subtitle: 'DPIA (Personvernkonsekvensvurdering)',
+    description: 'Før bruk av ny teknologi som kan medføre høy risiko for personvernet, må det gjennomføres en DPIA.',
+    sections: [
+      {
+        title: 'For KI i skolen',
+        items: [
+          '<strong>OBLIGATORISK</strong> for høyrisiko-KI (vurdering, karaktersetting, overvåking, profilering)',
+          'Må være ferdig <strong>før</strong> systemet tas i bruk',
+          'Skal identifisere risikoer og beskrive tiltak for å redusere dem',
+          'Må godkjennes av personvernombud',
+          'Skal oppdateres årlig eller ved endringer'
+        ]
+      }
+    ],
+    practical: 'Bruk Datatilsynets DPIA-mal. Involver personvernombud tidlig i prosessen.',
+    link: 'https://www.datatilsynet.no/rettigheter-og-plikter/virksomhetenes-plikter/vurdere-personvernkonsekvenser/'
+  }
+};
+
+function openGDPRModal(article) {
+  const modal = document.getElementById('riskModal');
+  const modalBody = document.getElementById('modalBody');
+  const data = gdprData[article];
+  
+  if (!data) return;
+  
+  let content = `
+    <div class="modal-header">
+      <span class="modal-icon">${data.icon}</span>
+      <div class="modal-title">
+        <h2>${data.title}</h2>
+        <p class="modal-subtitle">${data.subtitle}</p>
+      </div>
+    </div>
+    
+    <div class="modal-section">
+      <p><strong>${data.description}</strong></p>
+    </div>
+  `;
+  
+  data.sections.forEach(section => {
+    content += `
+      <div class="modal-section">
+        <h3>${section.title}</h3>
+        <ul class="modal-list">
+          ${section.items.map(item => `<li>${item}</li>`).join('')}
+        </ul>
+      </div>
+    `;
+  });
+  
+  content += `
+    <div class="modal-success">
+      <strong>💡 Praktisk:</strong> ${data.practical}
+    </div>
+    
+    <div class="modal-footer">
+      <a href="${data.link}" target="_blank" rel="noopener" class="cta">Les mer om ${data.title} →</a>
+    </div>
+  `;
+  
+  modalBody.innerHTML = content;
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+// === NORSK LOV MODAL ===
+const norskLovData = {
+  opplaringsloven: {
+    icon: '⚖️',
+    title: 'Opplæringsloven',
+    subtitle: 'Elevens rettigheter',
+    sections: [
+      {
+        title: '§ 1-1 Likeverd',
+        items: [
+          'KI-systemer må gi <strong>alle elever lik tilgang</strong> til god opplæring',
+          'Må fungere for elever med funksjonshemming (universell utforming)',
+          'Må ikke diskriminere basert på språk, kultur eller bakgrunn',
+          '<strong>Test regelmessig for bias!</strong>'
+        ]
+      },
+      {
+        title: '§ 3-1 Rettssikkerhet',
+        items: [
+          'Elever har rett til å klage på vurderinger',
+          'KI-baserte vurderinger må kunne <strong>forklares</strong> og <strong>etterprøves</strong>',
+          'Elever har rett til å vite at KI er brukt i vurderingen',
+          'Klagesystemet må fungere selv når KI er involvert'
+        ]
+      },
+      {
+        title: '§ 3-3 og Kap 9a - Psykososialt miljø',
+        items: [
+          'KI skal <strong>ikke</strong> brukes til overvåking av elever på måter som skaper utrygghet',
+          'Elever skal beskyttes mot krenkelser - også fra KI-systemer',
+          'Hvis KI oppdager mobbing, må skolen følge opp (ikke bare stole på KI)'
+        ]
+      }
+    ],
+    practical: 'Vurder hvordan KI påvirker elevens rettigheter <strong>før</strong> bruk. Involver elevråd i beslutninger om KI.',
+    link: 'https://lovdata.no/dokument/NL/lov/1998-07-17-61'
+  },
+  personopplysningsloven: {
+    icon: '⚖️',
+    title: 'Personopplysningsloven',
+    subtitle: 'GDPR i Norge',
+    description: 'GDPR er implementert i norsk lov gjennom personopplysningsloven.',
+    sections: [
+      {
+        title: 'Hva det betyr for skolen',
+        items: [
+          'Datatilsynet er tilsynsmyndighet i Norge',
+          'Samme regler som GDPR, men tilpasset norsk forvaltning',
+          'Sanksjoner kan gis av Datatilsynet',
+          'Skolen må ha personvernombud (DPO) hvis den behandler personopplysninger systematisk'
+        ]
+      }
+    ],
+    practical: 'Ta kontakt med personvernombud ved alle spørsmål om KI og personvern. De skal hjelpe deg!',
+    link: 'https://lovdata.no/dokument/NL/lov/2018-06-15-38'
+  },
+  diskrimineringsloven: {
+    icon: '🔴',
+    title: 'Diskrimineringsloven',
+    subtitle: 'Forbud mot diskriminering',
+    sections: [
+      {
+        title: '§ 6 Diskriminering i utdanning er forbudt',
+        items: [
+          'KI må <strong>ikke</strong> diskriminere basert på kjønn, etnisitet, religion, funksjonsnedsettelse, seksuell orientering, eller alder',
+          'Indirekte diskriminering er også forbudt (når KI tilsynelatende er nøytral, men rammer enkelte grupper hardere)',
+          'Skolen har <strong>aktivitets- og redegjørelsesplikt</strong> - du må aktivt jobbe for å forebygge diskriminering'
+        ]
+      }
+    ],
+    practical: 'Test KI-systemer for bias mot ulike elevgrupper. Dokumenter testing og tiltak. Juster algoritmer hvis bias oppdages.',
+    link: 'https://lovdata.no/dokument/NL/lov/2017-06-16-51'
+  },
+  forvaltningsloven: {
+    icon: '⚖️',
+    title: 'Forvaltningsloven',
+    subtitle: 'Elevens rett til klage',
+    sections: [
+      {
+        title: '§ 2 Klagerett på forvaltningsvedtak',
+        items: [
+          'Avgjørelser som påvirker elevers rettigheter er <strong>forvaltningsvedtak</strong>',
+          'Elever/foresatte har rett til å klage på vedtak (f.eks. karakterer, spesialundervisning, tilpasset opplæring)',
+          'KI-baserte vedtak må kunne <strong>forklares</strong> i klagesak',
+          'Klagenemnda må kunne etterprøve beslutningen'
+        ]
+      }
+    ],
+    practical: 'Dokumenter hvordan KI er brukt i vurderinger. Sørg for at lærere kan forklare og begrunne vedtak selv når KI er involvert.',
+    link: 'https://lovdata.no/dokument/NL/lov/1967-02-10'
+  }
+};
+
+function openNorskLovModal(law) {
+  const modal = document.getElementById('riskModal');
+  const modalBody = document.getElementById('modalBody');
+  const data = norskLovData[law];
+  
+  if (!data) return;
+  
+  let content = `
+    <div class="modal-header">
+      <span class="modal-icon">${data.icon}</span>
+      <div class="modal-title">
+        <h2>${data.title}</h2>
+        <p class="modal-subtitle">${data.subtitle}</p>
+      </div>
+    </div>
+  `;
+  
+  if (data.description) {
+    content += `
+      <div class="modal-section">
+        <p><strong>${data.description}</strong></p>
+      </div>
+    `;
+  }
+  
+  data.sections.forEach(section => {
+    content += `
+      <div class="modal-section">
+        <h3>${section.title}</h3>
+        <ul class="modal-list">
+          ${section.items.map(item => `<li>${item}</li>`).join('')}
+        </ul>
+      </div>
+    `;
+  });
+  
+  content += `
+    <div class="modal-success">
+      <strong>💡 Praktisk:</strong> ${data.practical}
+    </div>
+    
+    <div class="modal-footer">
+      <a href="${data.link}" target="_blank" rel="noopener" class="cta">Les ${data.title} på Lovdata →</a>
+    </div>
+  `;
+  
+  modalBody.innerHTML = content;
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
 // Close modal with Escape key
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {

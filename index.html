@@ -308,27 +308,60 @@
       </div>
 
       <h3>GDPR og AI Act sammen</h3>
-      <p>AI Act fungerer <strong>sammen med</strong> GDPR. Begge lovverk gjelder samtidig:</p>
-      <div class="info-box">
-        <h4>📋 Viktigste GDPR-artikler for KI:</h4>
-        <ul>
-          <li><strong>Art. 6</strong> - Lovlig behandlingsgrunnlag (samtykke, avtale, etc.)</li>
-          <li><strong>Art. 13-14</strong> - Informasjonsplikt overfor registrerte</li>
-          <li><strong>Art. 22</strong> - Rett til ikke å være gjenstand for automatiserte avgjørelser</li>
-          <li><strong>Art. 28</strong> - Databehandleravtale (OBLIGATORISK!)</li>
-          <li><strong>Art. 35</strong> - DPIA (vurdering av personvernkonsekvenser) for høyrisiko</li>
-        </ul>
+      <p>AI Act fungerer <strong>sammen med</strong> GDPR. Begge lovverk gjelder samtidig, og du må oppfylle kravene i begge:</p>
+      
+      <div class="grid" role="list">
+        <article class="card r-hoy clickable" role="listitem" onclick="openGDPRModal('art6')">
+          <div class="tag">GDPR Art. 6</div>
+          <p>Lovlig behandlingsgrunnlag - Offentlig myndighet, IKKE samtykke</p>
+          <span class="card-hint">Klikk for mer info →</span>
+        </article>
+        <article class="card r-hoy clickable" role="listitem" onclick="openGDPRModal('art13')">
+          <div class="tag">GDPR Art. 13-14</div>
+          <p>Informasjonsplikt - Elever og foresatte skal informeres</p>
+          <span class="card-hint">Klikk for mer info →</span>
+        </article>
+        <article class="card r-hoy clickable" role="listitem" onclick="openGDPRModal('art22')">
+          <div class="tag">GDPR Art. 22</div>
+          <p>Automatiserte avgjørelser - KI kan aldri bestemme alene</p>
+          <span class="card-hint">Klikk for mer info →</span>
+        </article>
+        <article class="card r-stop clickable" role="listitem" onclick="openGDPRModal('art28')">
+          <div class="tag">GDPR Art. 28</div>
+          <p>Databehandleravtale - OBLIGATORISK for alle KI-tjenester</p>
+          <span class="card-hint">Klikk for mer info →</span>
+        </article>
+        <article class="card r-hoy clickable" role="listitem" onclick="openGDPRModal('art35')">
+          <div class="tag">GDPR Art. 35</div>
+          <p>DPIA - Personvernkonsekvensvurdering for høyrisiko-KI</p>
+          <span class="card-hint">Klikk for mer info →</span>
+        </article>
       </div>
 
-      <h3>Norsk lovverk</h3>
-      <div class="info-box">
-        <h4>⚖️ Relevant norsk lovgivning:</h4>
-        <ul>
-          <li><strong>Opplæringsloven</strong> - § 1-1 (likeverd), § 3-1 (rettssikkerhet), § 3-3 (psykososialt miljø), kap 9a (skolemiljø)</li>
-          <li><strong>Personopplysningsloven</strong> - Implementerer GDPR i Norge</li>
-          <li><strong>Diskrimineringsloven</strong> - § 6 (forbud mot diskriminering i utdanning)</li>
-          <li><strong>Forvaltningsloven</strong> - § 2 (klagerett på forvaltningsvedtak)</li>
-        </ul>
+      <h3>Norsk lovverk - Hvordan AI Act møter norsk skole</h3>
+      <p>AI Act må ses i sammenheng med norsk lov. Her er de viktigste koblingene:</p>
+
+      <div class="grid" role="list">
+        <article class="card r-hoy clickable" role="listitem" onclick="openNorskLovModal('opplaringsloven')">
+          <div class="tag">Opplæringsloven</div>
+          <p>Likeverd, rettssikkerhet og psykososialt miljø</p>
+          <span class="card-hint">Klikk for mer info →</span>
+        </article>
+        <article class="card r-tra clickable" role="listitem" onclick="openNorskLovModal('personopplysningsloven')">
+          <div class="tag">Personopplysningsloven</div>
+          <p>GDPR i Norge - Datatilsynet og personvernombud</p>
+          <span class="card-hint">Klikk for mer info →</span>
+        </article>
+        <article class="card r-stop clickable" role="listitem" onclick="openNorskLovModal('diskrimineringsloven')">
+          <div class="tag">Diskrimineringsloven</div>
+          <p>Forbud mot diskriminering og aktivitetsplikt</p>
+          <span class="card-hint">Klikk for mer info →</span>
+        </article>
+        <article class="card r-hoy clickable" role="listitem" onclick="openNorskLovModal('forvaltningsloven')">
+          <div class="tag">Forvaltningsloven</div>
+          <p>Elevens rett til klage på vedtak</p>
+          <span class="card-hint">Klikk for mer info →</span>
+        </article>
       </div>
     </section>
 
