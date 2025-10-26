@@ -36,7 +36,7 @@ const initThemeToggle = () => {
 
 // === VIEW ROUTER ===
 const initRouter = () => {
-  const views = ['hjem', 'laer', 'sjekk', 'tiltak', 'ressurser'];
+  const views = ['hjem', 'laer', 'sjekk', 'tiltak', 'ressurser', 'om'];
   const transition = document.getElementById('page-transition');
   
   const showView = (viewId) => {
@@ -1835,31 +1835,50 @@ function closeRiskModal(event) {
 }
 
 // === GDPR MODAL ===
+// === GDPR MODAL ===
 const gdprData = {
-  art6: {
+  pol1: {
     icon: '📋',
-    title: 'GDPR Artikkel 6',
+    title: 'Personopplysningsloven § 1 og § 8',
     subtitle: 'Lovlig behandlingsgrunnlag',
-    description: 'All behandling av personopplysninger må ha et lovlig grunnlag.',
+    description: 'All behandling av personopplysninger må ha et lovlig grunnlag. Personopplysningsloven § 1 gjør hele GDPR til norsk lov, inkludert GDPR artikkel 6 om behandlingsgrunnlag.',
     sections: [
+      {
+        title: 'Hva sier loven?',
+        items: [
+          '<strong>§ 1:</strong> GDPR gjelder som norsk lov (GDPR artikkel 6 om behandlingsgrunnlag)',
+          '<strong>§ 8:</strong> Supplerende bestemmelser om behandling i allmennhetens interesse',
+          'GDPR artikkel 6 nr. 1 bokstav e: Offentlig myndighetsutøvelse eller allmenn interesse'
+        ]
+      },
       {
         title: 'For KI i skolen',
         items: [
-          '<strong>Samtykke</strong> fungerer IKKE som grunnlag for å bruke KI på elever (elever kan ikke fritt si nei)',
-          '<strong>Offentlig myndighetsutøvelse</strong> er vanligvis grunnlaget (opplæringsloven gir hjemmel)',
-          '<strong>Berettiget interesse</strong> kan brukes for ansatte, men MÅ alltid veies mot personvernet'
+          '<strong>Samtykke</strong> fungerer IKKE som grunnlag i offentlig sektor (det finnes et maktforhold - samtykket er ikke frivillig)',
+          '<strong>Offentlig myndighetsutøvelse</strong> er vanligvis grunnlaget (artikkel 6 nr. 1 bokstav e)',
+          'Behandling må være nødvendig for allmennhetens interesse eller lovpålagt plikt',
+          'Opplæringsloven gir hjemmel for behandling av elevdata i undervisning og vurdering'
         ]
       }
     ],
-    practical: 'Dokumenter behandlingsgrunnlag i DPIA. Hvis du er usikker, ta kontakt med personvernombud.',
-    link: 'https://gdpr.eu/article-6-how-to-process-personal-data-legally/'
+    practical: 'Dokumenter behandlingsgrunnlag i DPIA. Bruk <strong>ikke</strong> samtykke - bruk myndighetsutøvelse eller allmenn interesse som grunnlag.',
+    link: 'https://lovdata.no/dokument/NL/lov/2018-06-15-38'
   },
-  art13: {
+  pol16: {
     icon: '📋',
-    title: 'GDPR Artikkel 13-14',
-    subtitle: 'Informasjonsplikt',
-    description: 'Elever og foresatte har rett til å vite hvordan deres personopplysninger brukes.',
+    title: 'Personopplysningsloven § 16',
+    subtitle: 'Informasjonsplikt til elever og foresatte',
+    description: 'Elever og foresatte har rett til å vite hvordan deres personopplysninger brukes. Hovedregelen om informasjonsplikt ligger i GDPR artikkel 13-14, som gjelder direkte i Norge via § 1.',
     sections: [
+      {
+        title: 'Hva sier loven?',
+        items: [
+          '<strong>§ 16:</strong> Begrensninger i retten til informasjon (unntak fra GDPR art. 13-14)',
+          'GDPR artikkel 13-14: Informasjonsplikt ved innsamling av personopplysninger',
+          'Hovedregelen: Du <strong>må</strong> informere om KI-bruk',
+          'Unntak gjelder kun i særskilte situasjoner (straffesaker, nasjonal sikkerhet)'
+        ]
+      },
       {
         title: 'For KI i skolen',
         items: [
@@ -1871,66 +1890,92 @@ const gdprData = {
         ]
       }
     ],
-    practical: 'Lag en egen informasjonsside om KI-bruk på skolens nettsted. Send ut informasjon på foreldremøter.',
-    link: 'https://gdpr.eu/article-13-personal-data-collected/'
+    practical: 'Lag en egen informasjonsside om KI-bruk på skolens nettsted. Send ut informasjon på foreldremøter. Hovedregelen er at du <strong>må</strong> informere.',
+    link: 'https://lovdata.no/dokument/NL/lov/2018-06-15-38/KAPITTEL_4#KAPITTEL_4'
   },
-  art22: {
+  pol1art22: {
     icon: '📋',
-    title: 'GDPR Artikkel 22',
-    subtitle: 'Automatiserte avgjørelser',
-    description: 'Ingen skal utsettes for avgjørelser basert utelukkende på automatisk behandling som har rettslige eller vesentlige konsekvenser.',
+    title: 'Personopplysningsloven § 1',
+    subtitle: 'Automatiserte avgjørelser (GDPR art. 22)',
+    description: 'Ingen skal utsettes for avgjørelser basert utelukkende på automatisk behandling som har rettslige eller vesentlige konsekvenser. GDPR artikkel 22 gjelder direkte i Norge via personopplysningsloven § 1.',
     sections: [
+      {
+        title: 'Hva sier loven?',
+        items: [
+          '<strong>§ 1:</strong> GDPR gjelder som norsk lov (inkludert artikkel 22)',
+          'GDPR artikkel 22: Forbud mot rent automatiserte avgjørelser med rettsvirkning',
+          'Norge har ikke egen paragraf for dette - det følger direkte av GDPR artikkel 22'
+        ]
+      },
       {
         title: 'For KI i skolen',
         items: [
           'KI kan <strong>aldri</strong> sette karakterer alene - en lærer må alltid gjøre den endelige vurderingen',
           'KI kan foreslå, men mennesker må bestemme',
-          'Gjelder også opptak til skole, klasseinndeling, spesialundervisning',
-          'Elever har rett til å be om menneskelig vurdering'
+          'Gjelder også opptak til skole, klasseinndeling, spesialundervisning, og andre vedtak med rettsvirkning',
+          'Elever har rett til å be om menneskelig vurdering og til å bestride avgjørelsen',
+          'Unntak krever uttrykkelig lovhjemmel, avtale, eller gyldig samtykke - og alltid med menneskelig kontroll'
         ]
       }
     ],
-    practical: 'Dokumenter alltid at en kvalifisert person har sett gjennom og godkjent KI-output før det får konsekvenser for eleven.',
-    link: 'https://gdpr.eu/article-22-automated-individual-decision-making/'
+    practical: 'Dokumenter alltid at en kvalifisert person har sett gjennom og godkjent KI-output før det får konsekvenser for eleven. Skolen kan <strong>ikke</strong> la KI fatte vedtak alene.',
+    link: 'https://lovdata.no/dokument/NL/lov/2018-06-15-38'
   },
-  art28: {
+  pol1art28: {
     icon: '🔴',
-    title: 'GDPR Artikkel 28',
-    subtitle: 'Databehandleravtale - OBLIGATORISK',
-    description: 'Når en ekstern leverandør behandler personopplysninger på vegne av skolen, MÅ det foreligge en skriftlig databehandleravtale.',
+    title: 'Personopplysningsloven § 1',
+    subtitle: 'Databehandleravtale (GDPR art. 28) - OBLIGATORISK',
+    description: 'Når en ekstern leverandør behandler personopplysninger på vegne av skolen, MÅ det foreligge en bindende databehandleravtale. GDPR artikkel 28 gjelder direkte i Norge via personopplysningsloven § 1.',
     sections: [
+      {
+        title: 'Hva sier loven?',
+        items: [
+          '<strong>§ 1:</strong> GDPR gjelder som norsk lov (inkludert artikkel 28)',
+          'GDPR artikkel 28: Krav til databehandleravtale',
+          'Datatilsynet krever at innholdet i avtalen følger artikkel 28'
+        ]
+      },
       {
         title: 'For KI i skolen',
         items: [
           '<strong>OBLIGATORISK</strong> for alle KI-tjenester som behandler elevdata (ChatGPT, Google Classroom, osv.)',
-          'Avtalen må spesifisere formål, sikkerhetstiltak, lagringstid, og sletting',
-          'Skolen er <strong>behandlingsansvarlig</strong>, leverandøren er <strong>databehandler</strong>',
-          'Skolen har ansvar selv om feilen skjer hos leverandøren'
+          'Avtalen må beskrive: formål, varighet, typer opplysninger, kategorier registrerte, sikkerhetstiltak',
+          'Leverandøren (databehandler) skal kun handle på instruks fra skolen (behandlingsansvarlig)',
+          'Skolen er <strong>behandlingsansvarlig</strong> og har ansvar selv om feilen skjer hos leverandøren'
         ]
       }
     ],
-    practical: 'IKKE bruk KI-verktøy uten signert databehandleravtale. Sjekk om avtalen dekker tredjelandsoverføring (data utenfor EU/EØS).',
-    link: 'https://gdpr.eu/article-28-processor/'
+    practical: 'IKKE bruk KI-verktøy uten signert databehandleravtale. Sjekk om avtalen dekker tredjelandsoverføring (data utenfor EU/EØS). Kravet gjelder direkte i Norge.',
+    link: 'https://lovdata.no/dokument/NL/lov/2018-06-15-38'
   },
-  art35: {
+  pol9: {
     icon: '📋',
-    title: 'GDPR Artikkel 35',
-    subtitle: 'DPIA (Personvernkonsekvensvurdering)',
-    description: 'Før bruk av ny teknologi som kan medføre høy risiko for personvernet, må det gjennomføres en DPIA.',
+    title: 'Personopplysningsloven § 9',
+    subtitle: 'DPIA - Personvernkonsekvensvurdering (GDPR art. 35)',
+    description: 'Før bruk av ny teknologi som kan medføre høy risiko for personvernet, må det gjennomføres en DPIA. Personopplysningsloven § 9 knytter GDPR artikkel 35 inn i norsk rett.',
     sections: [
+      {
+        title: 'Hva sier loven?',
+        items: [
+          '<strong>§ 9:</strong> Rådføring med personvernombud ved behandling av særlige kategorier personopplysninger',
+          'Hvis DPIA etter GDPR artikkel 35 er utført, oppfyller du rådføringsplikten i § 9',
+          'GDPR artikkel 35: Krav om DPIA ved høyrisiko-behandling'
+        ]
+      },
       {
         title: 'For KI i skolen',
         items: [
           '<strong>OBLIGATORISK</strong> for høyrisiko-KI (vurdering, karaktersetting, overvåking, profilering)',
+          'Særlig viktig ved behandling av særlige kategorier personopplysninger (sensitive elevdata)',
           'Må være ferdig <strong>før</strong> systemet tas i bruk',
           'Skal identifisere risikoer og beskrive tiltak for å redusere dem',
-          'Må godkjennes av personvernombud',
+          'Personvernombud skal rådføres (§ 9) - hvis DPIA er utført, oppfyller du denne plikten',
           'Skal oppdateres årlig eller ved endringer'
         ]
       }
     ],
-    practical: 'Bruk Datatilsynets DPIA-mal. Involver personvernombud tidlig i prosessen.',
-    link: 'https://www.datatilsynet.no/rettigheter-og-plikter/virksomhetenes-plikter/vurdere-personvernkonsekvenser/'
+    practical: 'Bruk Datatilsynets DPIA-mal. Involver personvernombud tidlig i prosessen. § 9 gjør DPIA til et krav for høyrisiko-behandling av elevdata.',
+    link: 'https://lovdata.no/dokument/NL/lov/2018-06-15-38/KAPITTEL_3#KAPITTEL_3'
   }
 };
 
@@ -2016,7 +2061,7 @@ const norskLovData = {
       }
     ],
     practical: 'Vurder hvordan KI påvirker elevens rettigheter <strong>før</strong> bruk. Involver elevråd i beslutninger om KI.',
-    link: 'https://lovdata.no/dokument/NL/lov/1998-07-17-61'
+    link: 'https://lovdata.no/dokument/LTI/lov/2023-06-09-30'
   },
   personopplysningsloven: {
     icon: '⚖️',
@@ -2117,6 +2162,298 @@ function openNorskLovModal(law) {
     
     <div class="modal-footer">
       <a href="${data.link}" target="_blank" rel="noopener" class="cta">Les ${data.title} på Lovdata →</a>
+    </div>
+  `;
+  
+  modalBody.innerHTML = content;
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+// === AI ACT ARTIKLER MODAL ===
+const aiActArticles = {
+  art5: {
+    icon: '🚫',
+    title: 'Artikkel 5',
+    subtitle: 'Forbudte praksiser',
+    description: 'Definerer KI-systemer som er forbudt fordi de utgjør en uakseptabel risiko.',
+    sections: [
+      {
+        title: 'Hva er forbudt?',
+        items: [
+          'Manipulasjon av atferd som kan skade personer',
+          'Utnyttelse av sårbare grupper (barn, funksjonshemmede)',
+          'Sosial scoring av borgere',
+          'Sanntids biometrisk identifikasjon i offentlige rom (med snevre unntak)'
+        ]
+      },
+      {
+        title: 'For skolen',
+        items: [
+          'IKKE bruk KI som manipulerer elevers atferd',
+          'IKKE lag "elevscorer" basert på atferd eller sosiale faktorer',
+          'IKKE skjult følelsesanalyse uten samtykke',
+          'IKKE sanntids ansiktsgjenkjenning i skolegården'
+        ]
+      }
+    ],
+    practical: 'Hvis dere bruker systemer som dette, stopp umiddelbart. Forbudet gjelder fra februar 2025.',
+    norwegianPdfPage: 51,
+    euLink: 'https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689'
+  },
+  art6: {
+    icon: '⚠️',
+    title: 'Artikkel 6 + Vedlegg III',
+    subtitle: 'Høyrisiko-klassifisering',
+    description: 'Definerer hvilke KI-systemer som er høyrisiko basert på bruksområde.',
+    sections: [
+      {
+        title: 'Høyrisiko i utdanning (Vedlegg III)',
+        items: [
+          'Tilgang til utdanning (opptak, klasseplassering)',
+          'Vurdering og evaluering (karakterer, eksamener)',
+          'Overvåking og profilering av elevers atferd',
+          'Adaptive læringssystemer med betydelig påvirkning'
+        ]
+      },
+      {
+        title: 'For skolen',
+        items: [
+          'Alle systemer som påvirker vurdering eller tilgang er høyrisiko',
+          'Krever DPIA, databehandleravtale, logging, menneskelig oversikt',
+          'Leverandøren må være CE-merket (fra august 2027)',
+          'Skolen har ansvar som "deployer" (bruker av systemet)'
+        ]
+      }
+    ],
+    practical: 'Kartlegg alle høyrisiko-systemer. Start forberedelser nå - kravene gjelder fullt ut fra august 2027.',
+    norwegianPdfPage: '53 (Artikkel 6) og 127 (Vedlegg III)',
+    euLink: 'https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689'
+  },
+  art9: {
+    icon: '📊',
+    title: 'Artikkel 9',
+    subtitle: 'Risikovurdering',
+    description: 'Krav til risikostyringssystem for høyrisiko KI-systemer.',
+    sections: [
+      {
+        title: 'Hva kreves?',
+        items: [
+          'Identifiser og analyser kjente og forutsigbare risikoer',
+          'Estimer og evaluer risikoer som kan oppstå ved bruk',
+          'Vurder risikoer basert på tilgjengelige data og testing',
+          'Implementer egnede risikostyringstiltak'
+        ]
+      },
+      {
+        title: 'For skolen',
+        items: [
+          'Gjennomfør DPIA før bruk (obligatorisk)',
+          'Identifiser hva som kan gå galt (bias, feil, diskriminering)',
+          'Test systemet før full utrulling',
+          'Ha beredskapsplan hvis noe går galt'
+        ]
+      }
+    ],
+    practical: 'Bruk Datatilsynets DPIA-mal. Dokumenter alle risikoer og tiltak. Oppdater årlig.',
+    norwegianPdfPage: 56,
+    euLink: 'https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689'
+  },
+  art10: {
+    icon: '📚',
+    title: 'Artikkel 10',
+    subtitle: 'Data og datastyring',
+    description: 'Krav til kvalitet på treningsdata, testdata og valideringsdata.',
+    sections: [
+      {
+        title: 'Datakvalitet',
+        items: [
+          'Data må være relevant, representativ og fri for feil',
+          'Må dekke alle relevante scenarier og bruksområder',
+          'Må vurderes for mulig bias',
+          'Dokumentasjon av datakilder og datakvalitet'
+        ]
+      },
+      {
+        title: 'For skolen',
+        items: [
+          'Krev dokumentasjon fra leverandør om treningsdata',
+          'Sjekk om data er representativ for norske elever',
+          'Vurder om systemet fungerer likt for alle elevgrupper',
+          'Test systemet med reelle elevdata før full bruk'
+        ]
+      }
+    ],
+    practical: 'Still spørsmål til leverandør: Hvilke data er systemet trent på? Er det testet for bias? Fungerer det for norsk språk og kultur?',
+    norwegianPdfPage: 57,
+    euLink: 'https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689'
+  },
+  art13: {
+    icon: '📋',
+    title: 'Artikkel 13',
+    subtitle: 'Transparens og informasjon',
+    description: 'Krav til dokumentasjon og brukerveiledning.',
+    sections: [
+      {
+        title: 'Hva må dokumenteres?',
+        items: [
+          'Identitet og kontaktinformasjon til leverandør',
+          'Systemets egenskaper, kapasitet og begrensninger',
+          'Forventet ytelse og nøyaktighet',
+          'Instruksjoner for bruk',
+          'Hva som kan gå galt og hvordan håndtere det'
+        ]
+      },
+      {
+        title: 'For skolen',
+        items: [
+          'Krev fullstendig dokumentasjon fra leverandør',
+          'Les brukerveiledningen før bruk',
+          'Forstå systemets begrensninger',
+          'Informer lærere om hva systemet kan og ikke kan'
+        ]
+      }
+    ],
+    practical: 'Ikke bruk KI-systemer uten fullstendig dokumentasjon. Lagre dokumentasjonen trygt - dere kan trenge den ved klagesaker.',
+    norwegianPdfPage: 59,
+    euLink: 'https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689'
+  },
+  art14: {
+    icon: '👁️',
+    title: 'Artikkel 14',
+    subtitle: 'Menneskelig oversikt',
+    description: 'Krav til menneskelig kontroll over høyrisiko KI-systemer.',
+    sections: [
+      {
+        title: 'Hva kreves?',
+        items: [
+          'Kvalifiserte personer må kunne overvåke systemet',
+          'Må kunne forstå systemets beslutninger',
+          'Må kunne gripe inn og overstyre KI',
+          'Må kunne stoppe systemet hvis nødvendig'
+        ]
+      },
+      {
+        title: 'For skolen',
+        items: [
+          'Lærere må alltid kunne overstyre KI-vurderinger',
+          'KI kan aldri sette karakter alene - lærer må godkjenne',
+          'Lærere må forstå hvordan KI kom frem til resultatet',
+          'Ha rutiner for å stoppe systemet ved feil'
+        ]
+      }
+    ],
+    practical: 'Tren lærere i hvordan de skal overvåke og overstyre KI-systemer. Dokumenter alle overstyringer.',
+    norwegianPdfPage: 60,
+    euLink: 'https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689'
+  },
+  art26: {
+    icon: '👤',
+    title: 'Artikkel 26',
+    subtitle: 'Brukerplikter (deployers)',
+    description: 'Skolens ansvar som bruker av høyrisiko KI-systemer.',
+    sections: [
+      {
+        title: 'Skolens plikter',
+        items: [
+          'Bruk systemet i henhold til instruksjonene',
+          'Tildel kvalifiserte personer til å overvåke systemet',
+          'Logg alle relevante hendelser og feil',
+          'Rapporter alvorlige hendelser til tilsynsmyndigheten',
+          'Gjennomfør DPIA når det kreves',
+          'Stopp bruken hvis systemet ikke fungerer som det skal'
+        ]
+      },
+      {
+        title: 'For skolen',
+        items: [
+          'Dere er ansvarlige selv om leverandøren eier systemet',
+          'Hvis noe går galt, er det dere som må håndtere det',
+          'Hold oversikt over hvordan systemet brukes',
+          'Dokumenter alle avvik og hendelser'
+        ]
+      }
+    ],
+    practical: 'Lag rutiner for logging og rapportering. Bestem hvem som er ansvarlig for oppfølging av KI-systemene.',
+    norwegianPdfPage: 67,
+    euLink: 'https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689'
+  },
+  art50: {
+    icon: '💬',
+    title: 'Artikkel 50',
+    subtitle: 'Transparensplikter',
+    description: 'Krav til åpenhet når KI brukes i interaksjon med mennesker eller genererer innhold.',
+    sections: [
+      {
+        title: 'Hva kreves?',
+        items: [
+          'Informer brukere om at de interagerer med KI (chatboter)',
+          'Merk KI-generert innhold tydelig (tekst, bilder, lyd, video)',
+          'Informer om bruk av emosjonsgjenkjenning eller biometrisk kategorisering',
+          'Informer om deepfakes eller manipulert innhold'
+        ]
+      },
+      {
+        title: 'For skolen',
+        items: [
+          'Hvis dere bruker ChatGPT eller lignende: Informer elevene',
+          'KI-genererte bilder/tekster må merkes',
+          'Elever må vite når de snakker med en bot',
+          'Gjelder fra august 2025 - gjør det NÅ!'
+        ]
+      }
+    ],
+    practical: 'Lag en standard informasjonstekst om KI-bruk. Lær elevene å kjenne igjen KI-generert innhold. Implementer merking av KI-output.',
+    norwegianPdfPage: 82,
+    euLink: 'https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689'
+  }
+};
+
+function openAIActModal(articleId) {
+  const modal = document.getElementById('riskModal');
+  const modalBody = document.getElementById('modalBody');
+  const data = aiActArticles[articleId];
+  
+  if (!data) return;
+  
+  let content = `
+    <div class="modal-header">
+      <span class="modal-icon">${data.icon}</span>
+      <div class="modal-title">
+        <h2>${data.title}</h2>
+        <p class="modal-subtitle">${data.subtitle}</p>
+      </div>
+    </div>
+    
+    <div class="modal-section">
+      <p><strong>${data.description}</strong></p>
+    </div>
+  `;
+  
+  data.sections.forEach(section => {
+    content += `
+      <div class="modal-section">
+        <h3>${section.title}</h3>
+        <ul class="modal-list">
+          ${section.items.map(item => `<li>${item}</li>`).join('')}
+        </ul>
+      </div>
+    `;
+  });
+  
+  content += `
+    <div class="modal-success">
+      <strong>💡 Praktisk:</strong> ${data.practical}
+    </div>
+    
+    <div class="modal-footer">
+      <p style="margin-bottom: 1rem;"><strong>📄 Les artikkelen:</strong></p>
+      <a href="https://www.regjeringen.no/contentassets/e823dc21809c43f2b4ba9ff1e389e245/ki-forordningen-eu-2024.1689-uoffisiell-norsk-131037.pdf#page=${data.norwegianPdfPage.toString().split(' ')[0]}" target="_blank" rel="noopener" class="cta" style="margin-bottom: 0.5rem;">
+        🇳🇴 Norsk oversettelse (side ${data.norwegianPdfPage}) →
+      </a>
+      <a href="${data.euLink}" target="_blank" rel="noopener" class="cta secondary">
+        🇪🇺 Engelsk original (EUR-Lex) →
+      </a>
     </div>
   `;
   
