@@ -1891,7 +1891,7 @@ const gdprData = {
       }
     ],
     practical: 'Lag en egen informasjonsside om KI-bruk på skolens nettsted. Send ut informasjon på foreldremøter. Hovedregelen er at du <strong>må</strong> informere.',
-    link: 'https://lovdata.no/dokument/NL/lov/2018-06-15-38/KAPITTEL_gdpr-2#gdpr%2Fa6'
+    link: 'https://lovdata.no/dokument/NL/lov/2018-06-15-38/KAPITTEL_gdpr-3-2#KAPITTEL_gdpr-3-2'
   },
   pol1art22: {
     icon: '📋',
