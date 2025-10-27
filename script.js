@@ -1839,7 +1839,7 @@ function closeRiskModal(event) {
 const gdprData = {
   pol1: {
     icon: '📋',
-    title: 'Personopplysningsloven kapittel 6',
+    title: 'Personopplysningsloven artikkel 6',
     subtitle: 'Lovlig behandlingsgrunnlag',
     description: 'All behandling av personopplysninger må ha et lovlig grunnlag. Personopplysningsloven § 1 gjør hele GDPR til norsk lov, inkludert GDPR artikkel 6 om behandlingsgrunnlag.',
     sections: [
@@ -1866,7 +1866,7 @@ const gdprData = {
   },
   pol16: {
     icon: '📋',
-    title: 'Personopplysningsloven artikke 13-14',
+    title: 'Personopplysningsloven artikkel 13-14',
     subtitle: 'Informasjonsplikt til elever og foresatte',
     description: 'Elever og foresatte har rett til å vite hvordan deres personopplysninger brukes. Hovedregelen om informasjonsplikt ligger i GDPR artikkel 13-14, som gjelder direkte i Norge via § 1.',
     sections: [
