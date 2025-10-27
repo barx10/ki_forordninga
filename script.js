@@ -463,8 +463,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const dl = document.createElement('button');
     dl.className = 'cta';
-    dl.textContent = '📥 Last ned vurdering';
-    dl.onclick = () => downloadResult(r);
+    dl.textContent = '� Last ned rapport (PDF)';
+    dl.onclick = () => downloadResultAsPDF(r);
     btnContainer.appendChild(dl);
 
     const reset = document.createElement('button');
@@ -580,6 +580,311 @@ av KI-systemer.
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
+  };
+
+  const downloadResultAsPDF = (result) => {
+    const timestamp = new Date().toISOString().split('T')[0];
+    const time = new Date().toLocaleTimeString('nb-NO', { hour: '2-digit', minute: '2-digit' });
+    
+    // Create a new window for printing
+    const printWindow = window.open('', '', 'width=800,height=600');
+    
+    // Build the HTML content
+    let htmlContent = `
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <title>KI-Risikovurdering - ${timestamp}</title>
+  <style>
+    @page {
+      margin: 2cm;
+      size: A4;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #1a202c;
+      background: white;
+      padding: 20px;
+    }
+    
+    .header {
+      text-align: center;
+      border-bottom: 3px solid #4da3ff;
+      padding-bottom: 20px;
+      margin-bottom: 30px;
+    }
+    
+    .header h1 {
+      font-size: 24px;
+      color: #1a202c;
+      margin-bottom: 5px;
+    }
+    
+    .header .subtitle {
+      font-size: 14px;
+      color: #64748b;
+    }
+    
+    .metadata {
+      display: flex;
+      justify-content: space-between;
+      padding: 15px;
+      background: #f8fafc;
+      border-radius: 8px;
+      margin-bottom: 25px;
+      font-size: 13px;
+      color: #475569;
+    }
+    
+    .risk-badge {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 12px;
+      margin-bottom: 15px;
+    }
+    
+    .risk-minimal { background: #dcfce7; color: #166534; }
+    .risk-transparency { background: #dbeafe; color: #1e40af; }
+    .risk-high { background: #fef3c7; color: #92400e; }
+    .risk-unacceptable { background: #fee2e2; color: #991b1b; }
+    
+    h2 {
+      font-size: 20px;
+      color: #1e293b;
+      margin: 25px 0 15px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #e2e8f0;
+    }
+    
+    h3 {
+      font-size: 16px;
+      color: #334155;
+      margin: 20px 0 10px;
+    }
+    
+    p {
+      margin-bottom: 12px;
+      color: #475569;
+    }
+    
+    .section {
+      margin-bottom: 25px;
+    }
+    
+    ul, ol {
+      margin-left: 20px;
+      margin-bottom: 15px;
+    }
+    
+    li {
+      margin-bottom: 8px;
+      color: #475569;
+    }
+    
+    .article-card {
+      background: #f8fafc;
+      border-left: 4px solid #4da3ff;
+      padding: 12px 15px;
+      margin-bottom: 12px;
+      page-break-inside: avoid;
+    }
+    
+    .article-card strong {
+      color: #1e40af;
+      display: block;
+      margin-bottom: 5px;
+    }
+    
+    .article-card p {
+      margin: 5px 0;
+      font-size: 13px;
+    }
+    
+    .article-card a {
+      color: #4da3ff;
+      text-decoration: none;
+      font-size: 12px;
+    }
+    
+    .info-box {
+      background: #eff6ff;
+      border-left: 4px solid #3b82f6;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 4px;
+    }
+    
+    .warning-box {
+      background: #fef3c7;
+      border-left: 4px solid #f59e0b;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 4px;
+    }
+    
+    .footer {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 2px solid #e2e8f0;
+      font-size: 11px;
+      color: #94a3b8;
+      text-align: center;
+    }
+    
+    @media print {
+      body {
+        padding: 0;
+      }
+      
+      .no-print {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>🎓 KI-Risikovurdering for Skolen</h1>
+    <p class="subtitle">Basert på EU's AI Act (KI-forordningen)</p>
+  </div>
+  
+  <div class="metadata">
+    <span><strong>Dato:</strong> ${timestamp}</span>
+    <span><strong>Tid:</strong> ${time}</span>
+    <span><strong>Versjon:</strong> 0.4</span>
+  </div>
+  
+  <div class="section">
+    <span class="risk-badge ${getRiskClass(result.risk)}">${getRiskLabel(result.risk)}</span>
+    <h2>${result.title}</h2>
+    <p>${result.text}</p>
+  </div>
+`;
+
+    // Add actions
+    if (result.actions && result.actions.length > 0) {
+      htmlContent += `
+  <div class="section">
+    <h2>📋 Anbefalte handlinger</h2>
+    <ol>
+`;
+      result.actions.forEach(action => {
+        htmlContent += `      <li>${action}</li>\n`;
+      });
+      htmlContent += `    </ol>
+  </div>
+`;
+    }
+
+    // Add AI Act articles
+    if (result.articles && result.articles.length > 0) {
+      htmlContent += `
+  <div class="section">
+    <h2>⚖️ Juridisk grunnlag - EU AI Act</h2>
+`;
+      result.articles.forEach(article => {
+        htmlContent += `
+    <div class="article-card">
+      <strong>${article.number}: ${article.title}</strong>
+      <p>${article.description}</p>
+      <a href="${article.url}" target="_blank">Les mer på EUR-Lex →</a>
+    </div>
+`;
+      });
+      htmlContent += `  </div>\n`;
+    }
+
+    // Add GDPR references
+    if (result.gdpr && result.gdpr.length > 0) {
+      htmlContent += `
+  <div class="section">
+    <h2>🔒 GDPR / Personvernlovgivning</h2>
+    <ul>
+`;
+      result.gdpr.forEach(gdpr => {
+        htmlContent += `      <li>${gdpr}</li>\n`;
+      });
+      htmlContent += `    </ul>
+  </div>
+`;
+    }
+
+    // Add other laws
+    if (result.other_laws && result.other_laws.length > 0) {
+      htmlContent += `
+  <div class="section">
+    <h2>📚 Annet relevant lovverk</h2>
+    <ul>
+`;
+      result.other_laws.forEach(law => {
+        htmlContent += `      <li>${law}</li>\n`;
+      });
+      htmlContent += `    </ul>
+  </div>
+`;
+    }
+
+    // Add important note
+    htmlContent += `
+  <div class="warning-box">
+    <strong>⚠️ Viktig:</strong> Dette er en veiledende vurdering. Konsulter alltid med personvernombud, DPO og skolens ledelse før implementering av KI-systemer. Vurderingen må tilpasses deres spesifikke kontekst.
+  </div>
+  
+  <div class="info-box">
+    <h3>📚 Ressurser</h3>
+    <ul>
+      <li><strong>EU AI Act (offisiell tekst):</strong> <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689" target="_blank">eur-lex.europa.eu</a></li>
+      <li><strong>AI Act oversikt:</strong> <a href="https://artificialintelligenceact.eu/" target="_blank">artificialintelligenceact.eu</a></li>
+      <li><strong>Datatilsynet (KI):</strong> <a href="https://www.datatilsynet.no/regelverk-og-verktoy/kunstig-intelligens-og-personvern/" target="_blank">datatilsynet.no</a></li>
+      <li><strong>Utdanningsdirektoratet (KI):</strong> <a href="https://www.udir.no/laring-og-trivsel/rammeverk/kompetansepakke-for-kunstig-intelligens-i-skolen/" target="_blank">udir.no</a></li>
+    </ul>
+  </div>
+  
+  <div class="footer">
+    <p>Generert av: KI-forordningen i skolen (github.com/barx10/ki_forordninga)</p>
+    <p>Lisens: CC BY-SA 4.0 | Versjon: 0.4</p>
+  </div>
+</body>
+</html>
+`;
+
+    printWindow.document.write(htmlContent);
+    printWindow.document.close();
+    
+    // Wait for content to load, then print
+    printWindow.onload = function() {
+      printWindow.focus();
+      printWindow.print();
+      // Close window after printing (user can cancel)
+      setTimeout(() => printWindow.close(), 500);
+    };
+  };
+
+  // Helper functions for risk badges
+  const getRiskClass = (risk) => {
+    if (!risk) return 'risk-minimal';
+    const r = risk.toLowerCase();
+    if (r.includes('minimal')) return 'risk-minimal';
+    if (r.includes('transparens')) return 'risk-transparency';
+    if (r.includes('høy')) return 'risk-high';
+    if (r.includes('uakseptabel')) return 'risk-unacceptable';
+    return 'risk-minimal';
+  };
+
+  const getRiskLabel = (risk) => {
+    if (!risk) return 'Minimal risiko';
+    return risk;
   };
 
   loadFlow();
