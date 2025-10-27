@@ -1,3 +1,13 @@
+/* === MOBILE FIX: Prevent horizontal scrolling === */
+html {
+  overflow-x: hidden;
+}
+
+body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
 /* Hjem-seksjonen med nodes-forside.jpg */
 .hero-bg[data-bg="nodes-forside.jpg"]::before {
   background-image: url('nodes-forside.jpg');
@@ -1316,6 +1326,36 @@ footer small {
 
 /* Responsive hero adjustments */
 @media (max-width: 768px) {
+  /* Mobilfix: Prevent horizontal scroll */
+  * {
+    max-width: 100%;
+  }
+  
+  .wrap {
+    overflow-x: hidden;
+  }
+  
+  /* Sørg for at grid ikke går utenfor */
+  .grid, 
+  .tiltak-grid, 
+  .resources-layout {
+    grid-template-columns: 1fr;
+  }
+  
+  /* Kort skal ikke gå utenfor */
+  .card, 
+  .tiltak-card,
+  .info-box {
+    max-width: 100%;
+    min-width: 0;
+  }
+  
+  /* Modal skal ikke være bredere enn skjerm */
+  .modal-content {
+    max-width: calc(100vw - 2rem);
+    margin: 1rem;
+  }
+
   .hero {
     padding: 60px 20px 40px;
   }
