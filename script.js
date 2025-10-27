@@ -2477,6 +2477,43 @@ function openNorskLovModal(law) {
 
 // === AI ACT ARTIKLER MODAL ===
 const aiActArticles = {
+  art4: {
+    icon: '🎓',
+    title: 'Artikkel 4',
+    subtitle: 'KI-kompetanse (AI literacy)',
+    description: 'Krav til opplæring og kompetanse for de som bruker KI-systemer.',
+    sections: [
+      {
+        title: 'Hva kreves?',
+        items: [
+          'Leverandører og deployører skal sikre tilstrekkelig KI-kompetanse hos personell',
+          'Kompetansen skal tilpasses teknisk kunnskap, erfaring, utdanning og kontekst',
+          'Gjelder uansett risikonivå (men omfang kan være proporsjonalt)',
+          'Hver organisasjon må selv vurdere innhold og omfang av opplæring'
+        ]
+      },
+      {
+        title: 'For skolen',
+        items: [
+          'Skoleleder må sikre at ansatte har tilstrekkelig KI-kompetanse',
+          'Opplæring må dekke bruk, risiko og konsekvenser av KI-verktøy',
+          'Gjelder alle som håndterer drift og bruk av KI-systemer',
+          'Høyere risiko = mer omfattende opplæring'
+        ]
+      },
+      {
+        title: 'Tidsramme',
+        items: [
+          'Reglene om KI-kompetanse trer i kraft 2. februar 2025',
+          'Sanksjoner ved manglende etterlevelse fra 2. august 2025',
+          'Start opplæring av personell NÅ'
+        ]
+      }
+    ],
+    practical: 'Kartlegg hvilke KI-verktøy skolen bruker. Lag opplæringsplan for alle ansatte som bruker dem. Dokumenter opplæringen.',
+    norwegianPdfPage: 51,
+    euLink: 'https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_4'
+  },
   art5: {
     icon: '🚫',
     title: 'Artikkel 5',
