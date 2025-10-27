@@ -1839,7 +1839,7 @@ function closeRiskModal(event) {
 const gdprData = {
   pol1: {
     icon: '📋',
-    title: 'Personopplysningsloven § 1 og § 8',
+    title: 'Personopplysningsloven kapittel 6',
     subtitle: 'Lovlig behandlingsgrunnlag',
     description: 'All behandling av personopplysninger må ha et lovlig grunnlag. Personopplysningsloven § 1 gjør hele GDPR til norsk lov, inkludert GDPR artikkel 6 om behandlingsgrunnlag.',
     sections: [
@@ -1862,11 +1862,11 @@ const gdprData = {
       }
     ],
     practical: 'Dokumenter behandlingsgrunnlag i DPIA. Bruk <strong>ikke</strong> samtykke - bruk myndighetsutøvelse eller allmenn interesse som grunnlag.',
-    link: 'https://lovdata.no/dokument/NL/lov/2018-06-15-38'
+    link: 'https://lovdata.no/dokument/NL/lov/2018-06-15-38/KAPITTEL_gdpr-2#gdpr%2Fa6'
   },
   pol16: {
     icon: '📋',
-    title: 'Personopplysningsloven § 16',
+    title: 'Personopplysningsloven artikke 13-14',
     subtitle: 'Informasjonsplikt til elever og foresatte',
     description: 'Elever og foresatte har rett til å vite hvordan deres personopplysninger brukes. Hovedregelen om informasjonsplikt ligger i GDPR artikkel 13-14, som gjelder direkte i Norge via § 1.',
     sections: [
@@ -1891,11 +1891,11 @@ const gdprData = {
       }
     ],
     practical: 'Lag en egen informasjonsside om KI-bruk på skolens nettsted. Send ut informasjon på foreldremøter. Hovedregelen er at du <strong>må</strong> informere.',
-    link: 'https://lovdata.no/dokument/NL/lov/2018-06-15-38/KAPITTEL_4#KAPITTEL_4'
+    link: 'https://lovdata.no/dokument/NL/lov/2018-06-15-38/KAPITTEL_gdpr-2#gdpr%2Fa6'
   },
   pol1art22: {
     icon: '📋',
-    title: 'Personopplysningsloven § 1',
+    title: 'Personopplysningsloven artikkel 22',
     subtitle: 'Automatiserte avgjørelser (GDPR art. 22)',
     description: 'Ingen skal utsettes for avgjørelser basert utelukkende på automatisk behandling som har rettslige eller vesentlige konsekvenser. GDPR artikkel 22 gjelder direkte i Norge via personopplysningsloven § 1.',
     sections: [
@@ -1919,11 +1919,11 @@ const gdprData = {
       }
     ],
     practical: 'Dokumenter alltid at en kvalifisert person har sett gjennom og godkjent KI-output før det får konsekvenser for eleven. Skolen kan <strong>ikke</strong> la KI fatte vedtak alene.',
-    link: 'https://lovdata.no/dokument/NL/lov/2018-06-15-38'
+    link: 'https://lovdata.no/dokument/NL/lov/2018-06-15-38/gdpr/ARTIKKEL_22#gdpr/ARTIKKEL_22'
   },
   pol1art28: {
     icon: '🔴',
-    title: 'Personopplysningsloven § 1',
+    title: 'Personopplysningsloven artikkel 28',
     subtitle: 'Databehandleravtale (GDPR art. 28) - OBLIGATORISK',
     description: 'Når en ekstern leverandør behandler personopplysninger på vegne av skolen, MÅ det foreligge en bindende databehandleravtale. GDPR artikkel 28 gjelder direkte i Norge via personopplysningsloven § 1.',
     sections: [
@@ -1946,11 +1946,11 @@ const gdprData = {
       }
     ],
     practical: 'IKKE bruk KI-verktøy uten signert databehandleravtale. Sjekk om avtalen dekker tredjelandsoverføring (data utenfor EU/EØS). Kravet gjelder direkte i Norge.',
-    link: 'https://lovdata.no/dokument/NL/lov/2018-06-15-38'
+    link: 'https://lovdata.no/dokument/NL/lov/2018-06-15-38/gdpr/ARTIKKEL_28#gdpr/ARTIKKEL_28'
   },
   pol9: {
     icon: '📋',
-    title: 'Personopplysningsloven § 9',
+    title: 'Personopplysningsloven artikkel 35',
     subtitle: 'DPIA - Personvernkonsekvensvurdering (GDPR art. 35)',
     description: 'Før bruk av ny teknologi som kan medføre høy risiko for personvernet, må det gjennomføres en DPIA. Personopplysningsloven § 9 knytter GDPR artikkel 35 inn i norsk rett.',
     sections: [
@@ -1975,7 +1975,7 @@ const gdprData = {
       }
     ],
     practical: 'Bruk Datatilsynets DPIA-mal. Involver personvernombud tidlig i prosessen. § 9 gjør DPIA til et krav for høyrisiko-behandling av elevdata.',
-    link: 'https://lovdata.no/dokument/NL/lov/2018-06-15-38/KAPITTEL_3#KAPITTEL_3'
+    link: 'https://lovdata.no/dokument/NL/lov/2018-06-15-38/gdpr/ARTIKKEL_35#gdpr/ARTIKKEL_35'
   }
 };
 
