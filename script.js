@@ -1253,7 +1253,7 @@ function printTiltaksplan() {
       <li>DPIA-oppdateringer</li>
     </ul>
     <div class="responsibility">
-      <strong>Lagringstid:</strong> Minimum 6 måneder (AI Act Art. 29)
+      <strong>Lagringstid:</strong> Minimum 6 måneder (AI Act Art. 26)
     </div>
   </div>
   
@@ -1641,7 +1641,7 @@ Hva skal logges:
   ☐ Systemoppdateringer og endringer
   ☐ DPIA-oppdateringer
 
-Lagringstid: Minimum 6 måneder (AI Act Art. 29)
+Lagringstid: Minimum 6 måneder (AI Act Art. 26)
 
 
 5.2 BIAS-TESTING OG KVALITETSKONTROLL
@@ -1851,9 +1851,9 @@ const riskData = {
       '🔒 <strong>Cybersikkerhet:</strong> Sikkerhetstiltak mot hacking',
       '📝 <strong>Logging:</strong> Minst 6 måneders logger',
       '⚖️ <strong>Leverandør-ansvar:</strong> Leverandøren må være CE-merket',
-      '🏫 <strong>Skole-ansvar:</strong> Dere er ansvarlige som brukere (Artikkel 29)'
+      '🏫 <strong>Skole-ansvar:</strong> Dere er ansvarlige som brukere (Artikkel 26)'
     ],
-    warning: '<strong>VIKTIG!</strong> Høyrisiko-krav gjelder fullt ut fra august 2027, men forberedelser må starte NÅ. DPIA er påkrevd.',
+    warning: '<strong>VIKTIG!</strong> Høyrisiko-krav for utdanning (Vedlegg III) gjelder fra august 2026. Forberedelser må starte NÅ. DPIA er påkrevd.',
     action: 'Gjennomgå alle høyrisiko-systemer. Lag DPIA. Krev dokumentasjon fra leverandør.'
   },
   unacceptable: {
@@ -2159,9 +2159,10 @@ const norskLovData = {
     icon: '⚖️',
     title: 'Opplæringsloven',
     subtitle: 'Elevens rettigheter',
+    description: 'Ny opplæringslov trådte i kraft 1. august 2024 (lov 2023-06-09 nr. 30).',
     sections: [
       {
-        title: '§ 1-1 Likeverd',
+        title: '§ 1-4 Forbod mot diskriminering og trakassering',
         items: [
           'KI-systemer må gi <strong>alle elever lik tilgang</strong> til god opplæring',
           'Må fungere for elever med funksjonshemming (universell utforming)',
@@ -2170,7 +2171,7 @@ const norskLovData = {
         ]
       },
       {
-        title: '§ 3-1 Rettssikkerhet',
+        title: '§ 3-3 og § 3-4 Individuell vurdering',
         items: [
           'Elever har rett til å klage på vurderinger',
           'KI-baserte vurderinger må kunne <strong>forklares</strong> og <strong>etterprøves</strong>',
@@ -2179,7 +2180,7 @@ const norskLovData = {
         ]
       },
       {
-        title: '§ 3-3 og Kap 9a - Psykososialt miljø',
+        title: 'Kapittel 12 - Skolemiljø',
         items: [
           'KI skal <strong>ikke</strong> brukes til overvåking av elever på måter som skaper utrygghet',
           'Elever skal beskyttes mot krenkelser - også fra KI-systemer',
@@ -2188,7 +2189,7 @@ const norskLovData = {
       }
     ],
     practical: 'Vurder hvordan KI påvirker elevens rettigheter <strong>før</strong> bruk. Involver elevråd i beslutninger om KI.',
-    link: 'https://lovdata.no/dokument/LTI/lov/2023-06-09-30'
+    link: 'https://lovdata.no/dokument/NL/lov/2023-06-09-30'
   },
   personopplysningsloven: {
     icon: '⚖️',
@@ -2211,7 +2212,7 @@ const norskLovData = {
   },
   diskrimineringsloven: {
     icon: '🔴',
-    title: 'Diskrimineringsloven',
+    title: 'Likestillings- og diskrimineringsloven',
     subtitle: 'Forbud mot diskriminering',
     sections: [
       {
@@ -2232,12 +2233,12 @@ const norskLovData = {
     subtitle: 'Elevens rett til klage',
     sections: [
       {
-        title: '§ 2 Klagerett på forvaltningsvedtak',
+        title: '§ 28 Klagerett på enkeltvedtak',
         items: [
-          'Avgjørelser som påvirker elevers rettigheter er <strong>forvaltningsvedtak</strong>',
+          'Avgjørelser som påvirker elevers rettigheter er <strong>enkeltvedtak</strong> (jf. § 2)',
           'Elever/foresatte har rett til å klage på vedtak (f.eks. karakterer, spesialundervisning, tilpasset opplæring)',
           'KI-baserte vedtak må kunne <strong>forklares</strong> i klagesak',
-          'Klagenemnda må kunne etterprøve beslutningen'
+          'Klageinstansen må kunne etterprøve beslutningen'
         ]
       }
     ],
@@ -2390,7 +2391,7 @@ const aiActArticles = {
         ]
       }
     ],
-    practical: 'Kartlegg alle høyrisiko-systemer. Start forberedelser nå - kravene gjelder fullt ut fra august 2027.',
+    practical: 'Kartlegg alle høyrisiko-systemer. Start forberedelser nå - kravene for utdanning gjelder fra august 2026.',
     norwegianPdfPage: '53 (Artikkel 6) og 127 (Vedlegg III)',
     euLink: 'https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689'
   },
