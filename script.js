@@ -110,351 +110,484 @@ const initRouter = () => {
 document.addEventListener('DOMContentLoaded', () => {
   // Start theme toggle
   initThemeToggle();
-  
+
   // Start router
   initRouter();
-  
+
   // Start quiz hvis vi er på sjekk-siden
   const quiz = document.getElementById('quiz');
   if (!quiz) return;
 
   let flow = null;
-  let history = []; // For tilbake-funksjonalitet
+  let role = null;
+  let answers = [];
+  let scores = { access: 0, evaluation: 0, level: 0, surveillance: 0 };
+  let currentQuestionIdx = 0;
+
+  const RISK_LEVELS = {
+    unacceptable: { label: 'Uakseptabel risiko', cssClass: 'r-uat', pdfClass: 'result-unacceptable', badgeClass: 'risk-unacceptable', icon: '\u{1F6A8}' },
+    high:         { label: 'H\u00f8y risiko',         cssClass: 'r-hoy', pdfClass: 'result-high',         badgeClass: 'risk-high',         icon: '\u26a0\ufe0f' },
+    transparency: { label: 'Transparenskrav',    cssClass: 'r-tra', pdfClass: 'result-transparency', badgeClass: 'risk-transparency', icon: '\ud83d\udccb' },
+    minimal:      { label: 'Minimal risiko',     cssClass: 'r-min', pdfClass: 'result-minimal',      badgeClass: 'risk-minimal',      icon: '\u2705' }
+  };
+
+  const saveState = () => {
+    try {
+      sessionStorage.setItem('ki_quiz_state', JSON.stringify({ role, answers, scores, currentQuestionIdx }));
+    } catch (e) { /* ignore */ }
+  };
+
+  const clearState = () => {
+    sessionStorage.removeItem('ki_quiz_state');
+  };
+
+  const getQuestionIds = () => flow.roles[role].questionIds;
+
+  const getCategory = () => {
+    const q1Answer = answers.find(a => a.questionId === 1);
+    return q1Answer ? q1Answer.option.category : null;
+  };
+
+  const getLeaderFlags = () => {
+    const flags = {};
+    answers.forEach(a => {
+      if (a.option.leaderFlag) {
+        flags[a.option.leaderFlag] = true;
+      }
+    });
+    return flags;
+  };
+
+  const getGdprFlag = () => {
+    const q7Answer = answers.find(a => a.questionId === 7);
+    return q7Answer ? q7Answer.option.gdprFlag : null;
+  };
+
+  const getTransparencyOk = () => {
+    const q8Answer = answers.find(a => a.questionId === 8);
+    return q8Answer ? q8Answer.option.transparencyOk : null;
+  };
+
+  const calculateRisk = () => {
+    const maxScore = Math.max(...Object.values(scores));
+    let maxAxis = null;
+    for (const [axis, score] of Object.entries(scores)) {
+      if (score === maxScore) { maxAxis = axis; break; }
+    }
+
+    let level;
+    if (maxScore >= flow.thresholds.unacceptable) {
+      level = 'unacceptable';
+    } else if (maxScore >= flow.thresholds.high) {
+      level = 'high';
+    } else {
+      const category = getCategory();
+      level = (category && flow.lowRiskCategories.includes(category)) ? 'minimal' : 'transparency';
+    }
+
+    return { level, maxAxis, maxScore, allScores: { ...scores } };
+  };
+
+  const validateFlow = (f) => {
+    if (!f.roles || !f.questions || !f.thresholds || !f.axes) return false;
+    if (!f.roles.teacher || !f.roles.leader) return false;
+    if (!Array.isArray(f.questions) || f.questions.length === 0) return false;
+    return true;
+  };
 
   const loadFlow = async () => {
     try {
       const res = await fetch('flow.json');
-      if (!res.ok) {
-        throw new Error(`HTTP error! status: ${res.status}`);
-      }
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
       flow = await res.json();
-      
-      // Valider flow.json struktur
-      const validationErrors = validateFlow(flow);
-      if (validationErrors.length > 0) {
-        console.error('Valideringsfeil i flow.json:', validationErrors);
+
+      if (!validateFlow(flow)) {
         quiz.innerHTML = `
-          <div class="card" style="border-left: 5px solid var(--stop)">
-            <h3>⚠️ Konfigurasjonsfeil</h3>
-            <p>Det er feil i spørsmålskonfigurasjonen som må rettes:</p>
-            <ul style="margin: 16px 0; padding-left: 20px;">
-              ${validationErrors.map(err => `<li style="margin: 8px 0;">${err}</li>`).join('')}
-            </ul>
-            <p class="note">Ta kontakt med administrator.</p>
-          </div>
-        `;
+          <div style="border-left: 5px solid var(--stop); padding: 24px;">
+            <h3>Konfigurasjonsfeil</h3>
+            <p>flow.json har ugyldig struktur. Ta kontakt med administrator.</p>
+          </div>`;
         return;
       }
-      
-      // Sjekk om det finnes lagret historikk
-      const savedHistory = sessionStorage.getItem('ki_history');
-      if (savedHistory) {
+
+      const saved = sessionStorage.getItem('ki_quiz_state');
+      if (saved) {
         try {
-          const parsed = JSON.parse(savedHistory);
-          if (parsed.length > 0) {
-            // Tilby å fortsette
+          const state = JSON.parse(saved);
+          if (state.role && state.answers && state.answers.length > 0) {
             quiz.innerHTML = `
               <div class="card">
-                <h3>💾 Fortsette der du slapp?</h3>
-                <p>Vi fant en lagret økt med ${parsed.length} besvarte spørsmål.</p>
+                <h3>Fortsette der du slapp?</h3>
+                <p>Vi fant en lagret økt med ${state.answers.length} besvarte spørsmål.</p>
                 <div style="display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap;">
-                  <button class="cta" onclick="document.dispatchEvent(new CustomEvent('restoreHistory'))">
-                    ↩️ Fortsett
-                  </button>
-                  <button class="cta-secondary" onclick="document.dispatchEvent(new CustomEvent('startFresh'))">
-                    🔄 Start på nytt
-                  </button>
+                  <button class="cta" id="quiz-restore">Fortsett</button>
+                  <button class="cta-secondary" id="quiz-restart">Start på nytt</button>
                 </div>
-              </div>
-            `;
-            
-            // Event listeners for valg
-            document.addEventListener('restoreHistory', () => {
-              history = parsed;
-              const lastStepId = history[history.length - 1];
-              const lastStep = flow.steps.find(s => s.id === lastStepId);
-              if (lastStep) {
-                renderStep(lastStep);
+              </div>`;
+            quiz.querySelector('#quiz-restore').onclick = () => {
+              role = state.role;
+              answers = state.answers;
+              scores = state.scores;
+              currentQuestionIdx = state.currentQuestionIdx;
+              const qIds = getQuestionIds();
+              if (currentQuestionIdx < qIds.length) {
+                renderQuestion(qIds[currentQuestionIdx]);
               } else {
-                startFresh();
+                showResult(calculateRisk());
               }
-            }, { once: true });
-            
-            document.addEventListener('startFresh', startFresh, { once: true });
+            };
+            quiz.querySelector('#quiz-restart').onclick = () => startFresh();
             return;
           }
-        } catch (e) {
-          console.warn('Kunne ikke parse lagret historikk:', e);
-        }
+        } catch (e) { /* ignore */ }
       }
-      
-      // Start normalt
+
       startFresh();
-      
     } catch (error) {
-      console.error('Kunne ikke laste flow.json:', error);
       quiz.innerHTML = `
-        <div class="card" style="border-left: 5px solid var(--stop)">
-          <h3>⚠️ Kunne ikke laste veiviseren</h3>
-          <p>Det oppstod en feil ved lasting av spørsmålsflyten.</p>
-          <p class="note">Feil: ${error.message}</p>
-          <button class="cta" onclick="location.reload()">Prøv igjen</button>
-        </div>
-      `;
+        <div style="border-left: 5px solid var(--stop); padding: 24px;">
+          <h3>Kunne ikke laste veiviseren</h3>
+          <p>Feil: ${error.message}</p>
+          <button class="cta" onclick="location.reload()" style="margin-top: 12px;">Prøv igjen</button>
+        </div>`;
     }
   };
-  
+
   const startFresh = () => {
-    history = [];
-    sessionStorage.removeItem('ki_history');
-    renderStep(flow.steps[0]);
+    role = null;
+    answers = [];
+    scores = { access: 0, evaluation: 0, level: 0, surveillance: 0 };
+    currentQuestionIdx = 0;
+    clearState();
+    showRoleSelection();
   };
-  
-  const validateFlow = (flow) => {
-    const errors = [];
-    
-    if (!flow.steps || !Array.isArray(flow.steps)) {
-      errors.push('Mangler "steps" array');
-      return errors;
-    }
-    
-    if (!flow.results || typeof flow.results !== 'object') {
-      errors.push('Mangler "results" objekt');
-      return errors;
-    }
-    
-    const stepIds = new Set(flow.steps.map(s => s.id));
-    const resultKeys = new Set(Object.keys(flow.results));
-    
-    flow.steps.forEach(step => {
-      if (!step.id) {
-        errors.push(`Steg mangler ID`);
-        return;
-      }
-      
-      if (!step.question) {
-        errors.push(`Steg ${step.id}: Mangler spørsmål`);
-      }
-      
-      if (!step.options || !Array.isArray(step.options)) {
-        errors.push(`Steg ${step.id}: Mangler alternativer`);
-        return;
-      }
-      
-      step.options.forEach((opt, idx) => {
-        if (!opt.text) {
-          errors.push(`Steg ${step.id}, alternativ ${idx + 1}: Mangler tekst`);
-        }
-        
-        if (opt.next && !stepIds.has(opt.next)) {
-          errors.push(`Steg ${step.id}: Refererer til ikke-eksisterende steg ${opt.next}`);
-        }
-        
-        if (opt.result && !resultKeys.has(opt.result)) {
-          errors.push(`Steg ${step.id}: Refererer til ikke-eksisterende resultat "${opt.result}"`);
-        }
-        
-        if (!opt.next && !opt.result) {
-          errors.push(`Steg ${step.id}, alternativ ${idx + 1}: Mangler både "next" og "result"`);
-        }
-      });
+
+  const showRoleSelection = () => {
+    quiz.innerHTML = `
+      <h3>Velg din rolle</h3>
+      <p class="help-text">Din rolle bestemmer hvilke spørsmål du får og hvilke anbefalinger som gis.</p>
+      <div class="role-selection">
+        <button class="role-card" data-role="teacher">
+          <div class="role-icon">👩‍🏫</div>
+          <div class="role-label">${flow.roles.teacher.label}</div>
+          <div class="role-desc">${flow.roles.teacher.description}</div>
+        </button>
+        <button class="role-card" data-role="leader">
+          <div class="role-icon">👔</div>
+          <div class="role-label">${flow.roles.leader.label}</div>
+          <div class="role-desc">${flow.roles.leader.description}</div>
+        </button>
+      </div>`;
+
+    quiz.querySelectorAll('.role-card').forEach(btn => {
+      btn.onclick = () => {
+        role = btn.dataset.role;
+        currentQuestionIdx = 0;
+        saveState();
+        renderQuestion(getQuestionIds()[0]);
+      };
     });
-    
-    return errors;
   };
 
-  const calculateProgress = () => {
-    // Basert på faktisk antall spørsmål i historikk
-    // Estimert maks antall spørsmål i en typisk sti er ca 12-15
-    const estimatedMaxSteps = 15;
-    const current = history.length;
-    // Cap på 95% inntil vi når resultat for å unngå 100% før ferdig
-    const percent = Math.min(Math.round((current / estimatedMaxSteps) * 100), 95);
-    return { current, percent };
-  };
-
-  const renderStep = (step) => {
-    // Feilhåndtering: Sjekk om step eksisterer
-    if (!step) {
+  const renderQuestion = (questionId) => {
+    const question = flow.questions.find(q => q.id === questionId);
+    if (!question) {
       quiz.innerHTML = `
-        <div class="card" style="border-left: 5px solid var(--stop); padding: 24px;">
-          <h3>⚠️ Feil i veiviseren</h3>
-          <p>Det oppstod en feil – spørsmålet ble ikke funnet. Dette kan skyldes en konfigurasjonsfeil.</p>
-          <p class="note">Teknisk detalj: Manglende steg i flow.json</p>
-          <button class="cta" onclick="location.reload()" style="margin-top: 16px;">🔄 Start på nytt</button>
-        </div>
-      `;
-      console.error('renderStep fikk undefined/null step. History:', history);
+        <div style="border-left: 5px solid var(--stop); padding: 24px;">
+          <h3>Feil i veiviseren</h3>
+          <p>Spørsmål ${questionId} ble ikke funnet.</p>
+          <button class="cta" onclick="location.reload()">Start på nytt</button>
+        </div>`;
       return;
     }
 
-    // Legg til i historikk
-    history.push(step.id);
-    
-    // Lagre historikk i sessionStorage
-    try {
-      sessionStorage.setItem('ki_history', JSON.stringify(history));
-    } catch (e) {
-      console.warn('Kunne ikke lagre historikk:', e);
-    }
+    const qIds = getQuestionIds();
+    const total = qIds.length;
+    const percent = Math.min(Math.round(((currentQuestionIdx) / total) * 100), 95);
 
-    const progress = calculateProgress();
-    
     quiz.innerHTML = `
       <div class="progress-container">
         <div class="progress-bar">
-          <div class="progress-fill" style="width: ${progress.percent}%"></div>
+          <div class="progress-fill" style="width: ${percent}%"></div>
         </div>
-        <p class="note" style="text-align: center; margin: 8px 0;">Spørsmål ${history.length}</p>
+        <p class="note" style="text-align: center; margin: 8px 0;">Spørsmål ${currentQuestionIdx + 1} av ${total}</p>
       </div>
-      <h3>${step.question}</h3>
-      ${step.help ? `<p class="help-text">💡 ${step.help}</p>` : ''}
+      <h3>${question.question}</h3>
+      ${question.help ? `<p class="help-text">${question.help}</p>` : ''}
       <div class="options-container"></div>
-      <div class="nav-buttons"></div>
-    `;
+      <div class="nav-buttons"></div>`;
 
     const optionsContainer = quiz.querySelector('.options-container');
-    step.options.forEach(o => {
+    question.options.forEach((opt, idx) => {
       const b = document.createElement('button');
       b.className = 'cta';
       b.style.margin = '6px';
-      b.textContent = o.text;
-      b.onclick = () => {
-        if (o.next) {
-          const next = flow.steps.find(s => s.id === o.next);
-          if (!next) {
-            console.error(`Steg ${o.next} ikke funnet`);
-            quiz.innerHTML = `
-              <div class="card" style="border-left: 5px solid var(--stop)">
-                <h3>⚠️ Navigasjonsfeil</h3>
-                <p>Kunne ikke finne neste spørsmål (ID: ${o.next}).</p>
-                <button class="cta" onclick="location.reload()">Start på nytt</button>
-              </div>
-            `;
-            return;
-          }
-          renderStep(next);
-        } else if (o.result) {
-          showResult(o.result);
-        }
-      };
+      b.textContent = opt.text;
+      b.onclick = () => addAnswer(questionId, idx, opt);
       optionsContainer.appendChild(b);
     });
 
-    // Tilbake-knapp
     const navButtons = quiz.querySelector('.nav-buttons');
-    if (history.length > 1) {
-      const backBtn = document.createElement('button');
-      backBtn.className = 'cta-secondary';
-      backBtn.textContent = '← Tilbake';
-      backBtn.style.marginTop = '16px';
-      backBtn.onclick = () => goBack();
-      navButtons.appendChild(backBtn);
+    const backBtn = document.createElement('button');
+    backBtn.className = 'cta-secondary';
+    backBtn.textContent = '\u2190 Tilbake';
+    backBtn.style.marginTop = '16px';
+    backBtn.onclick = () => goBack();
+    navButtons.appendChild(backBtn);
+  };
+
+  const addAnswer = (questionId, optionIndex, option) => {
+    answers.push({ questionId, optionIndex, option });
+
+    if (option.scores) {
+      for (const [axis, value] of Object.entries(option.scores)) {
+        if (scores[axis] !== undefined) {
+          scores[axis] += value;
+        }
+      }
+    }
+
+    currentQuestionIdx++;
+    saveState();
+
+    const qIds = getQuestionIds();
+    if (currentQuestionIdx < qIds.length) {
+      renderQuestion(qIds[currentQuestionIdx]);
+    } else {
+      showResult(calculateRisk());
     }
   };
 
   const goBack = () => {
-    if (history.length > 1) {
-      history.pop(); // Fjern nåværende
-      const previousStepId = history.pop(); // Fjern og hent forrige
-      const previousStep = flow.steps.find(s => s.id === previousStepId);
-      if (previousStep) {
-        renderStep(previousStep);
-      }
-    }
-  };
-
-  const showResult = (key) => {
-    const r = flow.results[key];
-    
-    if (!r) {
-      quiz.innerHTML = `
-        <div class="card" style="border-left: 5px solid var(--stop)">
-          <h3>⚠️ Resultat ikke funnet</h3>
-          <p>Resultatnøkkel "${key}" eksisterer ikke i konfigurasjonen.</p>
-          <button class="cta" onclick="location.reload()">Start på nytt</button>
-        </div>
-      `;
-      console.error(`Resultat "${key}" ikke funnet i flow.results`);
+    if (answers.length === 0) {
+      startFresh();
       return;
     }
-    
-    // Rens sessionStorage når resultat vises
-    sessionStorage.removeItem('ki_history');
-    
-    // Bygg resultat-HTML
-    let resultHTML = `
-      <div class="result-card ${r.class}">
-        <h3>${r.title}</h3>
-        <div class="result-text">${r.text.replace(/\n/g, '<br>')}</div>
-    `;
 
-    // Legg til handlinger hvis de finnes
-    if (r.actions && r.actions.length > 0) {
-      resultHTML += `
-        <div class="actions-list">
-          <h4>📋 Neste steg:</h4>
-          <ul>
-            ${r.actions.map(action => `<li>${action}</li>`).join('')}
-          </ul>
-        </div>
-      `;
+    const lastAnswer = answers.pop();
+    if (lastAnswer.option.scores) {
+      for (const [axis, value] of Object.entries(lastAnswer.option.scores)) {
+        if (scores[axis] !== undefined) {
+          scores[axis] -= value;
+        }
+      }
     }
 
-    // Legg til artikkelreferanser hvis de finnes
-    if (r.articles && r.articles.length > 0) {
-      console.log('Viser artikler:', r.articles); // DEBUG
-      resultHTML += `
-        <div class="articles-list">
-          <h4>⚖️ Juridisk grunnlag (AI Act):</h4>
-          <div class="articles-grid">
-            ${r.articles.map(article => `
-              <div class="article-card">
-                <div class="article-number">${article.number}</div>
-                <div class="article-content">
-                  <strong>${article.title}</strong>
-                  <p>${article.description}</p>
-                  <a href="${article.url}" target="_blank" rel="noopener" class="article-link">
-                    Les mer →
-                  </a>
-                </div>
-              </div>
+    currentQuestionIdx--;
+    saveState();
+
+    const qIds = getQuestionIds();
+    renderQuestion(qIds[currentQuestionIdx]);
+  };
+
+  const buildAxisBreakdown = (allScores) => {
+    const threshold = flow.thresholds.high;
+    let html = '<div class="score-breakdown">';
+    for (const [axis, score] of Object.entries(allScores)) {
+      const axisInfo = flow.axes[axis];
+      if (!axisInfo) continue;
+      const maxDisplay = Math.max(flow.thresholds.unacceptable, score + 1);
+      const fillPercent = Math.round((score / maxDisplay) * 100);
+      const isHigh = score >= threshold;
+      html += `
+        <div class="axis-row ${isHigh ? 'axis-high' : ''}">
+          <div class="axis-label">${axisInfo.label}</div>
+          <div class="axis-bar-container">
+            <div class="axis-bar-fill" style="width: ${fillPercent}%"></div>
+            <div class="axis-bar-threshold" style="left: ${Math.round((threshold / maxDisplay) * 100)}%"></div>
+          </div>
+          <div class="axis-score">${score}/${maxDisplay}</div>
+          <div class="axis-article">${axisInfo.article}</div>
+        </div>`;
+    }
+    html += '</div>';
+    return html;
+  };
+
+  const buildGdprChecklist = (riskLevel) => {
+    let checklistKey;
+    if (riskLevel === 'high' || riskLevel === 'unacceptable') {
+      checklistKey = 'high';
+    } else if (riskLevel === 'transparency') {
+      checklistKey = 'transparency';
+    } else {
+      checklistKey = 'minimal';
+    }
+
+    const items = flow.gdprChecklists[checklistKey];
+    if (!items || items.length === 0) return '';
+
+    let html = `
+      <div class="gdpr-checklist">
+        <h4>GDPR / Personvern — Sjekkliste</h4>
+        <ul>`;
+    items.forEach(item => {
+      html += `<li><label><input type="checkbox"> ${item}</label></li>`;
+    });
+    html += '</ul></div>';
+    return html;
+  };
+
+  const buildGdprFollowUp = () => {
+    if (!flow.gdprFollowUp || flow.gdprFollowUp.length === 0) return '';
+
+    let html = `
+      <div class="gdpr-followup">
+        <h4>GDPR-oppfølging</h4>`;
+
+    flow.gdprFollowUp.forEach((fq, fqIdx) => {
+      html += `
+        <div class="followup-question" id="followup-${fqIdx}">
+          <p><strong>${fq.question}</strong></p>
+          ${fq.help ? `<p class="help-text">${fq.help}</p>` : ''}
+          <div class="followup-options" data-fq="${fqIdx}">
+            ${fq.options.map((opt, optIdx) => `
+              <button class="cta-secondary followup-btn" data-fq="${fqIdx}" data-opt="${optIdx}">${opt.text}</button>
             `).join('')}
           </div>
-        </div>
-      `;
+          <div class="followup-result" id="followup-result-${fqIdx}"></div>
+        </div>`;
+    });
+
+    html += '</div>';
+    return html;
+  };
+
+  const attachFollowUpListeners = () => {
+    quiz.querySelectorAll('.followup-btn').forEach(btn => {
+      btn.onclick = () => {
+        const fqIdx = parseInt(btn.dataset.fq);
+        const optIdx = parseInt(btn.dataset.opt);
+        const fq = flow.gdprFollowUp[fqIdx];
+        const opt = fq.options[optIdx];
+
+        btn.parentElement.querySelectorAll('.followup-btn').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+
+        const resultDiv = document.getElementById(`followup-result-${fqIdx}`);
+        const statusClass = opt.status === 'ok' ? 'status-ok' : opt.status === 'critical' ? 'status-critical' : 'status-warning';
+        resultDiv.innerHTML = `<div class="followup-recommendation ${statusClass}">${opt.recommendation}</div>`;
+      };
+    });
+  };
+
+  const buildRecommendations = (risk, leaderFlags) => {
+    let html = '<div class="recommendation-section"><h4>Anbefalte tiltak</h4>';
+
+    const transparencyOk = getTransparencyOk();
+    const gdprFlag = getGdprFlag();
+
+    if (risk.level === 'unacceptable') {
+      html += '<div class="rec-critical"><strong>STOPP bruk umiddelbart.</strong> Dette KI-systemet er i kategorien uakseptabel risiko under AI Act. Kontakt ledelse og personvernombud.</div>';
+    } else if (risk.level === 'high') {
+      html += '<div class="rec-warning"><strong>Høy risiko krever ekstra tiltak.</strong> Dokumentasjon, risikovurdering og menneskelig tilsyn er påkrevd.</div>';
+    }
+
+    if (transparencyOk === false) {
+      html += '<div class="rec-action">Elever og foresatte <strong>må informeres</strong> om at de bruker et KI-system (AI Act Art. 50).</div>';
+    }
+
+    if (gdprFlag === 'sensitive') {
+      html += '<div class="rec-action">Sensitive personopplysninger behandles. <strong>DPIA er lovpålagt</strong> (GDPR Art. 35). Kontakt personvernombud.</div>';
+    } else if (gdprFlag === 'personal') {
+      html += '<div class="rec-action">Personopplysninger behandles. Sørg for <strong>databehandleravtale</strong> (GDPR Art. 28) og vurder behov for DPIA.</div>';
+    }
+
+    if (role === 'teacher') {
+      html += '<ul>';
+      if (risk.level === 'high' || risk.level === 'unacceptable') {
+        html += '<li>Dokumenter all bruk og alle overstyringer av KI-beslutninger</li>';
+        html += '<li>Sørg for at du alltid kan overstyre systemets beslutninger</li>';
+        html += '<li>Meld fra til ledelsen om bruken</li>';
+      }
+      html += '<li>Informer elever om hvordan KI brukes i undervisningen</li>';
+      html += '<li>Vurder pedagogisk nytte opp mot risiko</li>';
+      html += '</ul>';
     } else {
-      console.log('Ingen artikler funnet for:', r.title); // DEBUG
+      html += '<ul>';
+      if (risk.level === 'high' || risk.level === 'unacceptable') {
+        html += '<li>Gjennomfør formell risikovurdering (AI Act Art. 9)</li>';
+        html += '<li>Etabler rutiner for menneskelig tilsyn (Art. 14)</li>';
+        html += '<li>Dokumenter systemets beslutningsprosess (Art. 13)</li>';
+        html += '<li>Opprett klageprosedyre for elever og foresatte</li>';
+      }
+      html += '<li>Kartlegg og klassifiser alle KI-verktøy på skolen</li>';
+      html += '<li>Sørg for KI-kompetanse blant ansatte (Art. 4)</li>';
+
+      if (leaderFlags.riskAssessmentMissing) {
+        html += '<li class="rec-flag"><strong>Prioritert:</strong> Formell risikovurdering mangler</li>';
+      } else if (leaderFlags.riskAssessmentPartial) {
+        html += '<li class="rec-flag">Formalisér risikovurderingen med dokumentasjon</li>';
+      }
+      if (leaderFlags.oversightMissing) {
+        html += '<li class="rec-flag"><strong>Prioritert:</strong> Rutiner for menneskelig tilsyn mangler</li>';
+      } else if (leaderFlags.oversightPartial) {
+        html += '<li class="rec-flag">Formalisér tilsynsrutinene med klare ansvarspersoner</li>';
+      }
+      if (leaderFlags.transparencyMissing) {
+        html += '<li class="rec-flag"><strong>Prioritert:</strong> Systemets beslutningsprosess er ikke dokumentert</li>';
+      }
+      if (leaderFlags.complaintMissing) {
+        html += '<li class="rec-flag"><strong>Prioritert:</strong> Klageprosedyre mangler</li>';
+      } else if (leaderFlags.complaintPartial) {
+        html += '<li class="rec-flag">Formalisér klageprosedyren</li>';
+      }
+
+      html += '</ul>';
     }
 
-    // Legg til GDPR referanser hvis de finnes
-    if (r.gdpr && r.gdpr.length > 0) {
-      resultHTML += `
-        <div class="gdpr-list">
-          <h4>🔒 GDPR/Personvern:</h4>
-          <ul class="compact-list">
-            ${r.gdpr.map(gdpr => `<li>${gdpr}</li>`).join('')}
-          </ul>
+    html += '</div>';
+    return html;
+  };
+
+  const showResult = (risk) => {
+    clearState();
+
+    const riskInfo = RISK_LEVELS[risk.level];
+    const leaderFlags = getLeaderFlags();
+    const isHighOrAbove = risk.level === 'high' || risk.level === 'unacceptable';
+
+    let explanation = '';
+    const highAxes = Object.entries(risk.allScores)
+      .filter(([_, score]) => score >= flow.thresholds.high)
+      .sort((a, b) => b[1] - a[1]);
+
+    if (highAxes.length > 0) {
+      explanation = 'Årsak: ' + highAxes.map(([axis, score]) => {
+        const info = flow.axes[axis];
+        return `${info.label} (${info.article}, score ${score})`;
+      }).join(', ') + '.';
+    } else if (risk.level === 'transparency') {
+      explanation = 'KI-systemet er ikke høyrisiko under AI Act, men Art. 50 krever at brukere informeres om at de interagerer med KI.';
+    } else {
+      explanation = 'KI-systemet faller under minimal risiko. Få krav, men god praksis å informere brukere.';
+    }
+
+    let html = `
+      <div class="result-card ${riskInfo.cssClass}">
+        <div class="result-header">
+          <span class="result-icon">${riskInfo.icon}</span>
+          <h3>${riskInfo.label}</h3>
         </div>
-      `;
+        <p class="result-explanation">${explanation}</p>
+      </div>
+
+      <h4>Poengfordeling per akse</h4>
+      ${buildAxisBreakdown(risk.allScores)}
+
+      ${buildGdprChecklist(risk.level)}
+
+      ${isHighOrAbove ? buildGdprFollowUp() : ''}
+
+      ${buildRecommendations(risk, leaderFlags)}
+    `;
+
+    quiz.innerHTML = html;
+
+    if (isHighOrAbove) {
+      attachFollowUpListeners();
     }
 
-    // Legg til andre lover hvis de finnes
-    if (r.other_laws && r.other_laws.length > 0) {
-      resultHTML += `
-        <div class="other-laws-list">
-          <h4>📚 Annet lovverk:</h4>
-          <ul class="compact-list">
-            ${r.other_laws.map(law => `<li>${law}</li>`).join('')}
-          </ul>
-        </div>
-      `;
-    }
-
-    resultHTML += `</div>`;
-    quiz.innerHTML = resultHTML;
-
-    // Knapper
     const btnContainer = document.createElement('div');
     btnContainer.style.marginTop = '16px';
     btnContainer.style.display = 'flex';
@@ -463,428 +596,117 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const dl = document.createElement('button');
     dl.className = 'cta';
-    dl.textContent = '� Last ned rapport (PDF)';
-    dl.onclick = () => downloadResultAsPDF(r);
+    dl.textContent = 'Last ned rapport (PDF)';
+    dl.onclick = () => downloadResultAsPDF(risk);
     btnContainer.appendChild(dl);
 
     const reset = document.createElement('button');
     reset.className = 'cta-secondary';
-    reset.textContent = '🔄 Start på nytt';
-    reset.onclick = () => loadFlow();
+    reset.textContent = 'Start på nytt';
+    reset.onclick = () => startFresh();
     btnContainer.appendChild(reset);
 
     quiz.appendChild(btnContainer);
   };
 
-  const downloadResult = (result) => {
-    const timestamp = new Date().toISOString().split('T')[0];
-    const time = new Date().toLocaleTimeString('nb-NO');
-    
-    let content = `
-╔════════════════════════════════════════════════════════════╗
-║     KI-FORORDNINGEN I SKOLEN - RISIKOVURDERING            ║
-╚════════════════════════════════════════════════════════════╝
-
-Dato: ${timestamp} ${time}
-
-${result.title}
-${'='.repeat(result.title.length)}
-
-${result.text}
-`;
-
-    if (result.actions && result.actions.length > 0) {
-      content += `
-
-ANBEFALTE HANDLINGER:
-─────────────────────
-`;
-      result.actions.forEach((action, i) => {
-        content += `${i + 1}. ${action}\n`;
-      });
-    }
-
-    // Legg til AI Act artikler
-    if (result.articles && result.articles.length > 0) {
-      content += `
-
-═══════════════════════════════════════════════════════════
-
-JURIDISK GRUNNLAG - EU AI ACT:
-───────────────────────────────
-`;
-      result.articles.forEach((article, i) => {
-        content += `
-${article.number}: ${article.title}
-${article.description}
-URL: ${article.url}
-`;
-      });
-    }
-
-    // Legg til GDPR referanser
-    if (result.gdpr && result.gdpr.length > 0) {
-      content += `
-
-GDPR/PERSONVERNLOVGIVNING:
-──────────────────────────
-`;
-      result.gdpr.forEach((gdpr, i) => {
-        content += `• ${gdpr}\n`;
-      });
-    }
-
-    // Legg til annet lovverk
-    if (result.other_laws && result.other_laws.length > 0) {
-      content += `
-
-ANNET RELEVANT LOVVERK:
-───────────────────────
-`;
-      result.other_laws.forEach((law, i) => {
-        content += `• ${law}\n`;
-      });
-    }
-
-    content += `
-
-═══════════════════════════════════════════════════════════
-
-RESSURSER:
-- EU AI Act (offisiell tekst): https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689
-- AI Act oversikt: https://artificialintelligenceact.eu/
-- Datatilsynet (GDPR): https://www.datatilsynet.no/
-- Datatilsynet (KI): https://www.datatilsynet.no/regelverk-og-verktoy/kunstig-intelligens-og-personvern/
-- GDPR guide: https://gdpr.eu/
-- Personopplysningsloven: https://lovdata.no/dokument/NL/lov/2018-06-15-38
-- Opplæringsloven: https://lovdata.no/dokument/NL/lov/1998-07-17-61
-- Utdanningsdirektoratet (KI): https://www.udir.no/laring-og-trivsel/rammeverk/kompetansepakke-for-kunstig-intelligens-i-skolen/
-
-═══════════════════════════════════════════════════════════
-
-Denne vurderingen er generert av: KI-forordningen i skolen
-Versjon: 0.4 | Lisens: CC BY-SA  
-Repository: github.com/barx10/ki_forordninga
-
-VIKTIG: Dette er en veiledende vurdering. Konsulter alltid
-med personvernombud, DPO og skolens ledelse før implementering
-av KI-systemer.
-`;
-
-    const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `ki-risikovurdering-${timestamp}.txt`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  };
-
-  const downloadResultAsPDF = (result) => {
+  const downloadResultAsPDF = (risk) => {
     const timestamp = new Date().toISOString().split('T')[0];
     const time = new Date().toLocaleTimeString('nb-NO', { hour: '2-digit', minute: '2-digit' });
-    
-    // Create a new window for printing
+    const riskInfo = RISK_LEVELS[risk.level];
+
+    const pdfDoc = document.implementation.createHTMLDocument('KI-Risikovurdering - ' + timestamp);
+
+    const style = pdfDoc.createElement('style');
+    style.textContent = `
+      @page { margin: 2cm; size: A4; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #1a202c; background: white; padding: 20px; }
+      .header { text-align: center; border-bottom: 3px solid #4da3ff; padding-bottom: 20px; margin-bottom: 30px; }
+      .header h1 { font-size: 24px; color: #1a202c; margin-bottom: 5px; }
+      .header .subtitle { font-size: 14px; color: #64748b; }
+      .metadata { display: flex; justify-content: space-between; padding: 15px; background: #f8fafc; border-radius: 8px; margin-bottom: 25px; font-size: 13px; color: #475569; }
+      .risk-badge { display: inline-block; padding: 8px 16px; border-radius: 6px; font-weight: 600; font-size: 14px; margin-bottom: 15px; }
+      .risk-minimal { background: #dcfce7; color: #166534; }
+      .risk-transparency { background: #dbeafe; color: #1e40af; }
+      .risk-high { background: #fef3c7; color: #92400e; }
+      .risk-unacceptable { background: #fee2e2; color: #991b1b; }
+      h2 { font-size: 20px; color: #1e293b; margin: 25px 0 15px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; }
+      p { margin-bottom: 12px; }
+      .section { margin-bottom: 25px; }
+      ul { margin: 10px 0; padding-left: 24px; }
+      li { margin-bottom: 5px; }
+      .result-box { padding: 20px; border-radius: 10px; margin-bottom: 25px; }
+      .result-minimal { background: #dcfce7; border-left: 5px solid #22c55e; }
+      .result-transparency { background: #dbeafe; border-left: 5px solid #3b82f6; }
+      .result-high { background: #fef3c7; border-left: 5px solid #f59e0b; }
+      .result-unacceptable { background: #fee2e2; border-left: 5px solid #ef4444; }
+      .axis-table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+      .axis-table th, .axis-table td { padding: 8px 12px; text-align: left; border-bottom: 1px solid #e2e8f0; }
+      .axis-table th { background: #f8fafc; font-weight: 600; }
+      .footer { margin-top: 40px; padding-top: 20px; border-top: 2px solid #e2e8f0; font-size: 12px; color: #64748b; text-align: center; }
+      @media print { body { padding: 0; } }
+    `;
+    pdfDoc.head.appendChild(style);
+
+    pdfDoc.body.innerHTML = `
+      <div class="header">
+        <h1>KI-forordningen i skolen</h1>
+        <p class="subtitle">Risikovurdering basert på EU's AI Act (KI-forordningen)</p>
+      </div>
+      <div class="metadata">
+        <span>Dato: ${timestamp} kl. ${time}</span>
+        <span>Rolle: ${flow.roles[role].label}</span>
+      </div>
+      <div class="result-box ${riskInfo.pdfClass}">
+        <span class="risk-badge ${riskInfo.badgeClass}">${riskInfo.icon} ${riskInfo.label}</span>
+      </div>
+
+      <div class="section">
+        <h2>Poengfordeling</h2>
+        <table class="axis-table">
+          <tr><th>Akse</th><th>Score</th><th>Terskel (høy)</th><th>AI Act-grunnlag</th></tr>
+          ${Object.entries(risk.allScores).map(([axis, score]) => {
+            const info = flow.axes[axis];
+            return `<tr><td>${info.label}</td><td><strong>${score}</strong></td><td>${flow.thresholds.high}</td><td>${info.article}</td></tr>`;
+          }).join('')}
+        </table>
+      </div>
+
+      <div class="section">
+        <h2>Svar</h2>
+        <ul>
+          ${answers.map(a => {
+            const q = flow.questions.find(q => q.id === a.questionId);
+            return `<li><strong>${q.question}</strong><br>${a.option.text}</li>`;
+          }).join('')}
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2>GDPR-sjekkliste</h2>
+        <ul>
+          ${(flow.gdprChecklists[risk.level === 'high' || risk.level === 'unacceptable' ? 'high' : risk.level === 'transparency' ? 'transparency' : 'minimal']).map(item => `<li>${item}</li>`).join('')}
+        </ul>
+      </div>
+
+      <div class="footer">
+        <p><strong>Viktig:</strong> Denne vurderingen er en veiledning basert på AI Act (EU-forordning 2024/1689) og er ikke juridisk rådgivning.</p>
+        <p>For juridiske spørsmål, kontakt Datatilsynet eller kvalifisert juridisk rådgiver.</p>
+        <p style="margin-top: 10px;">Generert av KI-forordningen i skolen | barx10.github.io/ki_forordninga | ${timestamp}</p>
+      </div>
+    `;
+
     const printWindow = window.open('', '', 'width=800,height=600');
-    
-    // Build the HTML content
-    let htmlContent = `
-<!DOCTYPE html>
-<html lang="no">
-<head>
-  <meta charset="UTF-8">
-  <title>KI-Risikovurdering - ${timestamp}</title>
-  <style>
-    @page {
-      margin: 2cm;
-      size: A4;
-    }
-    
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      line-height: 1.6;
-      color: #1a202c;
-      background: white;
-      padding: 20px;
-    }
-    
-    .header {
-      text-align: center;
-      border-bottom: 3px solid #4da3ff;
-      padding-bottom: 20px;
-      margin-bottom: 30px;
-    }
-    
-    .header h1 {
-      font-size: 24px;
-      color: #1a202c;
-      margin-bottom: 5px;
-    }
-    
-    .header .subtitle {
-      font-size: 14px;
-      color: #64748b;
-    }
-    
-    .metadata {
-      display: flex;
-      justify-content: space-between;
-      padding: 15px;
-      background: #f8fafc;
-      border-radius: 8px;
-      margin-bottom: 25px;
-      font-size: 13px;
-      color: #475569;
-    }
-    
-    .risk-badge {
-      display: inline-block;
-      padding: 6px 12px;
-      border-radius: 6px;
-      font-weight: 600;
-      font-size: 12px;
-      margin-bottom: 15px;
-    }
-    
-    .risk-minimal { background: #dcfce7; color: #166534; }
-    .risk-transparency { background: #dbeafe; color: #1e40af; }
-    .risk-high { background: #fef3c7; color: #92400e; }
-    .risk-unacceptable { background: #fee2e2; color: #991b1b; }
-    
-    h2 {
-      font-size: 20px;
-      color: #1e293b;
-      margin: 25px 0 15px;
-      padding-bottom: 8px;
-      border-bottom: 2px solid #e2e8f0;
-    }
-    
-    h3 {
-      font-size: 16px;
-      color: #334155;
-      margin: 20px 0 10px;
-    }
-    
-    p {
-      margin-bottom: 12px;
-      color: #475569;
-    }
-    
-    .section {
-      margin-bottom: 25px;
-    }
-    
-    ul, ol {
-      margin-left: 20px;
-      margin-bottom: 15px;
-    }
-    
-    li {
-      margin-bottom: 8px;
-      color: #475569;
-    }
-    
-    .article-card {
-      background: #f8fafc;
-      border-left: 4px solid #4da3ff;
-      padding: 12px 15px;
-      margin-bottom: 12px;
-      page-break-inside: avoid;
-    }
-    
-    .article-card strong {
-      color: #1e40af;
-      display: block;
-      margin-bottom: 5px;
-    }
-    
-    .article-card p {
-      margin: 5px 0;
-      font-size: 13px;
-    }
-    
-    .article-card a {
-      color: #4da3ff;
-      text-decoration: none;
-      font-size: 12px;
-    }
-    
-    .info-box {
-      background: #eff6ff;
-      border-left: 4px solid #3b82f6;
-      padding: 15px;
-      margin: 20px 0;
-      border-radius: 4px;
-    }
-    
-    .warning-box {
-      background: #fef3c7;
-      border-left: 4px solid #f59e0b;
-      padding: 15px;
-      margin: 20px 0;
-      border-radius: 4px;
-    }
-    
-    .footer {
-      margin-top: 40px;
-      padding-top: 20px;
-      border-top: 2px solid #e2e8f0;
-      font-size: 11px;
-      color: #94a3b8;
-      text-align: center;
-    }
-    
-    @media print {
-      body {
-        padding: 0;
-      }
-      
-      .no-print {
-        display: none;
-      }
-    }
-  </style>
-</head>
-<body>
-  <div class="header">
-    <h1>🎓 KI-Risikovurdering for Skolen</h1>
-    <p class="subtitle">Basert på EU's AI Act (KI-forordningen)</p>
-  </div>
-  
-  <div class="metadata">
-    <span><strong>Dato:</strong> ${timestamp}</span>
-    <span><strong>Tid:</strong> ${time}</span>
-    <span><strong>Versjon:</strong> 0.4</span>
-  </div>
-  
-  <div class="section">
-    <span class="risk-badge ${getRiskClass(result.risk)}">${getRiskLabel(result.risk)}</span>
-    <h2>${result.title}</h2>
-    <p>${result.text}</p>
-  </div>
-`;
-
-    // Add actions
-    if (result.actions && result.actions.length > 0) {
-      htmlContent += `
-  <div class="section">
-    <h2>📋 Anbefalte handlinger</h2>
-    <ol>
-`;
-      result.actions.forEach(action => {
-        htmlContent += `      <li>${action}</li>\n`;
-      });
-      htmlContent += `    </ol>
-  </div>
-`;
-    }
-
-    // Add AI Act articles
-    if (result.articles && result.articles.length > 0) {
-      htmlContent += `
-  <div class="section">
-    <h2>⚖️ Juridisk grunnlag - EU AI Act</h2>
-`;
-      result.articles.forEach(article => {
-        htmlContent += `
-    <div class="article-card">
-      <strong>${article.number}: ${article.title}</strong>
-      <p>${article.description}</p>
-      <a href="${article.url}" target="_blank">Les mer på EUR-Lex →</a>
-    </div>
-`;
-      });
-      htmlContent += `  </div>\n`;
-    }
-
-    // Add GDPR references
-    if (result.gdpr && result.gdpr.length > 0) {
-      htmlContent += `
-  <div class="section">
-    <h2>🔒 GDPR / Personvernlovgivning</h2>
-    <ul>
-`;
-      result.gdpr.forEach(gdpr => {
-        htmlContent += `      <li>${gdpr}</li>\n`;
-      });
-      htmlContent += `    </ul>
-  </div>
-`;
-    }
-
-    // Add other laws
-    if (result.other_laws && result.other_laws.length > 0) {
-      htmlContent += `
-  <div class="section">
-    <h2>📚 Annet relevant lovverk</h2>
-    <ul>
-`;
-      result.other_laws.forEach(law => {
-        htmlContent += `      <li>${law}</li>\n`;
-      });
-      htmlContent += `    </ul>
-  </div>
-`;
-    }
-
-    // Add important note
-    htmlContent += `
-  <div class="warning-box">
-    <strong>⚠️ Viktig:</strong> Dette er en veiledende vurdering. Konsulter alltid med personvernombud, DPO og skolens ledelse før implementering av KI-systemer. Vurderingen må tilpasses deres spesifikke kontekst.
-  </div>
-  
-  <div class="info-box">
-    <h3>📚 Ressurser</h3>
-    <ul>
-      <li><strong>EU AI Act (offisiell tekst):</strong> <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689" target="_blank">eur-lex.europa.eu</a></li>
-      <li><strong>AI Act oversikt:</strong> <a href="https://artificialintelligenceact.eu/" target="_blank">artificialintelligenceact.eu</a></li>
-      <li><strong>Datatilsynet (KI):</strong> <a href="https://www.datatilsynet.no/regelverk-og-verktoy/kunstig-intelligens-og-personvern/" target="_blank">datatilsynet.no</a></li>
-      <li><strong>Utdanningsdirektoratet (KI):</strong> <a href="https://www.udir.no/laring-og-trivsel/rammeverk/kompetansepakke-for-kunstig-intelligens-i-skolen/" target="_blank">udir.no</a></li>
-    </ul>
-  </div>
-  
-  <div class="footer">
-    <p>Generert av: KI-forordningen i skolen (github.com/barx10/ki_forordninga)</p>
-    <p>Lisens: CC BY-SA 4.0 | Versjon: 0.4</p>
-  </div>
-</body>
-</html>
-`;
-
-    printWindow.document.write(htmlContent);
+    const serializer = new XMLSerializer();
+    const htmlString = '<!DOCTYPE html>' + serializer.serializeToString(pdfDoc.documentElement);
+    printWindow.document.open();
+    printWindow.document.write(htmlString);
     printWindow.document.close();
-    
-    // Wait for content to load, then print
     printWindow.onload = function() {
       printWindow.focus();
       printWindow.print();
-      // Close window after printing (user can cancel)
       setTimeout(() => printWindow.close(), 500);
     };
-  };
-
-  // Helper functions for risk badges
-  const getRiskClass = (risk) => {
-    if (!risk) return 'risk-minimal';
-    const r = risk.toLowerCase();
-    if (r.includes('minimal')) return 'risk-minimal';
-    if (r.includes('transparens')) return 'risk-transparency';
-    if (r.includes('høy')) return 'risk-high';
-    if (r.includes('uakseptabel')) return 'risk-unacceptable';
-    return 'risk-minimal';
-  };
-
-  const getRiskLabel = (risk) => {
-    if (!risk) return 'Minimal risiko';
-    return risk;
   };
 
   loadFlow();
