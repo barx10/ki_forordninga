@@ -20,10 +20,10 @@ body {
 
 /* === CSS Variables === */
 :root {
-  --bg: #1a1f2b;
-  --panel: #232a38;
-  --text: #edf0f5;
-  --muted: #b4bcc8;
+  --bg: #1e2433;
+  --panel: #283040;
+  --text: #f0f2f6;
+  --muted: #c0c8d4;
   --accent: #4da3ff;
   --ok: #1fa971;
   --warn: #f0b429;
@@ -93,7 +93,7 @@ header {
   position: sticky;
   top: 0;
   z-index: 10;
-  background: rgba(11, 15, 20, 0.8);
+  background: rgba(30, 36, 51, 0.85);
   backdrop-filter: blur(6px);
   border-bottom: 1px solid #2d3545;
   transition: background-color 0.3s ease, border-color 0.3s ease;
@@ -395,7 +395,7 @@ main section {
 }
 
 .card {
-  background: rgba(18, 24, 33, 0.6);
+  background: rgba(40, 48, 64, 0.6);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 20px;
@@ -967,7 +967,7 @@ footer small {
 .timeline {
   margin: 32px 0;
   padding: 24px;
-  background: rgba(18, 24, 33, 0.4);
+  background: rgba(40, 48, 64, 0.4);
   backdrop-filter: blur(12px);
   border-radius: 20px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
@@ -1039,7 +1039,7 @@ footer small {
 
 /* === Info Box === */
 .info-box {
-  background: rgba(18, 24, 33, 0.4);
+  background: rgba(40, 48, 64, 0.4);
   backdrop-filter: blur(12px);
   border-left: 4px solid var(--accent);
   padding: 20px 24px;
@@ -1726,6 +1726,7 @@ footer small {
   flex-direction: column;
   align-items: center;
   gap: 8px;
+  color: var(--text);
 }
 
 .role-card:hover {
