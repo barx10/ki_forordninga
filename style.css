@@ -20,8 +20,8 @@ body {
 
 /* === CSS Variables === */
 :root {
-  --bg: #0b0f14;
-  --panel: #121821;
+  --bg: #151a22;
+  --panel: #1c2330;
   --text: #e6eaf0;
   --muted: #9aa6b2;
   --accent: #4da3ff;

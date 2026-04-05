@@ -1013,15 +1013,15 @@ function printTiltaksplan() {
       </div>
       <div class="timeline-item">
         <div class="timeline-dot complete"></div>
-        <div><strong>August 2025:</strong> Krav til generativ KI (ER NÅ AKTIV!)</div>
+        <div><strong>August 2025:</strong> Transparenskrav (Art. 50) og GPAI-modeller</div>
       </div>
       <div class="timeline-item">
         <div class="timeline-dot pending"></div>
-        <div><strong>August 2026:</strong> Transparenskrav</div>
+        <div><strong>August 2026:</strong> Høyrisiko-krav for utdanning (Vedlegg III)</div>
       </div>
       <div class="timeline-item">
         <div class="timeline-dot pending"></div>
-        <div><strong>August 2027:</strong> Alle høyrisiko-krav</div>
+        <div><strong>August 2027:</strong> Høyrisiko-krav for produkter (Vedlegg I)</div>
       </div>
     </div>
     <p>Start med Fase 1 og arbeid deg systematisk gjennom alle fasene.</p>
@@ -1052,7 +1052,7 @@ function printTiltaksplan() {
     <ul>
       <li><strong>MINIMAL:</strong> Spamfilter, enkle læringsspill</li>
       <li><strong>TRANSPARENS:</strong> Chatboter, generativ AI</li>
-      <li><strong>HØY RISIKO:</strong> Vurdering, karaktersystemer, elevprofiler</li>
+      <li><strong>HØY RISIKO:</strong> Vurdering (inkl. formativ), karaktersystemer, adaptive systemer, elevprofiler</li>
       <li><strong>UAKSEPTABEL:</strong> Manipulasjon, skjult scoring, diskriminering</li>
     </ul>
     <div class="responsibility">
@@ -1388,10 +1388,10 @@ Denne tiltaksplanen gir deg en steg-for-steg guide til å bli
 compliant med EU's AI Act (KI-forordningen) i skolen.
 
 AI Act trådte i kraft 1. august 2024, med gradvis innføring:
-- Februar 2025: Forbud mot uakseptable praksiser
-- August 2025: Krav til generativ KI (ER NÅ AKTIV!)
-- August 2026: Transparenskrav
-- August 2027: Alle høyrisiko-krav
+- Februar 2025: Forbud mot uakseptable praksiser + KI-kompetanse
+- August 2025: Transparenskrav (Art. 50) og GPAI-modeller
+- August 2026: Høyrisiko-krav for utdanning (Vedlegg III)
+- August 2027: Høyrisiko-krav for produkter (Vedlegg I)
 
 Start med Fase 1 og arbeid deg systematisk gjennom alle fasene.
 
@@ -1426,7 +1426,7 @@ For hvert verktøy: Bestem risikonivå.
 Klassifiseringskriterier:
   • MINIMAL: Spamfilter, enkle læringsspill
   • TRANSPARENS: Chatboter, generativ AI
-  • HØY RISIKO: Vurdering, karaktersystemer, elevprofiler
+  • HØY RISIKO: Vurdering (inkl. formativ), karaktersystemer, adaptive systemer, elevprofiler
   • UAKSEPTABEL: Manipulasjon, skjult scoring, diskriminering
 
 Verktøy: Bruk veiviseren på ki-forordningen.no
@@ -1836,7 +1836,7 @@ const riskData = {
     examples: {
       title: 'Eksempler fra skolen:',
       items: [
-        '📊 <strong>KI-basert vurdering:</strong> Systemer som gir karakterer eller tilbakemeldinger',
+        '📊 <strong>KI-basert vurdering:</strong> Systemer som gir karakterer, formative tilbakemeldinger eller underveisvurdering',
         '🎯 <strong>Adaptive læringssystemer:</strong> Systemer som tilpasser innhold basert på elevdata',
         '📈 <strong>Elevprofiler:</strong> Systemer som lager profiler for å predikere prestasjoner',
         '🚨 <strong>Fravær- og atferdssystemer:</strong> Systemer som automatisk rapporterer eller reagerer',
@@ -1961,7 +1961,6 @@ function closeRiskModal(event) {
   }
 }
 
-// === GDPR MODAL ===
 // === GDPR MODAL ===
 const gdprData = {
   pol1: {
@@ -2373,12 +2372,12 @@ const aiActArticles = {
     description: 'Definerer hvilke KI-systemer som er høyrisiko basert på bruksområde.',
     sections: [
       {
-        title: 'Høyrisiko i utdanning (Vedlegg III)',
+        title: 'Høyrisiko i utdanning (Vedlegg III, punkt 3)',
         items: [
-          'Tilgang til utdanning (opptak, klasseplassering)',
-          'Vurdering og evaluering (karakterer, eksamener)',
-          'Overvåking og profilering av elevers atferd',
-          'Adaptive læringssystemer med betydelig påvirkning'
+          '3(a): Tilgang til utdanning (opptak, tildeling av skoleplass)',
+          '3(b): Vurdering av læringsresultater, inkludert når dette styrer læringsprosessen (all underveisvurdering, karakterer, formativ tilbakemelding)',
+          '3(c): Vurdering av passende utdanningsnivå (nivådeling, gruppeplassering, læringsløp)',
+          '3(d): Overvåking av elevatferd under prøver (proctoring, skjermovervåking)'
         ]
       },
       {
@@ -2386,7 +2385,7 @@ const aiActArticles = {
         items: [
           'Alle systemer som påvirker vurdering eller tilgang er høyrisiko',
           'Krever DPIA, databehandleravtale, logging, menneskelig oversikt',
-          'Leverandøren må være CE-merket (fra august 2027)',
+          'Leverandøren må være CE-merket (fra august 2026)',
           'Skolen har ansvar som "deployer" (bruker av systemet)'
         ]
       }

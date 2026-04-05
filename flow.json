@@ -19,7 +19,7 @@
       "options": [
         { "text": "Chatbot / språkmodell (ChatGPT, Copilot, Claude)", "scores": { "access": 0, "evaluation": 0, "level": 0, "surveillance": 0 }, "category": "chatbot" },
         { "text": "Vurdering, testing eller karaktersetting", "scores": { "access": 1, "evaluation": 3, "level": 1, "surveillance": 0 }, "category": "assessment" },
-        { "text": "Adaptivt læringssystem (tilpasser innhold til elev)", "scores": { "access": 0, "evaluation": 1, "level": 2, "surveillance": 0 }, "category": "adaptive" },
+        { "text": "Adaptivt læringssystem (tilpasser innhold til elev)", "scores": { "access": 0, "evaluation": 3, "level": 2, "surveillance": 0 }, "category": "adaptive" },
         { "text": "Eksamensovervåking / proctoring", "scores": { "access": 0, "evaluation": 0, "level": 0, "surveillance": 3 }, "category": "proctoring" },
         { "text": "Kreative verktøy (bilde, musikk, design)", "scores": { "access": 0, "evaluation": 0, "level": 0, "surveillance": 0 }, "category": "creative" },
         { "text": "Oversettelse eller språkstøtte", "scores": { "access": 0, "evaluation": 0, "level": 0, "surveillance": 0 }, "category": "translation" },
@@ -29,11 +29,11 @@
     {
       "id": 2,
       "question": "Brukes verktøyet til å vurdere eller gi karakter på elevarbeid?",
-      "help": "Formelle vurderinger inkluderer standpunktkarakterer, eksamensresultater, halvårsvurderinger.",
+      "help": "Iht. Annex III 3(b) er all vurdering som kan styre læringsprosessen høyrisiko — dette inkluderer både formelle vurderinger (karakterer, eksamen) og formativ underveisvurdering.",
       "options": [
         { "text": "Ja, gir karakterer eller formelle vurderinger", "scores": { "evaluation": 3 } },
-        { "text": "Foreslår karakter, men lærer bestemmer", "scores": { "evaluation": 2 } },
-        { "text": "Kun formativ tilbakemelding (ikke karakter)", "scores": { "evaluation": 1 } },
+        { "text": "Foreslår karakter, men lærer bestemmer", "scores": { "evaluation": 3 } },
+        { "text": "Kun formativ tilbakemelding (ikke karakter)", "scores": { "evaluation": 3 } },
         { "text": "Nei, ikke brukt til vurdering", "scores": { "evaluation": 0 } }
       ]
     },
@@ -154,17 +154,17 @@
     },
     "evaluation": {
       "label": "Vurdering av læringsresultater",
-      "article": "Annex III, 3(a)",
-      "description": "Evaluerer eller vurderer elevenes læringsresultater"
+      "article": "Annex III, 3(b)",
+      "description": "Evaluerer læringsresultater, inkludert når dette styrer læringsprosessen (all underveisvurdering)"
     },
     "level": {
       "label": "Bestemmelse av utdanningsnivå",
-      "article": "Annex III, 3(a)",
-      "description": "Bestemmer utdanningsnivå, gruppe eller læringsløp"
+      "article": "Annex III, 3(c)",
+      "description": "Vurderer passende utdanningsnivå, gruppe eller læringsløp"
     },
     "surveillance": {
       "label": "Overvåking under prøver",
-      "article": "Annex III, 3(b)",
+      "article": "Annex III, 3(d)",
       "description": "Overvåker elevatferd under prøver eller eksamen"
     }
   },
