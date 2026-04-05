@@ -1,1022 +1,211 @@
 {
-  "steps": [
+  "roles": {
+    "teacher": {
+      "label": "Lærer",
+      "description": "Sjekk et KI-verktøy du bruker i undervisningen",
+      "questionIds": [1, 2, 3, 4, 5, 6, 7, 8]
+    },
+    "leader": {
+      "label": "Skoleleder / IKT-ansvarlig",
+      "description": "Kartlegg og vurder KI-verktøy på systemnivå",
+      "questionIds": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    }
+  },
+  "questions": [
     {
       "id": 1,
-      "question": "Hva er din rolle?",
-      "help": "Din rolle påvirker hvilke anbefalinger du får.",
+      "question": "Hva slags KI-verktøy gjelder det?",
+      "help": "Velg den kategorien som best beskriver verktøyet.",
       "options": [
-        { "text": "Lærer", "next": 2 },
-        { "text": "Skoleleder", "next": 2 },
-        { "text": "IKT-ansvarlig", "next": 2 },
-        { "text": "Annet", "next": 2 }
+        { "text": "Chatbot / språkmodell (ChatGPT, Copilot, Claude)", "scores": { "access": 0, "evaluation": 0, "level": 0, "surveillance": 0 }, "category": "chatbot" },
+        { "text": "Vurdering, testing eller karaktersetting", "scores": { "access": 1, "evaluation": 3, "level": 1, "surveillance": 0 }, "category": "assessment" },
+        { "text": "Adaptivt læringssystem (tilpasser innhold til elev)", "scores": { "access": 0, "evaluation": 1, "level": 2, "surveillance": 0 }, "category": "adaptive" },
+        { "text": "Eksamensovervåking / proctoring", "scores": { "access": 0, "evaluation": 0, "level": 0, "surveillance": 3 }, "category": "proctoring" },
+        { "text": "Kreative verktøy (bilde, musikk, design)", "scores": { "access": 0, "evaluation": 0, "level": 0, "surveillance": 0 }, "category": "creative" },
+        { "text": "Oversettelse eller språkstøtte", "scores": { "access": 0, "evaluation": 0, "level": 0, "surveillance": 0 }, "category": "translation" },
+        { "text": "Spill, quiz eller øvingsverktøy", "scores": { "access": 0, "evaluation": 0, "level": 0, "surveillance": 0 }, "category": "games" }
       ]
     },
     {
       "id": 2,
-      "question": "Hvilken type KI-verktøy planlegger du å bruke?",
-      "help": "Velg den kategorien som best beskriver verktøyet.",
+      "question": "Brukes verktøyet til å vurdere eller gi karakter på elevarbeid?",
+      "help": "Formelle vurderinger inkluderer standpunktkarakterer, eksamensresultater, halvårsvurderinger.",
       "options": [
-        { "text": "Chatbot eller språkmodell (ChatGPT, Copilot, etc.)", "next": 3 },
-        { "text": "Adaptive læringssystemer (tilpasser innhold til elev)", "next": 4 },
-        { "text": "Vurdering, testing eller karaktersetting", "next": 5 },
-        { "text": "Kreative verktøy (bildegenering, musikk, design)", "next": 6 },
-        { "text": "Oversettelse eller språkstøtte", "next": 7 },
-        { "text": "Spill, quiz eller enkle øvingsverktøy", "next": 8 }
+        { "text": "Ja, gir karakterer eller formelle vurderinger", "scores": { "evaluation": 3 } },
+        { "text": "Foreslår karakter, men lærer bestemmer", "scores": { "evaluation": 2 } },
+        { "text": "Kun formativ tilbakemelding (ikke karakter)", "scores": { "evaluation": 1 } },
+        { "text": "Nei, ikke brukt til vurdering", "scores": { "evaluation": 0 } }
       ]
     },
     {
       "id": 3,
-      "question": "Samler chatboten inn personopplysninger om elevene?",
-      "help": "F.eks. navn, alder, læringsprogresjon, chatthistorikk.",
+      "question": "Påvirker verktøyet hvilken gruppe, nivå eller læringsløp eleven plasseres i?",
+      "help": "F.eks. nivådeling, spesialundervisning, tilpasset opplæring, fordypningsvalg.",
       "options": [
-        { "text": "Ja, samler og lagrer data om elever", "next": 9 },
-        { "text": "Nei, anonymt eller ingen datalagring", "next": 10 },
-        { "text": "Usikker", "next": 11 }
+        { "text": "Ja, systemet bestemmer automatisk", "scores": { "level": 3, "access": 1 } },
+        { "text": "Foreslår, men lærer/leder bestemmer", "scores": { "level": 1 } },
+        { "text": "Nei", "scores": { "level": 0 } }
       ]
     },
     {
       "id": 4,
-      "question": "Påvirker det adaptive systemet elevens læringsløp automatisk?",
-      "help": "Bestemmer systemet hva eleven skal lære videre, eller er det kun forslag?",
+      "question": "Påvirker verktøyet elevers tilgang til utdanning eller opplæringstilbud?",
+      "help": "F.eks. opptak, søknadsbehandling, tildeling av skoleplass, tilgang til valgfag.",
       "options": [
-        { "text": "Ja, systemet bestemmer læringsløpet automatisk", "next": 12 },
-        { "text": "Nei, lærer har full kontroll og godkjenner alle tilpasninger", "next": 13 },
-        { "text": "Delvis - systemet foreslår, lærer kan overstyre", "next": 13 }
+        { "text": "Ja, brukes i opptaks- eller tildelingsprosesser", "scores": { "access": 3 } },
+        { "text": "Indirekte — påvirker anbefalinger som kan lede til vedtak", "scores": { "access": 2 } },
+        { "text": "Nei", "scores": { "access": 0 } }
       ]
     },
     {
       "id": 5,
-      "question": "Brukes KI-systemet til å gi karakterer eller formelle vurderinger?",
-      "help": "Formelle vurderinger inkluderer standpunktkarakterer, eksamensresultater, etc.",
+      "question": "Overvåker verktøyet elevatferd under prøver eller eksamen?",
+      "help": "F.eks. kameraovervåking, skjermovervåking, keystroke-logging, mistenkelig-atferd-deteksjon.",
       "options": [
-        { "text": "Ja, gir karakterer eller formelle vurderinger", "next": 14 },
-        { "text": "Nei, kun formative tilbakemeldinger (ikke karakterer)", "next": 15 },
-        { "text": "Foreslår karakter, men lærer bestemmer", "next": 15 }
+        { "text": "Ja, overvåker i sanntid", "scores": { "surveillance": 3 } },
+        { "text": "Logger aktivitet, men ingen sanntidsovervåking", "scores": { "surveillance": 1 } },
+        { "text": "Nei", "scores": { "surveillance": 0 } }
       ]
     },
     {
       "id": 6,
-      "question": "Brukes de kreative verktøyene i vurderingssituasjoner?",
-      "help": "F.eks. innleveringer, prosjekter som teller på karakter.",
+      "question": "Tar verktøyet automatiserte beslutninger som påvirker eleven uten menneskelig godkjenning?",
+      "help": "F.eks. automatisk stryk, plassering i gruppe, tilgangsendring, varsel til foresatte.",
       "options": [
-        { "text": "Ja, brukes i vurderingsarbeid", "next": 16 },
-        { "text": "Nei, kun for kreativ utforskning og læring", "next": 17 },
-        { "text": "Usikker", "next": 17 }
+        { "text": "Ja, fullt automatisert", "scores": { "evaluation": 2, "access": 1, "level": 1 } },
+        { "text": "Delvis — foreslår, menneske godkjenner", "scores": { "evaluation": 1 } },
+        { "text": "Nei, kun støtteverktøy", "scores": {} }
       ]
     },
     {
       "id": 7,
-      "question": "Brukes oversettelsesverktøyet i eksamen eller prøvesituasjoner?",
-      "help": "Dette kan påvirke risikovurderingen.",
+      "question": "Behandler verktøyet personopplysninger om elevene?",
+      "help": "Navn, alder, læringsdata, chathistorikk, biometriske data, helsedata.",
       "options": [
-        { "text": "Ja, i eksamen eller prøver", "next": 18 },
-        { "text": "Nei, kun i daglig læring", "next": 19 },
-        { "text": "Både og", "next": 18 }
+        { "text": "Ja, sensitive personopplysninger (helse, biometri, religion)", "scores": { "evaluation": 1, "surveillance": 1 }, "gdprFlag": "sensitive" },
+        { "text": "Ja, vanlige personopplysninger (navn, alder, resultater)", "scores": {}, "gdprFlag": "personal" },
+        { "text": "Nei, anonymt eller ingen datalagring", "scores": {}, "gdprFlag": "none" }
       ]
     },
     {
       "id": 8,
-      "question": "Samler spillet/verktøyet inn data om elevprestasjoner?",
-      "help": "F.eks. poengsum, fremdrift, feilmønstre.",
+      "question": "Er elevene informert om at de bruker et KI-system?",
+      "help": "AI Act Art. 50 krever at brukere vet de interagerer med KI.",
       "options": [
-        { "text": "Ja, samler prestasjonsdata", "next": 20 },
-        { "text": "Nei, ingen datainnsamling", "next": 21 },
-        { "text": "Usikker", "next": 20 }
+        { "text": "Ja, tydelig informert", "scores": {}, "transparencyOk": true },
+        { "text": "Delvis", "scores": {}, "transparencyOk": false },
+        { "text": "Nei", "scores": {}, "transparencyOk": false }
       ]
     },
     {
       "id": 9,
-      "question": "Har dere avtale (databehandleravtale) med leverandøren?",
-      "help": "Kreves for GDPR-compliance når persondata behandles.",
+      "question": "Har dere gjennomført risikovurdering for dette KI-systemet?",
+      "help": "AI Act Art. 9 krever risikostyringssystem for høyrisiko-KI.",
+      "leaderOnly": true,
       "options": [
-        { "text": "Ja, avtale på plass", "next": 22 },
-        { "text": "Nei, ingen avtale ennå", "next": 23 },
-        { "text": "Usikker", "next": 23 }
+        { "text": "Ja, formell risikovurdering gjennomført", "scores": {}, "leaderFlag": "riskAssessmentDone" },
+        { "text": "Delvis, uformell vurdering", "scores": {}, "leaderFlag": "riskAssessmentPartial" },
+        { "text": "Nei", "scores": {}, "leaderFlag": "riskAssessmentMissing" }
       ]
     },
     {
       "id": 10,
-      "question": "Informerer dere elever og foresatte om KI-bruken?",
-      "help": "Transparens er viktig selv ved minimal risiko.",
+      "question": "Er det etablert rutiner for menneskelig tilsyn med KI-systemet?",
+      "help": "AI Act Art. 14 krever menneskelig oversikt (human oversight) for høyrisiko-KI.",
+      "leaderOnly": true,
       "options": [
-        { "text": "Ja, tydelig informasjon gis", "next": 24 },
-        { "text": "Nei, ikke formelt informert", "next": 25 },
-        { "text": "Delvis informert", "next": 25 }
+        { "text": "Ja, klare rutiner og ansvarspersoner", "scores": {}, "leaderFlag": "oversightDone" },
+        { "text": "Delvis, men ikke formalisert", "scores": {}, "leaderFlag": "oversightPartial" },
+        { "text": "Nei", "scores": {}, "leaderFlag": "oversightMissing" }
       ]
     },
     {
       "id": 11,
-      "question": "Kan du undersøke leverandørens personvernpolicy?",
-      "help": "Dette er kritisk for å vurdere risiko.",
+      "question": "Er systemets beslutningsprosess dokumentert og forståelig?",
+      "help": "Kan dere forklare hvordan systemet kommer frem til sine resultater?",
+      "leaderOnly": true,
       "options": [
-        { "text": "Ja, vil undersøke", "result": "transparens_undersok" },
-        { "text": "Nei, ikke tilgjengelig", "result": "hoy_manglende_info" }
+        { "text": "Ja, dokumentert og transparent", "scores": {}, "leaderFlag": "transparencyDone" },
+        { "text": "Delvis, leverandør har noe dokumentasjon", "scores": {}, "leaderFlag": "transparencyPartial" },
+        { "text": "Nei, black box", "scores": {}, "leaderFlag": "transparencyMissing" }
       ]
     },
     {
       "id": 12,
-      "question": "Har systemet menneskelig overstyring (human-in-the-loop)?",
-      "help": "Kan lærer alltid gripe inn og endre systemets beslutninger?",
+      "question": "Er det etablert prosedyre for klage og overstyring av KI-beslutninger?",
+      "help": "Elever og foresatte skal kunne klage på beslutninger tatt med KI-støtte.",
+      "leaderOnly": true,
       "options": [
-        { "text": "Ja, lærer kan alltid overstyre", "next": 26 },
-        { "text": "Nei, systemet kjører automatisk", "next": 27 },
-        { "text": "Usikker", "next": 27 }
-      ]
-    },
-    {
-      "id": 13,
-      "question": "Er systemet transparent om hvordan det gir anbefalinger?",
-      "help": "Kan dere forstå hvorfor systemet anbefaler bestemte oppgaver?",
-      "options": [
-        { "text": "Ja, klar forklaring av logikk", "next": 28 },
-        { "text": "Nei, 'black box' system", "next": 29 },
-        { "text": "Delvis transparent", "next": 28 }
-      ]
-    },
-    {
-      "id": 14,
-      "question": "Er det dokumentert hvordan KI-systemet gjør vurderinger?",
-      "help": "Dokumentasjon inkluderer algoritme, treningsdata, bias-testing.",
-      "options": [
-        { "text": "Ja, grundig dokumentasjon foreligger", "next": 30 },
-        { "text": "Nei, mangler dokumentasjon", "next": 31 },
-        { "text": "Vet ikke", "next": 31 }
-      ]
-    },
-    {
-      "id": 15,
-      "question": "Testes systemet regelmessig for bias og feil?",
-      "help": "F.eks. kjønns-, alders- eller språkbias.",
-      "options": [
-        { "text": "Ja, kontinuerlig testing og kvalitetssikring", "next": 32 },
-        { "text": "Nei, ingen systematisk testing", "next": 33 },
-        { "text": "Vet ikke", "next": 33 }
-      ]
-    },
-    {
-      "id": 16,
-      "question": "Har dere retningslinjer for KI-bruk i vurderingsarbeid?",
-      "help": "F.eks. hva som er tillatt og hvordan det skal dokumenteres.",
-      "options": [
-        { "text": "Ja, klare retningslinjer på plass", "next": 34 },
-        { "text": "Nei, ingen formelle retningslinjer", "next": 35 },
-        { "text": "Under utvikling", "next": 34 }
-      ]
-    },
-    {
-      "id": 17,
-      "question": "Informeres elever om at verktøyet bruker KI?",
-      "help": "AI Act krever transparens (Art. 50).",
-      "options": [
-        { "text": "Ja, tydelig merket", "result": "transparens_kreativ" },
-        { "text": "Nei, ikke informert", "result": "transparens_mangler" }
-      ]
-    },
-    {
-      "id": 18,
-      "question": "Har alle elever lik tilgang til verktøyet?",
-      "help": "Likeverdighet er viktig i vurderingssituasjoner.",
-      "options": [
-        { "text": "Ja, alle har samme tilgang", "next": 36 },
-        { "text": "Nei, kun noen elever", "next": 37 },
-        { "text": "Usikker", "next": 37 }
-      ]
-    },
-    {
-      "id": 19,
-      "question": "Lagrer verktøyet oversettelseshistorikk med elevdata?",
-      "help": "Påvirker personvernvurdering.",
-      "options": [
-        { "text": "Ja, lagrer historikk", "next": 38 },
-        { "text": "Nei, ingen lagring", "result": "transparens_oversettelse" },
-        { "text": "Vet ikke", "next": 38 }
-      ]
-    },
-    {
-      "id": 20,
-      "question": "Brukes dataene til å vurdere eller kategorisere elever?",
-      "help": "F.eks. 'svak', 'middels', 'sterk' elev basert på spilldata.",
-      "options": [
-        { "text": "Ja, brukes til elevvurdering", "next": 39 },
-        { "text": "Nei, kun for spillutvikling", "next": 40 },
-        { "text": "Vet ikke", "next": 39 }
-      ]
-    },
-    {
-      "id": 21,
-      "question": "Er verktøyet CE-merket eller har annen kvalitetssikring?",
-      "help": "Viser at produktet oppfyller EU-krav.",
-      "options": [
-        { "text": "Ja, CE-merket", "result": "minimal_spill" },
-        { "text": "Nei / vet ikke", "result": "minimal_usikker" }
-      ]
-    },
-    {
-      "id": 22,
-      "question": "Har dere gjennomført personvernkonsekvensvurdering (DPIA)?",
-      "help": "Ofte lovpålagt ved behandling av elevsensitive data.",
-      "options": [
-        { "text": "Ja, DPIA gjennomført", "next": 41 },
-        { "text": "Nei, ikke gjennomført", "next": 42 },
-        { "text": "Vet ikke hva DPIA er", "next": 42 }
-      ]
-    },
-    {
-      "id": 23,
-      "question": "Planlegger dere å inngå databehandleravtale?",
-      "help": "Dette er kritisk for lovlig bruk.",
-      "options": [
-        { "text": "Ja, jobber med det nå", "result": "hoy_under_arbeid" },
-        { "text": "Nei, ikke planlagt", "result": "hoy_kritisk" }
-      ]
-    },
-    {
-      "id": 24,
-      "question": "Har elever og foresatte samtykket til KI-bruken?",
-      "help": "Avhengig av type data kan samtykke være nødvendig.",
-      "options": [
-        { "text": "Ja, samtykke innhentet", "result": "transparens_ok" },
-        { "text": "Nei, ikke innhentet", "result": "transparens_mangler_samtykke" },
-        { "text": "Ikke nødvendig (ingen persondata)", "result": "transparens_ok" }
-      ]
-    },
-    {
-      "id": 25,
-      "question": "Vil dere informere om KI-bruk før implementering?",
-      "help": "Best practice selv om det ikke kreves.",
-      "options": [
-        { "text": "Ja, vil informere", "result": "transparens_planlagt" },
-        { "text": "Nei, ikke planlagt", "result": "transparens_risiko" }
-      ]
-    },
-    {
-      "id": 26,
-      "question": "Dokumenteres lærers overstyringer og beslutninger?",
-      "help": "Viktig for etterprøvbarhet og kvalitetssikring.",
-      "options": [
-        { "text": "Ja, systematisk dokumentasjon", "result": "hoy_godt_styrt" },
-        { "text": "Nei, ikke dokumentert", "result": "hoy_forbedring" },
-        { "text": "Delvis", "result": "hoy_forbedring" }
-      ]
-    },
-    {
-      "id": 27,
-      "question": "Kan systemet stoppen og evalueres av ekspert?",
-      "help": "Nødvendig ved høyrisiko AI.",
-      "options": [
-        { "text": "Ja, kan stoppes og evalueres", "result": "hoy_under_kontroll" },
-        { "text": "Nei, kan ikke stoppes", "result": "hoy_uakseptabelt" }
-      ]
-    },
-    {
-      "id": 28,
-      "question": "Har leverandøren oppgitt hvem som er ansvarlig for systemet?",
-      "help": "AI Act krever tydelig ansvarsfordeling.",
-      "options": [
-        { "text": "Ja, ansvarsforhold er klart", "result": "hoy_transparent" },
-        { "text": "Nei, uklart ansvar", "result": "hoy_mangler_ansvar" }
-      ]
-    },
-    {
-      "id": 29,
-      "question": "Kan dere få innsyn i hvordan systemet fungerer?",
-      "help": "Transparens er viktig for tillit.",
-      "options": [
-        { "text": "Ja, leverandør kan gi innsikt", "result": "hoy_delvis_transparent" },
-        { "text": "Nei, proprietær algoritme", "result": "hoy_black_box" }
-      ]
-    },
-    {
-      "id": 30,
-      "question": "Er det klageadgang for elever ved uenighet i vurdering?",
-      "help": "Elevens rettssikkerhet må ivaretas.",
-      "options": [
-        { "text": "Ja, klar klageprosess", "result": "hoy_rettssikker" },
-        { "text": "Nei, ingen klageprosess", "result": "hoy_mangler_rettssikkerhet" }
-      ]
-    },
-    {
-      "id": 31,
-      "question": "Vil dere kreve dokumentasjon fra leverandør?",
-      "help": "Dette er nødvendig for compliance.",
-      "options": [
-        { "text": "Ja, vil kreve dokumentasjon", "result": "hoy_under_utvikling" },
-        { "text": "Nei, ikke mulig å få", "result": "hoy_stopp" }
-      ]
-    },
-    {
-      "id": 32,
-      "question": "Involveres elever og foresatte i kvalitetssikringen?",
-      "help": "Medvirkning styrker tilliten.",
-      "options": [
-        { "text": "Ja, brukermedvirkning", "result": "hoy_medvirkning" },
-        { "text": "Nei, ikke involvert", "result": "hoy_moderat" }
-      ]
-    },
-    {
-      "id": 33,
-      "question": "Planlegger dere å etablere testing og kvalitetssikring?",
-      "help": "Nødvendig for ansvarlig bruk.",
-      "options": [
-        { "text": "Ja, vil etablere rutiner", "result": "hoy_planlegger" },
-        { "text": "Nei, ikke kapasitet", "result": "hoy_ikke_klart" }
-      ]
-    },
-    {
-      "id": 34,
-      "question": "Evalueres retningslinjene regelmessig?",
-      "help": "KI-feltet endres raskt, retningslinjer må oppdateres.",
-      "options": [
-        { "text": "Ja, årlig evaluering", "result": "transparens_retningslinjer_ok" },
-        { "text": "Nei, statiske retningslinjer", "result": "transparens_retningslinjer_moderat" }
-      ]
-    },
-    {
-      "id": 35,
-      "question": "Vil dere utarbeide retningslinjer før bruk?",
-      "help": "Anbefales sterkt.",
-      "options": [
-        { "text": "Ja, vil utarbeide", "result": "transparens_retningslinjer_planlagt" },
-        { "text": "Nei, bruker uten retningslinjer", "result": "transparens_retningslinjer_risiko" }
-      ]
-    },
-    {
-      "id": 36,
-      "question": "Finnes alternative verktøy for de som ikke kan bruke KI?",
-      "help": "Sikrer likeverd.",
-      "options": [
-        { "text": "Ja, alternativer tilgjengelig", "result": "transparens_likeverd" },
-        { "text": "Nei, kun KI-verktøyet", "result": "transparens_likeverd_risiko" }
-      ]
-    },
-    {
-      "id": 37,
-      "question": "Vil dere sikre lik tilgang for alle?",
-      "help": "Viktig for rettferdig vurdering.",
-      "options": [
-        { "text": "Ja, vil sikre likhet", "result": "transparens_likeverd_planlagt" },
-        { "text": "Nei, ikke mulig", "result": "hoy_diskriminering_risiko" }
-      ]
-    },
-    {
-      "id": 38,
-      "question": "Er databehandleravtale på plass for oversettelsesdata?",
-      "help": "Nødvendig ved persondata.",
-      "options": [
-        { "text": "Ja, avtale på plass", "result": "transparens_oversettelse_ok" },
-        { "text": "Nei, ingen avtale", "result": "hoy_oversettelse_mangler" }
-      ]
-    },
-    {
-      "id": 39,
-      "question": "Brukes vurderingen i formelle sammenhenger (rapporter, karakterer)?",
-      "help": "Øker risikonivået betydelig.",
-      "options": [
-        { "text": "Ja, brukes formelt", "result": "hoy_spill_vurdering" },
-        { "text": "Nei, kun for elevens egen læring", "result": "transparens_spill" }
-      ]
-    },
-    {
-      "id": 40,
-      "question": "Informeres elever om datainnsamlingen?",
-      "help": "Transparens er viktig.",
-      "options": [
-        { "text": "Ja, tydelig informert", "result": "transparens_spill_ok" },
-        { "text": "Nei, ikke informert", "result": "transparens_spill_mangler" }
-      ]
-    },
-    {
-      "id": 41,
-      "question": "Er DPIA godkjent av personvernombud eller DPO?",
-      "help": "Kvalitetssikrer vurderingen.",
-      "options": [
-        { "text": "Ja, godkjent", "result": "hoy_personvern_ok" },
-        { "text": "Nei, ikke godkjent ennå", "result": "hoy_personvern_pagar" }
-      ]
-    },
-    {
-      "id": 42,
-      "question": "Vil dere gjennomføre DPIA før oppstart?",
-      "help": "Sterkt anbefalt, ofte lovpålagt.",
-      "options": [
-        { "text": "Ja, vil gjennomføre", "result": "hoy_personvern_planlagt" },
-        { "text": "Nei, starter uten DPIA", "result": "hoy_personvern_kritisk" }
+        { "text": "Ja, klar klageprosedyre", "scores": {}, "leaderFlag": "complaintDone" },
+        { "text": "Delvis", "scores": {}, "leaderFlag": "complaintPartial" },
+        { "text": "Nei", "scores": {}, "leaderFlag": "complaintMissing" }
       ]
     }
   ],
-  "results": {
-    "minimal_spill": {
-      "title": "✅ Minimal risiko",
-      "text": "Dette spillet/verktøyet faller under minimal risiko. Lite behov for dokumentasjon, men følg god personvernpraksis.\n\nAnbefalinger:\n• Informer elever om KI-bruk (god praksis)\n• Sjekk at verktøyet er trygt og pedagogisk egnet\n• Dokumenter hvorfor verktøyet er valgt",
-      "class": "r-min",
-      "actions": ["Fortsett bruk", "Informer elever", "Årlig evaluering"],
-      "articles": [
-        {
-          "number": "Artikkel 6",
-          "title": "Klassifiseringsregler",
-          "description": "KI-systemer som ikke faller under høyrisiko eller forbudte kategorier klassifiseres som minimal risiko.",
-          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_6"
-        },
-        {
-          "number": "Artikkel 50",
-          "title": "Transparensforpliktelser",
-          "description": "Selv ved minimal risiko anbefales transparens om KI-bruk.",
-          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_50"
-        }
-      ],
-      "gdpr": ["Artikkel 5 (prinsipper)", "Artikkel 13 (informasjonsplikt)"]
+  "thresholds": {
+    "unacceptable": 7,
+    "high": 3
+  },
+  "axes": {
+    "access": {
+      "label": "Tilgang til utdanning",
+      "article": "Annex III, 3(a)",
+      "description": "Påvirker elevers tilgang til utdanning eller opplæringstilbud"
     },
-    "minimal_usikker": {
-      "title": "⚠️ Minimal risiko (usikker kvalitet)",
-      "text": "Sannsynligvis minimal risiko, men mangler kvalitetssikring.\n\nAnbefalinger:\n• Undersøk leverandørens sertifiseringer\n• Sjekk brukeranmeldelser og referanser\n• Test grundig før klasserombruk\n• Informer elever og foresatte",
-      "class": "r-min",
-      "actions": ["Undersøk leverandør", "Test internt", "Informer brukere"]
+    "evaluation": {
+      "label": "Vurdering av læringsresultater",
+      "article": "Annex III, 3(a)",
+      "description": "Evaluerer eller vurderer elevenes læringsresultater"
     },
-    "transparens_ok": {
-      "title": "✅ Transparenskrav oppfylt",
-      "text": "Dere oppfyller transparenskravene i AI Act (Art. 50). God håndtering!\n\nViktig å opprettholde:\n• Kontinuerlig informasjon til brukere\n• Oppdatere samtykker ved endringer\n• Dokumentere KI-bruken\n• Evaluere jevnlig",
-      "class": "r-tra",
-      "actions": ["Oppretthold praksis", "Årlig evaluering", "Oppdater ved endringer"],
-      "articles": [
-        {
-          "number": "Artikkel 50",
-          "title": "Transparensforpliktelser for visse KI-systemer",
-          "description": "Brukere skal informeres når de samhandler med KI-systemer, med mindre dette er åpenbart fra konteksten.",
-          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_50"
-        },
-        {
-          "number": "Artikkel 52",
-          "title": "Transparens ved dyptfalskt innhold",
-          "description": "Generert eller manipulert innhold skal merkes tydelig.",
-          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_52"
-        }
-      ],
-      "gdpr": ["Artikkel 13 (informasjonsplikt)", "Artikkel 14 (informasjon når data ikke er samlet fra den registrerte)"]
+    "level": {
+      "label": "Bestemmelse av utdanningsnivå",
+      "article": "Annex III, 3(a)",
+      "description": "Bestemmer utdanningsnivå, gruppe eller læringsløp"
     },
-    "transparens_planlagt": {
-      "title": "📋 Transparenskrav - under planlegging",
-      "text": "Godt at dere planlegger å informere! Følg AI Act Art. 50.\n\nNeste steg:\n• Utarbeid informasjonsskriv til elever/foresatte\n• Beskriv formål, funksjon og begrensninger\n• Gi mulighet for spørsmål\n• Dokumenter informasjonen som er gitt",
-      "class": "r-tra",
-      "actions": ["Utarbeid informasjon", "Involver foresatte", "Dokumenter"]
-    },
-    "transparens_risiko": {
-      "title": "⚠️ Transparenskrav ikke oppfylt",
-      "text": "Manglende transparens bryter med AI Act Art. 50.\n\nKritisk å gjøre:\n• STOPP bruk inntil informasjon er gitt\n• Lag informasjonsmateriell\n• Informer alle berørte parter\n• Dokumenter prosessen\n• Vurder om samtykke trengs",
-      "class": "r-tra",
-      "actions": ["STOPP bruk", "Informer nå", "Innhent samtykke"]
-    },
-    "transparens_mangler_samtykke": {
-      "title": "⚠️ Manglende samtykke",
-      "text": "Hvis persondata behandles kan samtykke være nødvendig (GDPR).\n\nHandlinger:\n• Vurder med personvernombud/DPO\n• Innhent samtykke hvis nødvendig\n• Dokumenter rettslig grunnlag\n• Informer om rettigheter (innsyn, sletting)",
-      "class": "r-tra",
-      "actions": ["Kontakt DPO", "Innhent samtykke", "Dokumenter"],
-      "articles": [
-        {
-          "number": "Artikkel 50",
-          "title": "Transparensforpliktelser",
-          "description": "Brukere skal informeres når de samhandler med KI-systemer.",
-          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_50"
-        }
-      ],
-      "gdpr": [
-        "Artikkel 6 (lovlig behandlingsgrunnlag - samtykke er ett av seks grunnlag)",
-        "Artikkel 7 (vilkår for samtykke)",
-        "Artikkel 13 (informasjonsplikt)"
+    "surveillance": {
+      "label": "Overvåking under prøver",
+      "article": "Annex III, 3(b)",
+      "description": "Overvåker elevatferd under prøver eller eksamen"
+    }
+  },
+  "lowRiskCategories": ["translation", "games"],
+  "gdprChecklists": {
+    "minimal": [
+      "Informer elever om KI-bruk (god praksis)",
+      "Sjekk at verktøyet er trygt og pedagogisk egnet"
+    ],
+    "transparency": [
+      "Informer elever og foresatte om KI-bruk (Art. 50)",
+      "Sjekk leverandørens personvernpolicy",
+      "Vurder om personopplysninger behandles"
+    ],
+    "high": [
+      "Databehandleravtale med leverandør (GDPR Art. 28)",
+      "DPIA gjennomført (GDPR Art. 35)",
+      "Informasjonsplikt oppfylt (GDPR Art. 13-14)",
+      "Automatiserte avgjørelser vurdert (GDPR Art. 22)",
+      "Behandlingsgrunnlag dokumentert (GDPR Art. 6)",
+      "Rutiner for innsyn og sletting (GDPR Art. 15, 17)"
+    ]
+  },
+  "gdprFollowUp": [
+    {
+      "question": "Har dere databehandleravtale med leverandøren?",
+      "help": "Lovpålagt når persondata behandles av tredjepart (GDPR Art. 28).",
+      "options": [
+        { "text": "Ja, avtale på plass", "status": "ok", "recommendation": "Oppretthold og evaluer avtalen årlig." },
+        { "text": "Nei", "status": "critical", "recommendation": "STOPP bruk inntil databehandleravtale er signert. Kontakt leverandør umiddelbart." },
+        { "text": "Usikker", "status": "warning", "recommendation": "Undersøk med IKT-ansvarlig/personvernombud om avtale finnes. Ikke bruk systemet til sensitive data før dette er avklart." }
       ]
     },
-    "transparens_undersok": {
-      "title": "📋 Transparens - må undersøkes",
-      "text": "Undersøk leverandørens personvernpolicy før bruk.\n\nSjekkliste:\n• Hvilke data samles inn?\n• Hvor lagres data?\n• Hvem har tilgang?\n• Slettes data ved oppsigelse?\n• Databehandleravtale tilgjengelig?\n• GDPR-compliance?",
-      "class": "r-tra",
-      "actions": ["Undersøk policy", "Kontakt leverandør", "Vurder alternativer"],
-      "articles": [
-        {
-          "number": "Artikkel 13",
-          "title": "Transparens og informasjon",
-          "description": "Tilbydere må gi tilstrekkelig informasjon om KI-systemet.",
-          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_13"
-        }
-      ],
-      "gdpr": ["Artikkel 13 (informasjonsplikt)", "Artikkel 28 (krav til databehandler)"]
-    },
-    "transparens_kreativ": {
-      "title": "✅ Transparens for kreative verktøy",
-      "text": "Godt at dere informerer om KI-bruk! Kreative verktøy er ofte lavrisiko.\n\nBest practice:\n• Lær elever om hvordan KI fungerer\n• Diskuter etisk bruk\n• Vurder kildekritikk og opphavsrett\n• Dokumenter pedagogisk bruk",
-      "class": "r-tra",
-      "actions": ["Pedagogisk bruk", "Etisk diskusjon", "Kildekritikk"],
-      "articles": [
-        {
-          "number": "Artikkel 50",
-          "title": "Transparensforpliktelser",
-          "description": "Brukere skal informeres når de samhandler med KI-systemer, også ved kreative verktøy.",
-          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_50"
-        },
-        {
-          "number": "Artikkel 52",
-          "title": "Transparens for KI-generert innhold",
-          "description": "KI-generert innhold skal merkes slik at brukere vet det er laget av KI.",
-          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_52"
-        }
-      ]
-    },
-    "transparens_mangler": {
-      "title": "⚠️ Manglende transparens",
-      "text": "AI Act krever at brukere informeres når KI brukes (Art. 50).\n\nHandling nødvendig:\n• Informer tydelig om KI-bruk\n• Forklar hva verktøyet gjør\n• Gi elevene valgmuligheter hvis mulig\n• Dokumenter informasjonen",
-      "class": "r-tra",
-      "actions": ["Informer brukere", "Tydelig merking", "Dokumenter"],
-      "articles": [
-        {
-          "number": "Artikkel 50",
-          "title": "Transparensforpliktelser",
-          "description": "Brukere skal informeres når de samhandler med KI-systemer.",
-          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_50"
-        },
-        {
-          "number": "Artikkel 13",
-          "title": "Informasjonsplikt for høyrisiko KI-systemer",
-          "description": "Brukere må få klar, forståelig informasjon om KI-systemets kapasiteter og begrensninger.",
-          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_13"
-        }
-      ]
-    },
-    "transparens_oversettelse": {
-      "title": "✅ Transparens for oversettelse",
-      "text": "Oversettelsesverktøy uten datalagring er lavrisiko.\n\nAnbefalinger:\n• Informer elever om KI-bruk\n• Lær kildekritikk (oversettelser kan være feil)\n• Vurder språkkompetansemål\n• Dokumenter pedagogisk bruk",
-      "class": "r-tra",
-      "actions": ["Informer", "Kildekritikk", "Pedagogisk refleksjon"]
-    },
-    "transparens_oversettelse_ok": {
-      "title": "✅ Oversettelse med god avtale",
-      "text": "Databehandleravtale på plass og transparens ivaretatt.\n\nOppretthold:\n• Årlig gjennomgang av avtale\n• Informer nye elever/foresatte\n• Evaluer pedagogisk nytte\n• Dokumenter bruken",
-      "class": "r-tra",
-      "actions": ["Oppretthold", "Evaluer årlig", "Dokumenter"]
-    },
-    "transparens_spill": {
-      "title": "✅ Transparens for spilldata",
-      "text": "Data brukes kun til læring - god praksis!\n\nAnbefalinger:\n• Informer om datainnsamling\n• Gi elever innsyn i egen data\n• Slett data ved avslutning\n• Evaluer pedagogisk effekt",
-      "class": "r-tra",
-      "actions": ["Informer", "Gi innsyn", "Evaluer"]
-    },
-    "transparens_spill_ok": {
-      "title": "✅ Transparens for spill - OK",
-      "text": "Elevene er informert om datainnsamling. God håndtering!\n\nOppretthold:\n• Fortsett åpen kommunikasjon\n• Dokumenter spilldata-bruk\n• Evaluer pedagogisk verdi\n• Gi mulighet for å reservere seg",
-      "class": "r-tra",
-      "actions": ["Oppretthold", "Dokumenter", "Evaluer"]
-    },
-    "transparens_spill_mangler": {
-      "title": "⚠️ Spill - manglende info",
-      "text": "Elever må informeres om datainnsamling.\n\nHandlinger:\n• Informer om hvilke data som samles\n• Forklar formålet\n• Gi innsyn i egen data\n• Dokumenter informasjonen",
-      "class": "r-tra",
-      "actions": ["Informer nå", "Gi innsyn", "Dokumenter"]
-    },
-    "transparens_likeverd": {
-      "title": "✅ Likeverd ivaretatt",
-      "text": "Alternativer sikrer at alle kan delta. Godt!\n\nOppretthold:\n• Sjekk at alternativer er likeverdige\n• Evaluer om noen ekskluderes\n• Dokumenter tilpasninger\n• Spør elever om opplevelsen",
-      "class": "r-tra",
-      "actions": ["Oppretthold", "Evaluer likeverd", "Brukermedvirkning"]
-    },
-    "transparens_likeverd_risiko": {
-      "title": "⚠️ Likeverd - risiko for ekskludering",
-      "text": "Kun KI-verktøy kan ekskludere noen elever.\n\nHandlinger:\n• Utvikle alternative løsninger\n• Kartlegg barrierer\n• Sikre universal utforming\n• Involver elever i løsninger",
-      "class": "r-tra",
-      "actions": ["Lag alternativer", "Kartlegg barrierer", "Involver elever"]
-    },
-    "transparens_likeverd_planlagt": {
-      "title": "📋 Likeverd - under planlegging",
-      "text": "Godt at dere planlegger likeverdige løsninger!\n\nNeste steg:\n• Kartlegg elevenes behov\n• Utvikle konkrete alternativer\n• Test med berørte elever\n• Dokumenter tilpasningene",
-      "class": "r-tra",
-      "actions": ["Kartlegg behov", "Utvikle løsninger", "Test"]
-    },
-    "transparens_retningslinjer_ok": {
-      "title": "✅ Retningslinjer på plass",
-      "text": "Retningslinjer evalueres årlig - god praksis!\n\nOppretthold:\n• Kontinuerlig evaluering\n• Involver lærere i oppdatering\n• Følg utvikling i AI Act\n• Del erfaringer internt",
-      "class": "r-tra",
-      "actions": ["Evaluer årlig", "Involver lærere", "Del erfaringer"]
-    },
-    "transparens_retningslinjer_moderat": {
-      "title": "⚠️ Retningslinjer - trenger oppdatering",
-      "text": "Statiske retningslinjer kan bli utdaterte. KI-feltet endres raskt.\n\nAnbefalinger:\n• Sett årlig evaluering i årshjulet\n• Opprett arbeidsgruppe for KI\n• Følg AI Act-utviklingen\n• Oppdater ved behov",
-      "class": "r-tra",
-      "actions": ["Planlegg evaluering", "Opprett arbeidsgruppe", "Følg utvikling"]
-    },
-    "transparens_retningslinjer_planlagt": {
-      "title": "📋 Retningslinjer - under utvikling",
-      "text": "Godt at retningslinjer utarbeides før bruk!\n\nInkluder:\n• Tillatte KI-verktøy og bruksområder\n• Personvern og datasikkerhet\n• Elevrettigheter og klageadgang\n• Pedagogisk begrunnelse\n• Evaluering og ansvar",
-      "class": "r-tra",
-      "actions": ["Utarbeid retningslinjer", "Involver alle", "Godkjenn formelt"]
-    },
-    "transparens_retningslinjer_risiko": {
-      "title": "🚨 STOPP - mangler retningslinjer",
-      "text": "Bruk av KI i vurdering uten retningslinjer er høyrisiko!\n\nKritisk handling:\n• STOPP bruk inntil retningslinjer er på plass\n• Utarbeid retningslinjer med ledelse\n• Involver verneombud og tillitsvalgte\n• Godkjenn i skolens ledelse\n• Informer alle berørte",
-      "class": "r-uat",
-      "actions": ["STOPP bruk", "Utarbeid retningslinjer", "Formell godkjenning"],
-      "articles": [
-        {
-          "number": "Artikkel 29",
-          "title": "Forpliktelser for brukere av høyrisiko KI-systemer",
-          "description": "Brukere må ha retningslinjer og prosedyrer for ansvarlig bruk.",
-          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_29"
-        }
-      ],
-      "other_laws": ["Opplæringsloven § 3-1 (elevenes rettssikkerhet i vurdering)"]
-    },
-    "hoy_godt_styrt": {
-      "title": "✅ Høy risiko - godt styrt",
-      "text": "Systemet er høyrisiko, men dere håndterer det godt med dokumentasjon og menneskelig kontroll.\n\nOppretthold:\n• Fortsett dokumentasjon av overstyringer\n• Årlig risikovurdering\n• Bias-testing\n• Brukermedvirkning\n• Følg AI Act compliance (Art. 6, Annex III)",
-      "class": "r-hoy",
-      "actions": ["Oppretthold praksis", "Årlig risikovurdering", "Bias-testing"],
-      "articles": [
-        {
-          "number": "Artikkel 6",
-          "title": "Klassifiseringsregler for høyrisiko KI-systemer",
-          "description": "KI-systemer i utdanning og opplæring som påvirker tilgang eller evaluering regnes som høyrisiko.",
-          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_6"
-        },
-        {
-          "number": "Annex III punkt 3",
-          "title": "Høyrisiko KI-systemer - Utdanning og opplæring",
-          "description": "KI-systemer som bestemmer tilgang til utdanningsinstitusjoner eller evaluerer læringsresultater.",
-          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#anx_III"
-        },
-        {
-          "number": "Artikkel 9",
-          "title": "Risikostyringssystem",
-          "description": "Høyrisiko KI-systemer må ha et kontinuerlig risikostyringssystem gjennom hele livssyklusen.",
-          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_9"
-        },
-        {
-          "number": "Artikkel 10",
-          "title": "Data og datastyrings",
-          "description": "Treningsdata må være relevant, representativ og fri for feil.",
-          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_10"
-        },
-        {
-          "number": "Artikkel 14",
-          "title": "Menneskelig tilsyn",
-          "description": "Høyrisiko KI-systemer må designes for effektiv menneskelig kontroll (human oversight).",
-          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_14"
-        }
-      ],
-      "gdpr": ["Artikkel 35 (DPIA)", "Artikkel 22 (automatiserte avgjørelser)"]
-    },
-    "hoy_forbedring": {
-      "title": "⚠️ Høy risiko - trenger forbedring",
-      "text": "Systemet er høyrisiko. Dokumentasjon av overstyringer mangler eller er mangelfull.\n\nHandlinger:\n• Etabler dokumentasjonssystem\n• Loggfør alle lærerinngrep\n• Årlig risikovurdering\n• Bias-testing\n• Vurder om systemet bør brukes",
-      "class": "r-hoy",
-      "actions": ["Etabler dokumentasjon", "Risikovurdering", "Vurder alternativ"],
-      "articles": [
-        {
-          "number": "Artikkel 14",
-          "title": "Menneskelig tilsyn",
-          "description": "Høyrisiko KI-systemer må designes for effektiv menneskelig kontroll, og overstyringer må dokumenteres.",
-          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_14"
-        },
-        {
-          "number": "Artikkel 9",
-          "title": "Risikostyringssystem",
-          "description": "Krav om kontinuerlig risikovurdering og dokumentasjon.",
-          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_9"
-        }
-      ]
-    },
-    "hoy_under_kontroll": {
-      "title": "✅ Høy risiko - kontrollerbart",
-      "text": "Systemet kan stoppes og evalueres - viktig sikkerhetstiltak.\n\nNeste steg:\n• Dokumenter stoppmekanismen\n• Etabler eskaleringsprosedyre\n• Årlig ekspertvurdering\n• Brukermedvirkning\n• Kontinuerlig monitorering",
-      "class": "r-hoy",
-      "actions": ["Dokumenter prosedyrer", "Ekspertvurdering", "Monitorering"]
-    },
-    "hoy_uakseptabelt": {
-      "title": "🚨 UAKSEPTABELT - kan ikke stoppes",
-      "text": "Et høyrisiko KI-system som ikke kan stoppes er uakseptabelt i utdanning!\n\nKritisk handling:\n• STOPP bruk umiddelbart\n• Kontakt leverandør for stoppmekanisme\n• Hvis ikke mulig: Velg annet system\n• Dokumenter hendelsen\n• Informer ledelse og personvernombud",
-      "class": "r-uat",
-      "actions": ["STOPP UMIDDELBART", "Kontakt leverandør", "Velg alternativ"],
-      "articles": [
-        {
-          "number": "Artikkel 5",
-          "title": "Forbudte KI-praksiser",
-          "description": "KI-systemer som utgjør uakseptabel risiko for menneskers sikkerhet og rettigheter er forbudt.",
-          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_5"
-        },
-        {
-          "number": "Artikkel 14",
-          "title": "Menneskelig tilsyn",
-          "description": "Høyrisiko-systemer MÅ kunne stoppes og overstyres av mennesker.",
-          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_14"
-        },
-        {
-          "number": "Artikkel 29",
-          "title": "Forpliktelser for brukere av høyrisiko KI-systemer",
-          "description": "Brukere må kunne stoppe systemet ved uventede risikoer.",
-          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_29"
-        }
-      ],
-      "gdpr": ["Artikkel 22 (rett til ikke å være gjenstand for automatiserte avgjørelser)"],
-      "other_laws": ["Opplæringsloven § 3-3 (elevenes medvirkning og psykososiale miljø)"]
-    },
-    "hoy_transparent": {
-      "title": "✅ Høy risiko - transparent ansvar",
-      "text": "Tydelig ansvarsfordeling er avgjørende for høyrisiko-systemer.\n\nOppretthold:\n• Dokumenter ansvarsfordeling\n• Klargjør eskaleringslinjer\n• Årlig gjennomgang av avtaler\n• Kontaktpunkter med leverandør\n• Incident response plan",
-      "class": "r-hoy",
-      "actions": ["Dokumenter ansvar", "Gjennomgå årlig", "Incident plan"]
-    },
-    "hoy_mangler_ansvar": {
-      "title": "🚨 STOPP - uklart ansvar",
-      "text": "Uklart ansvar ved høyrisiko KI er uakseptabelt!\n\nKritisk handling:\n• STOPP bruk inntil ansvar er klargjort\n• Krev skriftlig ansvarsavklaring fra leverandør\n• Hvis leverandør ikke kan svare: Velg annet system\n• Dokumenter prosessen\n• Involver juridisk kompetanse",
-      "class": "r-uat",
-      "actions": ["STOPP bruk", "Krev ansvarsavklaring", "Juridisk vurdering"],
-      "articles": [
-        {
-          "number": "Artikkel 29",
-          "title": "Forpliktelser for brukere av høyrisiko KI-systemer",
-          "description": "Brukere må sikre klar ansvarsfordeling og dokumentasjon.",
-          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_29"
-        },
-        {
-          "number": "Artikkel 16",
-          "title": "Forpliktelser for tilbydere",
-          "description": "Tilbydere må gi brukere nødvendig informasjon om ansvar.",
-          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_16"
-        }
-      ]
-    },
-    "hoy_delvis_transparent": {
-      "title": "⚠️ Høy risiko - delvis transparent",
-      "text": "Leverandør kan gi innsikt - følg opp dette!\n\nHandlinger:\n• Be om detaljert systembeskrivelse\n• Krev dokumentasjon av algoritme\n• Spør om treningsdata og bias-testing\n• Dokumenter all informasjon\n• Vurder om transparens er tilstrekkelig",
-      "class": "r-hoy",
-      "actions": ["Be om dokumentasjon", "Evaluer transparens", "Vurder tilstrekkelighet"]
-    },
-    "hoy_black_box": {
-      "title": "🚨 Høy risiko - black box system",
-      "text": "Proprietære algoritmer uten innsikt er problematisk for høyrisiko!\n\nKritisk vurdering:\n• Kan systemet brukes ansvarlig uten innsikt?\n• Finnes alternative transparente systemer?\n• Kan leverandør gi nok sikkerhet på annen måte?\n• Dokumenter dilemmaet\n• Vurder sterkt å velge annet system",
-      "class": "r-hoy",
-      "actions": ["Kritisk vurdering", "Søk alternativer", "Dokumenter"]
-    },
-    "hoy_rettssikker": {
-      "title": "✅ Høy risiko - rettssikkerhet OK",
-      "text": "Klageprosess sikrer elevenes rettssikkerhet. Svært viktig!\n\nOppretthold:\n• Informer elever om klageadgang\n• Dokumenter klageprosessen\n• Statistikk over klager\n• Evaluer systemet basert på klager\n• Respons innen rimelig tid",
-      "class": "r-hoy",
-      "actions": ["Informer om klagerett", "Dokumenter klager", "Evaluer system"]
-    },
-    "hoy_mangler_rettssikkerhet": {
-      "title": "🚨 KRITISK - mangler rettssikkerhet",
-      "text": "Høyrisiko KI-vurdering uten klageadgang er uakseptabelt!\n\nKritisk handling:\n• STOPP bruk til klageprosess er etablert\n• Utarbeid klageprosedyre\n• Informer alle elever/foresatte\n• Etabler uavhengig klageinstans\n• Dokumenter prosessen",
-      "class": "r-uat",
-      "actions": ["STOPP bruk", "Etabler klageprosess", "Informer alle"],
-      "articles": [
-        {
-          "number": "Artikkel 14",
-          "title": "Menneskelig tilsyn",
-          "description": "Høyrisiko-systemer må ha mekanismer for menneskelig overstyring og klage.",
-          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_14"
-        },
-        {
-          "number": "Artikkel 29",
-          "title": "Forpliktelser for brukere",
-          "description": "Brukere må sikre rettssikkerhet og klagemekanismer.",
-          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_29"
-        }
-      ],
-      "gdpr": ["Artikkel 22 (rett til ikke å være gjenstand for automatiserte avgjørelser)"],
-      "other_laws": ["Opplæringsloven § 3-1 (elevenes rettssikkerhet)", "Forvaltningsloven § 2 (klagerett)"]
-    },
-    "hoy_under_utvikling": {
-      "title": "📋 Høy risiko - under utvikling",
-      "text": "Godt at dere vil kreve dokumentasjon!\n\nDokumentasjon må inkludere:\n• Algoritme og beslutningslogikk\n• Treningsdata og datakvalitet\n• Bias-testing og resultater\n• Feilrater og begrensninger\n• Ansvar og kontaktinformasjon\n• Compliance med AI Act",
-      "class": "r-hoy",
-      "actions": ["Krev dokumentasjon", "Evaluer grundig", "Ikke start uten"]
-    },
-    "hoy_stopp": {
-      "title": "🚨 STOPP - ikke bruk dette systemet",
-      "text": "Hvis leverandør ikke kan levere dokumentasjon skal systemet IKKE brukes!\n\nAlternativer:\n• Søk andre leverandører med transparens\n• Vurder ikke-KI løsninger\n• Vurder lavere risiko KI-verktøy\n• Dokumenter hvorfor systemet ble avvist\n• Del erfaring med andre skoler",
-      "class": "r-uat",
-      "actions": ["IKKE bruk", "Søk alternativer", "Dokumenter valg"],
-      "articles": [
-        {
-          "number": "Artikkel 13",
-          "title": "Transparens og informasjon",
-          "description": "Tilbydere MÅ gi brukere tilstrekkelig dokumentasjon.",
-          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_13"
-        },
-        {
-          "number": "Artikkel 11",
-          "title": "Teknisk dokumentasjon",
-          "description": "Høyrisiko-systemer må ha omfattende teknisk dokumentasjon.",
-          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_11"
-        }
-      ]
-    },
-    "hoy_medvirkning": {
-      "title": "✅ Høy risiko - med brukermedvirkning",
-      "text": "Brukermedvirkning styrker kvalitet og tillit. Utmerket!\n\nOppretthold:\n• Kontinuerlig dialog med elever/foresatte\n• Jevnlige brukerundersøkelser\n• Juster systemet basert på tilbakemeldinger\n• Dokumenter medvirkningsprosessen\n• Transparens om endringer",
-      "class": "r-hoy",
-      "actions": ["Fortsett dialog", "Brukerundersøkelser", "Juster system"]
-    },
-    "hoy_moderat": {
-      "title": "⚠️ Høy risiko - moderat håndtering",
-      "text": "Systemet testes, men brukermedvirkning mangler.\n\nForbedringer:\n• Involver elever og foresatte\n• Spør om opplevelsen av rettferdighet\n• Juster systemet basert på tilbakemeldinger\n• Dokumenter tilbakemeldingene\n• Etabler formell medvirkningsprosess",
-      "class": "r-hoy",
-      "actions": ["Involver brukere", "Samle tilbakemeldinger", "Juster system"]
-    },
-    "hoy_planlegger": {
-      "title": "📋 Høy risiko - planlegger testing",
-      "text": "Godt at testing planlegges! Dette er kritisk for høyrisiko-systemer.\n\nEtablere testing for:\n• Kjønnsbias\n• Språkbias\n• Alderbias\n• Kulturell bias\n• Teknisk nøyaktighet\n• Feilrater\n\nDokumenter alle testresultater!",
-      "class": "r-hoy",
-      "actions": ["Etabler testrutiner", "Test alle biasområder", "Dokumenter"]
-    },
-    "hoy_ikke_klart": {
-      "title": "🚨 STOPP - mangler kapasitet",
-      "text": "Uten kapasitet til testing og kvalitetssikring skal høyrisiko KI IKKE brukes!\n\nAlternativer:\n• Utsett implementering til kapasitet er på plass\n• Søk ekstern bistand (konsulent, IKT-samarbeid)\n• Velg lavere risiko KI-verktøy\n• Dokumenter kapasitetsvurderingen",
-      "class": "r-uat",
-      "actions": ["IKKE start", "Bygg kapasitet", "Søk alternativer"],
-      "articles": [
-        {
-          "number": "Artikkel 9",
-          "title": "Risikostyringssystem",
-          "description": "Høyrisiko-systemer krever kontinuerlig risikostyring og testing.",
-          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_9"
-        },
-        {
-          "number": "Artikkel 29",
-          "title": "Forpliktelser for brukere",
-          "description": "Brukere må ha teknisk kompetanse til å bruke systemet forsvarlig.",
-          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_29"
-        }
-      ]
-    },
-    "hoy_personvern_ok": {
-      "title": "✅ Høy risiko - personvern godkjent",
-      "text": "DPIA godkjent av DPO/personvernombud. Utmerket!\n\nOppretthold:\n• Årlig gjennomgang av DPIA\n• Oppdater ved systemendringer\n• Dokumenter alle personverntiltak\n• Monitorér databeskyttelse\n• Informer om rettigheter",
-      "class": "r-hoy",
-      "actions": ["Gjennomgå årlig", "Oppdater ved endring", "Monitorér"]
-    },
-    "hoy_personvern_pagar": {
-      "title": "⚠️ Høy risiko - personvern pågår",
-      "text": "DPIA gjennomført men ikke godkjent ennå.\n\nHandlinger:\n• Få godkjenning før oppstart\n• Følg opp DPO-kommentarer\n• Juster systemet ved behov\n• Dokumenter godkjenningsprosessen\n• IKKE start før godkjenning",
-      "class": "r-hoy",
-      "actions": ["Få godkjenning", "Følg opp", "Vent med oppstart"],
-      "articles": [
-        {
-          "number": "Artikkel 9",
-          "title": "Risikostyringssystem",
-          "description": "Risikovurdering må godkjennes før implementering.",
-          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_9"
-        }
-      ],
-      "gdpr": ["Artikkel 35 (DPIA må godkjennes av DPO)", "Artikkel 36 (forhåndssamråd ved høy risiko)"]
-    },
-    "hoy_personvern_planlagt": {
-      "title": "📋 Høy risiko - DPIA planlagt",
-      "text": "Godt at DPIA planlegges! Dette er ofte lovpålagt.\n\nDPIA må inkludere:\n• Beskrivelse av databehandling\n• Formål og nødvendighet\n• Risikovurdering\n• Tiltak for å redusere risiko\n• Vurdering av proporsjoner\n• Godkjenning av DPO/personvernombud",
-      "class": "r-hoy",
-      "actions": ["Gjennomfør DPIA", "Involver DPO", "Få godkjenning"],
-      "gdpr": [
-        "Artikkel 35 (DPIA er obligatorisk for høyrisiko databehandling)",
-        "Artikkel 36 (forhåndssamråd med tilsynsmyndigheten ved høy risiko)"
-      ]
-    },
-    "hoy_personvern_kritisk": {
-      "title": "🚨 KRITISK - mangler DPIA",
-      "text": "Start av høyrisiko KI uten DPIA kan være ulovlig (GDPR Art. 35)!\n\nKritisk handling:\n• STOPP alle forberedelser\n• Kontakt personvernombud/DPO UMIDDELBART\n• Gjennomfør DPIA før videre prosess\n• Dokumenter hvorfor DPIA ble forsømt\n• Vurder om andre systemer også mangler DPIA",
-      "class": "r-uat",
-      "actions": ["STOPP", "Kontakt DPO nå", "Gjennomfør DPIA"],
-      "articles": [
-        {
-          "number": "Artikkel 10",
-          "title": "Data og datastyrings (AI Act)",
-          "description": "Høyrisiko KI-systemer krever høy kvalitet på trenings-, validerings- og testdata.",
-          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_10"
-        },
-        {
-          "number": "Artikkel 64",
-          "title": "Tilgang til data og dokumentasjon",
-          "description": "Tilsynsmyndigheter skal ha tilgang til all relevant data og dokumentasjon.",
-          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_64"
-        }
-      ],
-      "gdpr": [
-        "Artikkel 35 (vurdering av personvernkonsekvenser - DPIA er LOVPÅLAGT)",
-        "Artikkel 36 (forhåndssamråd med tilsynsmyndigheten)",
-        "Artikkel 5 (grunnprinsipper for behandling av personopplysninger)"
-      ],
-      "other_laws": ["Personopplysningsloven § 1", "Opplæringsloven kap 9a (skolemiljø)"]
-    },
-    "hoy_under_arbeid": {
-      "title": "📋 Høy risiko - dataavtale under arbeid",
-      "text": "Godt at databehandleravtale er under arbeid. Dette er lovpålagt!\n\nAvtalen må inkludere:\n• Formål og varighet\n• Type persondata\n• Sikkerhetstiltak\n• Underleverandører\n• Datasletting ved oppsigelse\n• Revisjon og kontroll\n\nSTART IKKE før avtale er signert!",
-      "class": "r-hoy",
-      "actions": ["Fullfør avtale", "Juridisk gjennomgang", "Signer før oppstart"],
-      "gdpr": [
-        "Artikkel 28 (databehandleravtale - krav til innhold)",
-        "Artikkel 32 (sikkerhetstiltak)"
-      ]
-    },
-    "hoy_kritisk": {
-      "title": "🚨 KRITISK - mangler dataavtale",
-      "text": "Bruk av KI som behandler persondata uten databehandleravtale er ulovlig (GDPR)!\n\nKritisk handling:\n• STOPP all bruk UMIDDELBART\n• Hvis allerede i bruk: Steng ned nå\n• Kontakt leverandør for avtale\n• Hvis leverandør ikke vil signere: Velg annet system\n• Informer personvernombud/DPO\n• Dokumenter hendelsen",
-      "class": "r-uat",
-      "actions": ["STOPP bruk nå", "Krev avtale", "Velg alternativ hvis nødvendig"],
-      "articles": [
-        {
-          "number": "Artikkel 29",
-          "title": "Forpliktelser for brukere av høyrisiko KI-systemer",
-          "description": "Brukere må sikre at de har nødvendige avtaler på plass.",
-          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_29"
-        }
-      ],
-      "gdpr": [
-        "Artikkel 28 (databehandleravtale er LOVPÅLAGT)",
-        "Artikkel 5 (lovlig og rettferdig behandling)",
-        "Artikkel 83 (bøter ved brudd på GDPR)"
-      ],
-      "other_laws": ["Personopplysningsloven § 1"]
-    },
-    "hoy_manglende_info": {
-      "title": "🚨 Høy risiko - manglende informasjon",
-      "text": "Uten tilgang til personvernpolicy kan systemet ikke vurderes!\n\nHandlinger:\n• Kontakt leverandør og KREV policy\n• Hvis ikke tilgjengelig: IKKE bruk systemet\n• Søk alternative leverandører\n• Dokumenter forsøk på å få informasjon\n• Vurder om leverandør er seriøs nok for skolebruk",
-      "class": "r-uat",
-      "actions": ["KREV policy", "Ikke bruk uten", "Søk alternativer"],
-      "articles": [
-        {
-          "number": "Artikkel 13",
-          "title": "Transparens og informasjon",
-          "description": "Tilbydere MÅ gi tilstrekkelig informasjon om KI-systemet.",
-          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_13"
-        },
-        {
-          "number": "Artikkel 29",
-          "title": "Forpliktelser for brukere",
-          "description": "Brukere kan ikke ta i bruk systemer uten tilstrekkelig informasjon.",
-          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_29"
-        }
-      ],
-      "gdpr": ["Artikkel 28 (krav til databehandler)"]
-    },
-    "hoy_oversettelse_mangler": {
-      "title": "🚨 Oversettelse - mangler avtale",
-      "text": "Oversettelse med datalagring krever databehandleravtale!\n\nHandlinger:\n• STOPP bruk inntil avtale er på plass\n• Kontakt leverandør for avtale\n• Vurder anonyme alternativer (ingen lagring)\n• Gjennomfør DPIA hvis nødvendig\n• Informer om bruken når avtale er klar",
-      "class": "r-hoy",
-      "actions": ["STOPP bruk", "Krev avtale", "Vurder alternativer"],
-      "articles": [
-        {
-          "number": "Artikkel 50",
-          "title": "Transparensforpliktelser",
-          "description": "Brukere skal informeres om KI-bruk.",
-          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_50"
-        }
-      ],
-      "gdpr": ["Artikkel 28 (databehandleravtale)", "Artikkel 35 (DPIA ved personopplysninger)"]
-    },
-    "hoy_spill_vurdering": {
-      "title": "⚠️ Høy risiko - spilldata i vurdering",
-      "text": "Bruk av spilldata i formelle vurderinger er høyrisiko!\n\nKritiske krav:\n• Databehandleravtale\n• DPIA gjennomført\n• Bias-testing av vurderingsalgoritme\n• Menneskelig overstyring\n• Klageadgang for elever\n• Transparens om hvordan data brukes\n• Dokumentasjon av beslutningslogikk",
-      "class": "r-hoy",
-      "actions": ["Dataavtale", "DPIA", "Bias-testing", "Etabler klageadgang"],
-      "articles": [
-        {
-          "number": "Artikkel 6",
-          "title": "Klassifiseringsregler for høyrisiko KI-systemer",
-          "description": "KI-systemer som evaluerer læringsresultater regnes som høyrisiko.",
-          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_6"
-        },
-        {
-          "number": "Artikkel 9",
-          "title": "Risikostyringssystem",
-          "description": "Kontinuerlig risikovurdering og bias-testing er påkrevd.",
-          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_9"
-        },
-        {
-          "number": "Artikkel 14",
-          "title": "Menneskelig tilsyn",
-          "description": "Vurderingssystemer må ha menneskelig overstyring.",
-          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_14"
-        }
-      ],
-      "gdpr": ["Artikkel 22 (automatiserte avgjørelser)", "Artikkel 35 (DPIA)"]
-    },
-    "hoy_diskriminering_risiko": {
-      "title": "🚨 DISKRIMINERINGSRISIKO",
-      "text": "Ulik tilgang til vurderingsverktøy kan være diskriminerende!\n\nKritisk handling:\n• STOPP bruk i vurdering inntil likeverd er sikret\n• Utvikle likeverdige alternativer\n• Vurder universell utforming\n• Involver elever i løsninger\n• Dokumenter tilpasninger\n• Juridisk vurdering av diskrimineringsrisiko",
-      "class": "r-uat",
-      "actions": ["STOPP vurderingsbruk", "Sikre likeverd", "Juridisk vurdering"],
-      "articles": [
-        {
-          "number": "Artikkel 10",
-          "title": "Data og datastyrings",
-          "description": "Treningsdata må være representativ for alle elevgrupper for å unngå diskriminering.",
-          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_10"
-        },
-        {
-          "number": "Artikkel 14",
-          "title": "Menneskelig tilsyn",
-          "description": "Høyrisiko-systemer må ha mekanismer for å fange opp diskriminering.",
-          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689#art_14"
-        }
-      ],
-      "gdpr": ["Artikkel 9 (forbud mot diskriminerende behandling av personopplysninger)"],
-      "other_laws": [
-        "Opplæringsloven § 1-1 (likeverd og inkludering)",
-        "Diskrimineringsloven § 6 (forbud mot diskriminering i utdanning)"
+    {
+      "question": "Er personvernkonsekvensvurdering (DPIA) gjennomført?",
+      "help": "Ofte lovpålagt for KI-systemer som behandler elevdata (GDPR Art. 35).",
+      "options": [
+        { "text": "Ja", "status": "ok", "recommendation": "Sørg for at DPIA oppdateres ved endringer i systemet." },
+        { "text": "Nei", "status": "critical", "recommendation": "Gjennomfør DPIA før videre bruk. Involver personvernombud/DPO." },
+        { "text": "Vet ikke hva DPIA er", "status": "warning", "recommendation": "DPIA er en lovpålagt vurdering av personvernrisiko. Kontakt personvernombud for veiledning." }
       ]
     }
-  }
+  ]
 }
