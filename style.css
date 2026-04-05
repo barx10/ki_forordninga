@@ -20,10 +20,10 @@ body {
 
 /* === CSS Variables === */
 :root {
-  --bg: #151a22;
-  --panel: #1c2330;
-  --text: #e6eaf0;
-  --muted: #9aa6b2;
+  --bg: #1a1f2b;
+  --panel: #232a38;
+  --text: #edf0f5;
+  --muted: #b4bcc8;
   --accent: #4da3ff;
   --ok: #1fa971;
   --warn: #f0b429;
@@ -95,7 +95,7 @@ header {
   z-index: 10;
   background: rgba(11, 15, 20, 0.8);
   backdrop-filter: blur(6px);
-  border-bottom: 1px solid #1f2733;
+  border-bottom: 1px solid #2d3545;
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
@@ -138,7 +138,7 @@ nav a[aria-current="page"] {
   align-items: center;
   justify-content: center;
   background: transparent;
-  border: 1px solid #1f2733;
+  border: 1px solid #2d3545;
   border-radius: 10px;
   padding: 8px 12px;
   cursor: pointer;
@@ -618,7 +618,7 @@ footer small {
 .progress-bar {
   width: 100%;
   height: 8px;
-  background: #1f2733;
+  background: #2d3545;
   border-radius: 10px;
   overflow: hidden;
   margin-bottom: 8px;
@@ -667,12 +667,12 @@ footer small {
 .nav-buttons {
   margin-top: 20px;
   padding-top: 20px;
-  border-top: 1px solid #1f2733;
+  border-top: 1px solid #2d3545;
 }
 
 .result-card {
   background: var(--panel);
-  border: 1px solid #1f2733;
+  border: 1px solid #2d3545;
   border-radius: 14px;
   padding: 24px;
   margin-bottom: 16px;
@@ -687,7 +687,7 @@ footer small {
 .actions-list {
   margin-top: 24px;
   padding-top: 20px;
-  border-top: 1px solid #1f2733;
+  border-top: 1px solid #2d3545;
 }
 
 .actions-list h4 {
@@ -721,7 +721,7 @@ footer small {
 .other-laws-list {
   margin-top: 24px;
   padding-top: 20px;
-  border-top: 1px solid #1f2733;
+  border-top: 1px solid #2d3545;
 }
 
 :root[data-theme="light"] .articles-list,
@@ -1716,7 +1716,7 @@ footer small {
 
 .role-card {
   background: var(--panel);
-  border: 2px solid #1f2733;
+  border: 2px solid #2d3545;
   border-radius: 14px;
   padding: 24px;
   cursor: pointer;
@@ -1745,7 +1745,7 @@ footer small {
 
 .role-desc {
   font-size: 0.9rem;
-  opacity: 0.7;
+  color: var(--muted);
 }
 
 :root[data-theme="light"] .role-card {
@@ -1870,7 +1870,7 @@ footer small {
   margin: 24px 0;
   padding: 20px;
   background: var(--panel);
-  border: 1px solid #1f2733;
+  border: 1px solid #2d3545;
   border-radius: 14px;
 }
 
@@ -1909,7 +1909,7 @@ footer small {
   margin: 24px 0;
   padding: 20px;
   background: var(--panel);
-  border: 1px solid #1f2733;
+  border: 1px solid #2d3545;
   border-radius: 14px;
 }
 
